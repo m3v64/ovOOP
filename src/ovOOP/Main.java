@@ -8,7 +8,9 @@ public class Main {
 
         //run classes here
         
-
+        CalculateTravelCost calculateTravelCost = new CalculateTravelCost();
+        calculateTravelCost.main(args, CalculateTravelCost.totalTravelCost, 0);
+        System.out.println("Total travel cost: " + CalculateTravelCost.totalTravelCost);
 
         scanner.close();
     }
