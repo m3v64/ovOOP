@@ -6,6 +6,10 @@ public class CalculateTravelCost {
     static double totalTravelCost;
 
     public void travelCost(int distance, int seatClass, int ticketAmount) {
+
+        OvTime time = new OvTime();
+        time.getTime();
+
         Random random = new Random();
 
         double fuelCost;
@@ -70,7 +74,13 @@ public class CalculateTravelCost {
 
         CalculateTravelCost.totalTravelCost *= 0.5; // discount
 
+        if (ticketAmount >= 4) {
+            CalculateTravelCost.totalTravelCost *= 0.75; // group discount
+        }
+
+
         CalculateTravelCost.totalTravelCost = Math.round(CalculateTravelCost.totalTravelCost * 100.0) / 100.0;
+
 
     }
 }
