@@ -1,19 +1,24 @@
 package ovOOP;
 
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-
         // run classes here
         String name = "Morris";
 
         int seatClass = 1;
 
-        int distance = 3000;
+        int ticketAmount = 20;
 
-        int ticketAmount = 15;
-        
+        String destination = "Amsterdam";
+
+        String origin = "groningen";
+
+        askDestination askDestination = new askDestination();
+        askDestination.askDestination();
+
+        TravelTo travelTo = new TravelTo(origin, destination);
+        int distance = travelTo.distance;
+
         CalculateTravelCost calculateTravelCost = new CalculateTravelCost();
         calculateTravelCost.travelCost(distance, seatClass, ticketAmount);
 
@@ -26,6 +31,9 @@ public class Main {
         }
         CreateCoupon createCoupon = new CreateCoupon();
 
-        createCoupon.createCoupon(CalculateTravelCost.totalTravelCost, seatClass, ticketAmount, name);
+        createCoupon.createCoupon(CalculateTravelCost.totalTravelCost, seatClass, ticketAmount, name, destination,
+                origin);
+
+        origin = destination;
     }
 }
