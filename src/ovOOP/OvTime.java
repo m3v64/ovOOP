@@ -2,16 +2,15 @@ package ovOOP;
 
 import java.time.LocalTime;
 
-public class time {
-    public static int hours;
-    public static int minutes;
-    public static int seconds;
+public class OvTime {
+    public int hours;
+    public int minutes;
+    public int seconds;
 
-    public static boolean peakStarted;
+    static boolean peakStarted;
 
-    public static void main(String[] args) {
+    public void getTime() {
         LocalTime time = LocalTime.now();
-        System.out.println(time.getHour() + ":" + time.getMinute() + ":" + time.getSecond());
         hours = time.getHour();
         minutes = time.getMinute();
         seconds = time.getSecond();
@@ -21,6 +20,5 @@ public class time {
         } else {
             peakStarted = false;
         }
-        System.out.println(peakStarted);
     }
 }

@@ -21,5 +21,11 @@ public class CalculateTravelCost {
 
         CalculateTravelCost.totalTravelCost = fuelCost + travelCost;
 
+        if (OvTime.peakStarted) {
+            CalculateTravelCost.totalTravelCost = CalculateTravelCost.totalTravelCost * 1.2;
+        } else {
+            System.out.println("Nice, no extra costs");
+        }
+
     }
 }
