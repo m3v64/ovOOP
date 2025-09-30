@@ -13,19 +13,24 @@ public class CreateCoupon {
             coupon.write("Coupon for: " + name + "\n");
             coupon.write("Class: " + seatClass + "\n");
             coupon.write("Tickets: " + ticketAmount + "\n");
-            coupon.write("at " + OvTime.hours + ":" + OvTime.minutes + "\n");
+            coupon.write("at " + OvTime.hours + ":" + OvTime.minutes + " with peak: " + OvTime.peakStarted + "\n");
             coupon.write("------------------\n");
             coupon.write("Total price: " + price + " euros\n");
             coupon.write("------------------\n");
+            coupon.write("\n");
 
             System.out.println("----- COUPON -----");
             System.out.println("Coupon for: " + name);
             System.out.println("Class: " + seatClass);
             System.out.println("Tickets: " + ticketAmount);
-            System.out.println("at " + OvTime.hours + ":" + OvTime.minutes);
+            System.out.println("at " + OvTime.hours + ":" + OvTime.minutes + " with peak on: " + OvTime.peakStarted + "\n");
             System.out.println("------------------");
             System.out.println("Total price: " + price + " euros");
             System.out.println("------------------");
+            System.out.println("\n");
+            System.out.println("Coupon saved to coupon.txt");
+            System.out.println(name + ", have a nice trip!");
+            System.out.println("\n");
 
             coupon.close();
         } catch (java.io.IOException e) {
