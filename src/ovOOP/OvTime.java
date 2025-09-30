@@ -3,7 +3,7 @@ package ovOOP;
 import java.time.LocalTime;
 
 public class OvTime {
-    public int hours;
+    static int hours;
     public int minutes;
     public int seconds;
 

@@ -11,12 +11,9 @@ public class Main {
 
         time.getTime();
 
-        
-
         CalculateTravelCost calculateTravelCost = new CalculateTravelCost();
-        calculateTravelCost.travelCost(calculateTravelCost.totalTravelCost, 1000);
-        double roundedCost = Math.round(calculateTravelCost.totalTravelCost * 100.0) / 100.0;
+        calculateTravelCost.travelCost(1000, 2, 1);
 
-        System.out.println(roundedCost);
+        System.out.println(CalculateTravelCost.totalTravelCost);
     }
 }
