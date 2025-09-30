@@ -4,7 +4,7 @@ import java.time.LocalTime;
 
 public class OvTime {
     static int hours;
-    public int minutes;
+    static int minutes;
     public int seconds;
 
     static boolean peakStarted;

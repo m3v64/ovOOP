@@ -6,11 +6,23 @@ public class Main {
     public static void main(String[] args) {
 
         // run classes here
+        String name = "Morris";
 
+        int seatClass = 2;
 
+        int distance = 300;
+
+        int ticketAmount = 9;
+        
         CalculateTravelCost calculateTravelCost = new CalculateTravelCost();
-        calculateTravelCost.travelCost(1000, 2, 9);
+        calculateTravelCost.travelCost(distance, seatClass, ticketAmount);
 
-        System.out.println(CalculateTravelCost.totalTravelCost);
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
+
+        CreateCoupon createCoupon = new CreateCoupon();
+
+        createCoupon.createCoupon(CalculateTravelCost.totalTravelCost, seatClass, ticketAmount, name);
     }
 }
