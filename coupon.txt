@@ -2,71 +2,44 @@
 Coupon for: Morris
 Class: 1
 Tickets: 20
-From eindhoven to groningen with a distance of 220 km
-at 16:54 with peak: true
+From Amsterdam to eindhoven with a distance of 125 km
+at 17:10 with peak: true
 ------------------
-Total price: 578.69 euros
-------------------
------ COUPON -----
-Coupon for: Morris
-Class: 1
-Tickets: 20
-From eindhoven to groningen with a distance of 220 km
-at 16:55 with peak: true
-------------------
-Total price: 357.5 euros
+Total price: 258.96 euros
 ------------------
 ----- COUPON -----
 Coupon for: Morris
 Class: 1
-Tickets: 20
-From eindhoven to groningen with a distance of 220 km
-at 16:57 with peak: true
+Tickets: 1
+From Amsterdam to eindhoven with a distance of 125 km
+at 17:10 with peak: true
 ------------------
-Total price: 633.99 euros
-------------------
------ COUPON -----
-Coupon for: Morris
-Class: 1
-Tickets: 20
-From Amsterdam to groningen with a distance of 180 km
-at 16:59 with peak: true
-------------------
-Total price: 465.88 euros
+Total price: 24.86 euros
 ------------------
 ----- COUPON -----
 Coupon for: Morris
 Class: 1
-Tickets: 20
-From Amsterdam to groningen with a distance of 180 km
-at 16:59 with peak: true
+Tickets: 1
+From Amsterdam to eindhoven with a distance of 125 km
+at 17:11 with peak: true
 ------------------
-Total price: 298.46 euros
-------------------
------ COUPON -----
-Coupon for: Morris
-Class: 1
-Tickets: 20
-From Amsterdam to groningen with a distance of 180 km
-at 17:0 with peak: true
-------------------
-Total price: 460.2 euros
+Total price: 103.76 euros
 ------------------
 ----- COUPON -----
 Coupon for: Morris
 Class: 1
-Tickets: 20
-From Amsterdam to groningen with a distance of 180 km
-at 17:0 with peak: true
+Tickets: 1
+From Amsterdam to eindhoven with a distance of 125 km
+at 17:11 with peak: true
 ------------------
-Total price: 426.52 euros
+Total price: 4.98 euros
 ------------------
 ----- COUPON -----
 Coupon for: Morris
 Class: 1
-Tickets: 20
-From Amsterdam to Amsterdam with a distance of 0 km
-at 17:0 with peak: true
+Tickets: 1
+From Amsterdam to eindhoven with a distance of 125 km
+at 17:11 with peak: true
 ------------------
-Total price: 29.6 euros
+Total price: 9.37 euros
 ------------------

@@ -47,7 +47,7 @@ public class CalculateTravelCost {
         trainSpeed = random.nextInt(80, 200);
         fuelCost = totalFuel * globalFuelPrice / peopleInTrain / 3;
 
-        travelCost = distance * 100 * 0.00098;
+        travelCost = distance * 25 * 0.00098;
 
         travelCost = travelCost * trainSpeed / 100;
 

@@ -7,14 +7,13 @@ public class Main {
 
         int seatClass = 1;
 
-        int ticketAmount = 20;
+        int ticketAmount = 1;
 
-        String destination = "Amsterdam";
+        String origin = "Amsterdam"; // Initialize origin
+        String destination = "Rotterdam"; // Initialize destination or get from AskDestination
 
-        String origin = "groningen";
-
-        askDestination askDestination = new askDestination();
-        askDestination.askDestination();
+        AskDestination askDestination = new AskDestination();
+        destination = askDestination.getDestination();
 
         TravelTo travelTo = new TravelTo(origin, destination);
         int distance = travelTo.distance;
@@ -35,5 +34,6 @@ public class Main {
                 origin);
 
         origin = destination;
+
     }
 }

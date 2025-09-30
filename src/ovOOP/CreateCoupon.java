@@ -1,6 +1,5 @@
 package ovOOP;
 
-import java.io.File;
 import java.io.FileWriter;
 
 public class CreateCoupon {
@@ -14,7 +13,7 @@ public class CreateCoupon {
             coupon.write("Class: " + seatClass + "\n");
             coupon.write("Tickets: " + ticketAmount + "\n");
             TravelTo travelTo = new TravelTo(origin, destination);
-            coupon.write("From " + destination + " to " + origin + " with a distance of " + travelTo.distance + " km\n");
+            coupon.write("From " + origin + " to " + destination + " with a distance of " + travelTo.distance + " km\n");
             coupon.write("at " + OvTime.hours + ":" + OvTime.minutes + " with peak: " + OvTime.peakStarted + "\n");
             coupon.write("------------------\n");
             coupon.write("Total price: " + price + " euros\n");
@@ -24,7 +23,7 @@ public class CreateCoupon {
             System.out.println("Coupon for: " + name);
             System.out.println("Class: " + seatClass);
             System.out.println("Tickets: " + ticketAmount);
-            System.out.println("From " + destination + " to " + origin + " with a distance of " + travelTo.distance + " km");
+            System.out.println("From " + origin + " to " + destination + " with a distance of " + travelTo.distance + " km");
             System.out.println("at " + OvTime.hours + ":" + OvTime.minutes + " with peak on: " + OvTime.peakStarted + "\n");
             System.out.println("------------------");
             System.out.println("Total price: " + price + " euros");
