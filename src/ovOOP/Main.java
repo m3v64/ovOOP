@@ -6,12 +6,13 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        //run classes here
-        
-        CalculateTravelCost calculateTravelCost = new CalculateTravelCost();
-        calculateTravelCost.main(args, CalculateTravelCost.totalTravelCost, 0);
-        System.out.println("Total travel cost: " + CalculateTravelCost.totalTravelCost);
+        // run classes here
 
+        CalculateTravelCost calculateTravelCost = new CalculateTravelCost();
+        calculateTravelCost.travelCost(calculateTravelCost.totalTravelCost, 1000);
+        double roundedCost = Math.round(calculateTravelCost.totalTravelCost * 100.0) / 100.0;
+
+        System.out.println(roundedCost);
         scanner.close();
     }
 }
