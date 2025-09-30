@@ -5,20 +5,38 @@ import java.time.LocalTime;
 public class OvTime {
     static int hours;
     static int minutes;
-    public int seconds;
-
+    private int seconds;
     static boolean peakStarted;
 
-    public void getTime() {
+    public OvTime() {
+        updateTime();
+    }
+
+    public void updateTime() {
         LocalTime time = LocalTime.now();
         hours = time.getHour();
         minutes = time.getMinute();
         seconds = time.getSecond();
+        peakStarted = isPeakHour(hours);
+    }
 
-        if (hours == 16 || hours == 17 || hours == 18 || hours == 7 || hours == 8 || hours == 9) {
-            peakStarted = true;
-        } else {
-            peakStarted = false;
-        }
+    private boolean isPeakHour(int hour) {
+        return (hour >= 7 && hour <= 9) || (hour >= 16 && hour <= 18);
+    }
+
+    public int getHours() {
+        return hours;
+    }
+
+    public int getMinutes() {
+        return minutes;
+    }
+
+    public int getSeconds() {
+        return seconds;
+    }
+
+    public boolean isPeakStarted() {
+        return peakStarted;
     }
 }
