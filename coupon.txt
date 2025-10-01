@@ -28,3 +28,43 @@ at 20:23, at peak: false
 Total price: 30.02 euros
 ------------------
 
+----- COUPON -----
+Coupon for: Morris
+Class: 1
+Tickets: 3
+From Dryard to Lirongrale with a distance of 0 km
+at 7:54, at peak: true
+------------------
+Total price: 8.69 euros
+------------------
+
+----- COUPON -----
+Coupon for: Morris
+Class: 1
+Tickets: 3
+From Dryard to lirongrale with a distance of 0 km
+at 7:55, at peak: true
+------------------
+Total price: 8.08 euros
+------------------
+
+----- COUPON -----
+Coupon for: Morris
+Class: 1
+Tickets: 3
+From Dryard to Timergulch with a distance of 50 km
+at 7:56, at peak: true
+------------------
+Total price: 16.43 euros
+------------------
+
+----- COUPON -----
+Coupon for: Morris
+Class: 1
+Tickets: 3
+From Dryard to Brittle with a distance of 150 km
+at 7:56, at peak: true
+------------------
+Total price: 19.59 euros
+------------------
+

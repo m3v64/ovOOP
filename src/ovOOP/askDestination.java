@@ -16,8 +16,10 @@ public class AskDestination {
 
     public AskDestination(String origin) {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Available cities: " + VALID_CITIES + "\n" + "You are at " + origin);
         System.out.print("Enter destination city: ");
         String input = scanner.nextLine().trim();
+        scanner.close();
 
         if (input.equalsIgnoreCase(origin)) {
             System.out.println("Error: Origin and destination cannot be the same.");
