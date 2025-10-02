@@ -2,7 +2,6 @@ package ovOOP;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Scanner;
 import java.util.Set;
 
 public class AskDestination {
@@ -15,11 +14,10 @@ public class AskDestination {
     private String destination;
 
     public AskDestination(String origin) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Available cities: " + VALID_CITIES + "\n" + "You are at " + origin);
         System.out.print("Enter destination city: ");
-        String input = scanner.nextLine().trim();
-        scanner.close();
+        Main.scanner.nextLine(); // Clear newline
+        String input = Main.scanner.nextLine().trim();
 
         if (input.equalsIgnoreCase(origin)) {
             System.out.println("Error: Origin and destination cannot be the same.");
@@ -31,7 +29,7 @@ public class AskDestination {
             return;
         }
 
-        this.destination = input;
+        this.destination = input.toLowerCase();
         System.out.println("Destination city set to: " + input);
     }
 

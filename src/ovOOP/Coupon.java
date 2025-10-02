@@ -61,7 +61,7 @@ public class Coupon {
         couponsArray.put(this.toJson());
 
         try (FileWriter file = new FileWriter(filename)) {
-            file.write(couponsArray.toString(4)); // Pretty print
+            file.write(couponsArray.toString(4));
             System.out.println("Coupon saved to " + filename);
             System.out.println(name + ", have a nice trip!\n");
         } catch (IOException e) {

@@ -5,7 +5,7 @@ import java.util.Random;
 public class CalculateTravelCost {
     static double totalTravelCost;
 
-    public void travelCost(int distance, int seatClass, int ticketAmount) {
+    public double travelCost(int distance, int seatClass, int ticketAmount) {
         OvTime time = new OvTime();
         time.updateTime();
 
@@ -19,7 +19,7 @@ public class CalculateTravelCost {
 
         if (!hasEnoughSeats(remainingSeats, ticketAmount)) {
             System.out.println("Not enough seats available");
-            return;
+            return 0;
         }
 
         // Fuel and Speed Calculation
@@ -39,7 +39,7 @@ public class CalculateTravelCost {
         cost = applyServiceFee(cost);
         cost = applyDiscounts(cost, ticketAmount);
 
-        totalTravelCost = Math.round(cost * 100.0) / 100.0;
+        return totalTravelCost = Math.round(cost * 100.0) / 100.0;
     }
 
     // --- Helper Methods ---
