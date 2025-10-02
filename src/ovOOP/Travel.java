@@ -3,6 +3,7 @@ package ovOOP;
 import java.util.Scanner;
 
 import javax.swing.plaf.synth.SynthLookAndFeel;
+import javax.swing.plaf.synth.SynthStyle;
 
 public class Travel {
     public static final String ANSI_RESET = "\u001B[0m";
@@ -42,6 +43,7 @@ public class Travel {
         }
         if (input == 1) {
             //Credits go here
+            showCredits(scanner);
         } else if (input == 2) {
             Travel.askDestination(scanner);
             // Travelling system
@@ -55,5 +57,15 @@ public class Travel {
             System.exit(0);
             // Exits the system
         }
+    }
+    static void showCredits(Scanner scanner) {
+        System.out.println(ANSI_BLACK + "------------------------------------------");
+        System.out.println(ANSI_GREEN + "Developers : Morris van Uden, Max Viehöfer");
+        System.out.println(ANSI_BLACK + "------------------------------------------");
+        System.out.println(ANSI_GREEN + "Teacher : Erik Seldenthuis");
+        System.out.println(ANSI_BLACK + "------------------------------------------");
+        System.out.println(ANSI_GREEN + "Class : TIA4V1B");
+        System.out.println(ANSI_BLACK + "------------------------------------------");
+        startMenu(scanner);
     }
 }
