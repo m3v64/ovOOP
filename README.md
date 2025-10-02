@@ -104,6 +104,5 @@ ovOOP/
 
 * Add indirect routes and route suggestions.
 * Implement user account and balance management.
-* Add a GUI interface for improved experience.
 * Improve error handling and input validation.
 
