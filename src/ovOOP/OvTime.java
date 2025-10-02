@@ -36,7 +36,7 @@ public class OvTime {
         return seconds;
     }
 
-    public boolean isPeakStarted() {
+    public boolean hasPeakStarted() {
         return peakStarted;
     }
 }

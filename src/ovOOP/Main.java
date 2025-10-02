@@ -3,9 +3,9 @@ package ovOOP;
 public class Main {
     public static void main(String[] args) {
         // Passenger details
-        String passengerName = "Morris";
+        String passengerName = "Daan";
         int seatClass = 1;
-        int ticketAmount = 3;
+        int ticketAmount = 5;
 
         // Trip details
         String origin = "Dryard";
@@ -18,7 +18,7 @@ public class Main {
 
         // Calculate travel cost
         CalculateTravelCost calculateTravelCost = new CalculateTravelCost();
-        calculateTravelCost.travelCost(distance, seatClass, ticketAmount);
+        totalCost = calculateTravelCost.travelCost(distance, seatClass, ticketAmount);
 
         // Clear screen (prints 50 empty lines)
         for (int i = 0; i < 50; i++) {
@@ -26,21 +26,22 @@ public class Main {
         }
 
         // Check if tickets were booked
-        if (CalculateTravelCost.totalTravelCost == 0) {
+        if (totalCost == 0) {
             System.out.println("No tickets booked");
             return;
         }
 
-        // Create coupon
-        CreateCoupon createCoupon = new CreateCoupon();
-        createCoupon.createCoupon(
-            CalculateTravelCost.totalTravelCost,
-            seatClass,
-            ticketAmount,
-            passengerName,
-            destination,
-            origin
-        );
+        // Create coupon using OOP style
+        Coupon coupon = new Coupon(
+                passengerName,
+                seatClass,
+                ticketAmount,
+                origin,
+                destination,
+                totalCost);
+
+        // Save coupon to JSON file
+        coupon.saveToFile("coupon.json");
 
         // Update origin for next trip
         origin = destination;
