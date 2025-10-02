@@ -2,8 +2,6 @@ package ovOOP;
 
 import java.util.Scanner;
 
-import javax.swing.plaf.synth.SynthLookAndFeel;
-import javax.swing.plaf.synth.SynthStyle;
 
 public class Travel {
     public static final String ANSI_RESET = "\u001B[0m";
