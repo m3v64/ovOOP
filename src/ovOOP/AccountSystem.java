@@ -6,7 +6,6 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -61,9 +60,31 @@ public class AccountSystem {
         System.out.println(ANSI_CYAN + "\nPassword:");
         String password = scanner.next();
 
-        boolean valid = false;
+        File file = new File("data/Accounts.json");
+        Gson gson = new Gson();
+        List<Account> accounts = new ArrayList<>();
+
+        if (file.exists()) {
+            try (FileReader reader = new FileReader(file)) {
+                Type accountListType = new TypeToken<List<Account>>() {
+                }.getType();
+                accounts = gson.fromJson(reader, accountListType);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        boolean valid = accounts.stream()
+                .anyMatch(acc -> acc.username.equals(username) && acc.password.equals(password));
+
         if (valid) {
             System.out.println(ANSI_GREEN + "Logged in!");
+
+            Main.username = username;
+
+            Main.Balance = 0;
+
+            Travel.startMenu(scanner);
         } else {
             System.out.println(ANSI_RED + "No account matching those credentials could be found");
         }

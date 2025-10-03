@@ -21,6 +21,7 @@ public class Travel {
         System.out.println(ANSI_BLUE + "---------------------------------------");
         System.out.println(ANSI_CYAN + "Welcome to OVOOP");
         System.out.println(ANSI_CYAN + "Please choose from the following options");
+        System.out.println(ANSI_BLACK + "You are currently logged in as " + Main.username);
         System.out.println(ANSI_BLUE + "---------------------------------------" + ANSI_CYAN);
         System.out.println("1. Credits");
         System.out.println("2. Start travelling");
