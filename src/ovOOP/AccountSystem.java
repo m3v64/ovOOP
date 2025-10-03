@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONString;
 
 public class AccountSystem {
     public static final String ANSI_RESET = "\u001B[0m";
@@ -51,7 +50,16 @@ public class AccountSystem {
     static void loginSystem(Scanner scanner) {
         System.out.println();
         System.out.println(ANSI_CYAN + "Username:");
+
         String username = scanner.next();
+
+        File file = new File("data/Accounts.json");
+
+        JSONObject JSON = new JSONObject(file);
+        
+
+        System.out.println(JSON.getString("username"));
+
         // check against valid usernames here
         System.out.println(ANSI_CYAN + "\nPassword:");
         String password = scanner.next();
