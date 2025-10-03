@@ -2,6 +2,7 @@ package ovOOP;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileReader;
@@ -74,15 +75,17 @@ public class AccountSystem {
             }
         }
 
-        boolean valid = accounts.stream()
-                .anyMatch(acc -> acc.username.equals(username) && acc.password.equals(password));
+        Optional<Account> accountOpt = accounts.stream()
+                .filter(acc -> acc.username.equals(username) && acc.password.equals(password))
+                .findFirst();
 
-        if (valid) {
+            double balance = accountOpt.get().balance;
+        if (accountOpt.isPresent()) {
             System.out.println(ANSI_GREEN + "Logged in!");
 
             Main.username = username;
 
-            Main.Balance = 0;
+            Main.Balance = balance;
 
             Travel.startMenu(scanner);
         } else {
@@ -127,12 +130,12 @@ public class AccountSystem {
     static class Account {
         String username;
         String password;
-        double saldo;
+        double balance;
 
-        Account(String username, String password, double saldo) {
+        Account(String username, String password, double balance) {
             this.username = username;
             this.password = password;
-            this.saldo = saldo;
+            this.balance = balance;
         }
     }
 

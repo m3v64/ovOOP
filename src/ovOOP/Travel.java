@@ -1,6 +1,10 @@
 package ovOOP;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
+
+import com.google.gson.Gson;
 
 public class Travel {
     public static final String ANSI_RESET = "\u001B[0m";
@@ -14,14 +18,15 @@ public class Travel {
     public static final String ANSI_WHITE = "\u001B[37m";
 
     static void askDestination(Scanner scanner) {
-        //travelling system goes here
+        // travelling system goes here
     }
 
     static void startMenu(Scanner scanner) {
         System.out.println(ANSI_BLUE + "---------------------------------------");
         System.out.println(ANSI_CYAN + "Welcome to OVOOP");
         System.out.println(ANSI_CYAN + "Please choose from the following options");
-        System.out.println(ANSI_BLACK + "You are currently logged in as " + Main.username);
+        System.out.println(
+                ANSI_BLACK + "You are currently logged in as " + Main.username + " with a balance of " + Main.Balance);
         System.out.println(ANSI_BLUE + "---------------------------------------" + ANSI_CYAN);
         System.out.println("1. Credits");
         System.out.println("2. Start travelling");
@@ -30,7 +35,7 @@ public class Travel {
         System.out.println("5. Exit system");
         System.out.println(ANSI_BLUE + "---------------------------------------");
         int input = 0;
-        
+
         while (input == 0) {
             try {
                 input = scanner.nextInt();
@@ -42,7 +47,7 @@ public class Travel {
         }
 
         if (input == 1) {
-            //Credits go here
+            // Credits go here
             showCredits(scanner);
         } else if (input == 2) {
             Travel.askDestination(scanner);
@@ -54,6 +59,7 @@ public class Travel {
             // Balance system goes here
         } else if (input == 5) {
             System.out.println(ANSI_RED + "Exiting System");
+
             System.exit(0);
             // Exits the system
         }

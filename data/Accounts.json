@@ -2,6 +2,26 @@
   {
     "username": "test",
     "password": "test",
-    "saldo": 0.0
+    "balance": 0.0
+  },
+  {
+    "username": "max",
+    "password": "hollowKnightAddicted",
+    "balance": 1000000000000.0
+  },
+  {
+    "username": "morris",
+    "password": "t",
+    "balance": 10000000000.0
+  },
+  {
+    "username": "admin",
+    "password": "admin",
+    "balance": -1
+  },
+  {
+    "username": "owen",
+    "password": "1203039",
+    "balance": 1000000000000.0
   }
 ]
