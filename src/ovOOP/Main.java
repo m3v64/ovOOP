@@ -7,5 +7,6 @@ public class Main {
         Saldo.accountConf(args);
         Scanner scanner = new Scanner(System.in);
         Travel.startMenu(scanner);
+        
     }
 }
