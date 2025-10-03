@@ -1,4 +1,7 @@
-[{
+[
+  {
+    "username": "test",
     "password": "test",
-    "username": "test"
-}]
+    "saldo": 0.0
+  }
+]

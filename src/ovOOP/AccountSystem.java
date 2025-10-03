@@ -1,12 +1,17 @@
 package ovOOP;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
 
 public class AccountSystem {
     public static final String ANSI_RESET = "\u001B[0m";
@@ -53,17 +58,8 @@ public class AccountSystem {
 
         String username = scanner.next();
 
-        File file = new File("data/Accounts.json");
-
-        JSONObject JSON = new JSONObject(file);
-        
-
-        System.out.println(JSON.getString("username"));
-
-        // check against valid usernames here
         System.out.println(ANSI_CYAN + "\nPassword:");
         String password = scanner.next();
-        // check if password is equal to username's password here
 
         boolean valid = false;
         if (valid) {
@@ -80,37 +76,43 @@ public class AccountSystem {
         String password = scanner.next();
 
         File file = new File("data/Accounts.json");
-        JSONArray accountSystem = new JSONArray();
 
-        // Read existing accounts if file exists
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        List<Account> accounts = new ArrayList<>();
+
         if (file.exists()) {
-            try (Scanner fileScanner = new Scanner(file)) {
-                StringBuilder jsonStr = new StringBuilder();
-                while (fileScanner.hasNextLine()) {
-                    jsonStr.append(fileScanner.nextLine());
-                }
-                if (!jsonStr.toString().isEmpty()) {
-                    accountSystem = new JSONArray(jsonStr.toString());
+            try (FileReader reader = new FileReader(file)) {
+                Type accountListType = new TypeToken<List<Account>>() {
+                }.getType();
+                accounts = gson.fromJson(reader, accountListType);
+                if (accounts == null) {
+                    accounts = new ArrayList<>();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        // Add new account
-        JSONObject account = new JSONObject();
-        account.put("username", username);
-        account.put("password", password);
-        accountSystem.put(account);
-
-        // Write updated array back to file (overwrite)
+        accounts.add(new Account(username, password, 0.00));
         try (FileWriter writer = new FileWriter(file)) {
-            writer.write(accountSystem.toString(4)); // pretty print with 4-space indentation
-        } catch (IOException e) {
+            gson.toJson(accounts, writer);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
         System.out.println(ANSI_GREEN + "Account created successfully!");
+    }
+
+    static class Account {
+        String username;
+        String password;
+        double saldo;
+
+        Account(String username, String password, double saldo) {
+            this.username = username;
+            this.password = password;
+            this.saldo = saldo;
+        }
     }
 
 }
