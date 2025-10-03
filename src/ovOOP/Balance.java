@@ -3,7 +3,7 @@ package ovOOP;
 import java.io.File;
 import java.io.IOException;
 
-public class Saldo {
+public class Balance {
     static void accountConf(String[] args) {
         try {
             File myObj = new File("C:\\Users\\max\\OneDrive - ROC Nijmegen\\personal\\ovOOP\\data\\accountSaldo.json");
