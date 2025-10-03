@@ -43,7 +43,7 @@ public class AccountSystem {
         System.out.println(ANSI_CYAN + "Username:");
         String username = scanner.next();
         // check against valid usernames here
-        System.out.println(ANSI_CYAN + "Password:");
+        System.out.println(ANSI_CYAN + "\nPassword:");
         String password = scanner.next();
         // check if password is equal to username's password here
 
