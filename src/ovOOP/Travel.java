@@ -2,7 +2,6 @@ package ovOOP;
 
 import java.util.Scanner;
 
-
 public class Travel {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
@@ -30,6 +29,7 @@ public class Travel {
         System.out.println("5. Exit system");
         System.out.println(ANSI_BLUE + "---------------------------------------");
         int input = 0;
+        
         while (input == 0) {
             try {
                 input = scanner.nextInt();
@@ -39,6 +39,7 @@ public class Travel {
                 input = 0;
             }
         }
+
         if (input == 1) {
             //Credits go here
             showCredits(scanner);
@@ -56,6 +57,7 @@ public class Travel {
             // Exits the system
         }
     }
+
     static void showCredits(Scanner scanner) {
         System.out.println(ANSI_BLACK + "------------------------------------------");
         System.out.println(ANSI_GREEN + "Developers : Morris van Uden, Max Viehöfer");
