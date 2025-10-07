@@ -8,12 +8,11 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
+        Data data = new Data();
 
         clear();
 
         Travel.startMenu(scanner);
-
     }
 
     public static void clear() {

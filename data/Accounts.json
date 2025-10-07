@@ -1,37 +1,38 @@
 [
   {
-    "username": "test",
-    "password": "test",
+    "userID": 0,
+    "username": "guest",
+    "password": "guest",
     "balance": 0.0
   },
   {
+    "userID": 1,
     "username": "max",
     "password": "hollowKnightAddicted",
     "balance": 1.0E12
   },
   {
+    "userID": 2,
     "username": "morris",
     "password": "t",
     "balance": 1.0E100
   },
   {
+    "userID": 3,
     "username": "admin",
     "password": "admin",
     "balance": -1.0
   },
   {
+    "userID": 4,
     "username": "owen",
     "password": "1203039",
     "balance": 1.0E12
   },
   {
+    "userID": 5,
     "username": "daan",
     "password": "Password",
-    "balance": 0.0
-  },
-  {
-    "username": "testatsteaterateqtqetyqrgrwhksfhkfshkrfshkfsglfsgkdfagldafglsskhbkfsdgkdagkbgfasgkdakgkdagkdakgdkafkdakgfdakgkadkgkeatgkjdfsgrdfvrfherasthjighsoigahdoghasoighfadsgfshfodshfaodgdfgfsdgfsgdfsdfdsfdsfds",
-    "password": "e",
     "balance": 0.0
   }
 ]
