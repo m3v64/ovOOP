@@ -26,15 +26,17 @@ public class AccountSystem {
 
     static void displayAccounts(Scanner scanner) {
         System.out.println();
-        System.out.println(ANSI_CYAN + "Do you want to: 1. Login, or 2. Sign up");
+        System.out.println(ANSI_CYAN + "Please choose from the following list");
 
-        int accounts = Option.showOption(scanner, "Login,Sign up");
+        int accounts = Option.showOption(scanner, "Login,Sign up,Return");
 
         if (accounts == 1) {
             loginSystem(scanner);
         }
         if (accounts == 2) {
             signupSystem(scanner);
+        } if (accounts == 3){
+            Travel.startMenu(scanner);
         }
     }
 

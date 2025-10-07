@@ -23,5 +23,10 @@
     "username": "owen",
     "password": "1203039",
     "balance": 1.0E12
+  },
+  {
+    "username": "daan",
+    "password": "Password",
+    "balance": 0.0
   }
 ]
