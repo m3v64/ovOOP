@@ -3,11 +3,12 @@ package ovOOP;
 import java.util.Scanner;
 
 public class Main {
-    public static String username;
-    public static double Balance;
+    public static String currentUsername;
+    public static double currentBalance;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
 
         clear();
 
@@ -15,8 +16,8 @@ public class Main {
 
     }
 
-    static void clear() {
-        for (int i = 0; i < 40; i++) {
+    public static void clear() {
+        for (int i = 0; i < 5000; i++) {
             System.out.println("\n");
         }
     }

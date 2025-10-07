@@ -2,7 +2,6 @@ package ovOOP;
 
 import java.util.Scanner;
 
-
 public class Travel {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
@@ -22,25 +21,41 @@ public class Travel {
         System.out.println(ANSI_BLUE + "---------------------------------------");
         System.out.println(ANSI_CYAN + "Welcome to OVOOP");
         System.out.println(ANSI_CYAN + "Please choose from the following options");
-        System.out.println(
-                ANSI_BLACK + "You are currently logged in as " + Main.username + " with a balance of " + Main.Balance);
-        int input = Option.showOption(scanner, "Credits,Start travelling,Manage accounts,Manage balance,Exit system");
-
-        if (input == 1) {
-            // Credits go here
-            showCredits(scanner);
-        } else if (input == 2) {
-            Travel.askDestination(scanner);
-            // Travelling system
-        } else if (input == 3) {
-            AccountSystem.displayAccounts(scanner);
-            // Accounts system goes here
-        } else if (input == 4) {
-            // Balance system goes here
-        } else if (input == 5) {
-            System.out.println(ANSI_RED + "Exiting System");
-            System.exit(0);
-            // Exits the system
+        int input = 0;
+        if (Main.currentUsername != null) {
+            System.out.println(
+                    ANSI_BLACK + "You are currently logged in as " + Main.currentUsername + " with a balance of "
+                            + Main.currentBalance);
+            input = Option.showOption(scanner,
+                    "Credits,Start travelling,Manage accounts,Manage balance,Exit system");
+        } else {
+            System.out.println(ANSI_BLACK + "You are not currently logged in, please log in before using any travelling features");
+            input = Option.showOption(scanner, "Credits,Manage accounts");
+        }
+        if (Main.currentUsername != null) {
+            if (input == 1) {
+                // Credits go here
+                showCredits(scanner);
+            } else if (input == 2) {
+                Travel.askDestination(scanner);
+                // Travelling system
+            } else if (input == 3) {
+                AccountSystem.displayAccounts(scanner);
+                // Accounts system goes here
+            } else if (input == 4) {
+                // Balance system goes here
+            } else if (input == 5) {
+                System.out.println(ANSI_RED + "Exiting System");
+                System.exit(0);
+                // Exits the system
+            }
+        } else {
+            if (input == 1) {
+                // Credits go here
+                showCredits(scanner);
+            } else if (input == 2) {
+                AccountSystem.displayAccounts(scanner);
+            }
         }
     }
 
