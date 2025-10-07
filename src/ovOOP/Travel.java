@@ -1,10 +1,7 @@
 package ovOOP;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Scanner;
 
-import com.google.gson.Gson;
 
 public class Travel {
     public static final String ANSI_RESET = "\u001B[0m";
@@ -27,24 +24,7 @@ public class Travel {
         System.out.println(ANSI_CYAN + "Please choose from the following options");
         System.out.println(
                 ANSI_BLACK + "You are currently logged in as " + Main.username + " with a balance of " + Main.Balance);
-        System.out.println(ANSI_BLUE + "---------------------------------------" + ANSI_CYAN);
-        System.out.println("1. Credits");
-        System.out.println("2. Start travelling");
-        System.out.println("3. Manage accounts");
-        System.out.println("4. Manage balance");
-        System.out.println("5. Exit system");
-        System.out.println(ANSI_BLUE + "---------------------------------------");
-        int input = 0;
-
-        while (input == 0) {
-            try {
-                input = scanner.nextInt();
-            } catch (Exception e) {
-                System.out.println(ANSI_RED + "That is not a valid number!");
-                scanner.nextLine();
-                input = 0;
-            }
-        }
+        int input = Option.showOption(scanner, "Credits,Start travelling,Manage accounts,Manage balance,Exit system");
 
         if (input == 1) {
             // Credits go here
@@ -59,7 +39,6 @@ public class Travel {
             // Balance system goes here
         } else if (input == 5) {
             System.out.println(ANSI_RED + "Exiting System");
-
             System.exit(0);
             // Exits the system
         }

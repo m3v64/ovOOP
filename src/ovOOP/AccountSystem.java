@@ -28,22 +28,8 @@ public class AccountSystem {
         System.out.println();
         System.out.println(ANSI_CYAN + "Do you want to: 1. Login, or 2. Sign up");
 
-        int accounts = 0;
+        int accounts = Option.showOption(scanner, "Login,Sign up");
 
-        while (accounts == 0) {
-            try {
-                accounts = scanner.nextInt();
-            } catch (Exception e) {
-                System.out.println(ANSI_RED + "That is not a valid input! Please input a 1 or a 2");
-                scanner.nextLine();
-                continue;
-            }
-            if (accounts > 2 || accounts < 1) {
-                accounts = 0;
-                System.out.println(ANSI_RED + "That is not a valid input! Please input a 1 or a 2");
-                scanner.nextLine();
-            }
-        }
         if (accounts == 1) {
             loginSystem(scanner);
         }
