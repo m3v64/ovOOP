@@ -7,21 +7,21 @@
   {
     "username": "max",
     "password": "hollowKnightAddicted",
-    "balance": 1000000000000.0
+    "balance": 1.0E12
   },
   {
     "username": "morris",
     "password": "t",
-    "balance": 10000000000.0
+    "balance": 1.0E10
   },
   {
     "username": "admin",
     "password": "admin",
-    "balance": -1
+    "balance": -1.0
   },
   {
     "username": "owen",
     "password": "1203039",
-    "balance": 1000000000000.0
+    "balance": 1.0E12
   }
 ]

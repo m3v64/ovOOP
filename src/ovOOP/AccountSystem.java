@@ -46,7 +46,6 @@ public class AccountSystem {
 
         System.out.println(ANSI_CYAN + "\nPassword:");
         String password = scanner.next();
-
         File file = new File("data/Accounts.json");
         Gson gson = new Gson();
         List<Account> accounts = new ArrayList<>();
@@ -60,12 +59,19 @@ public class AccountSystem {
                 e.printStackTrace();
             }
         }
+        Optional<Account> accountOpt = Optional.empty();
+        double balance = 0;
+        try {
+            accountOpt = accounts.stream()
+                    .filter(acc -> acc.username.equalsIgnoreCase(username) && acc.password.equals(password))
+                    .findFirst();
 
-        Optional<Account> accountOpt = accounts.stream()
-                .filter(acc -> acc.username.equals(username) && acc.password.equals(password))
-                .findFirst();
-
-            double balance = accountOpt.get().balance;
+            if (accountOpt.isPresent()) {
+                balance = accountOpt.get().balance;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (accountOpt.isPresent()) {
             System.out.println(ANSI_GREEN + "Logged in!");
 
@@ -76,6 +82,7 @@ public class AccountSystem {
             Travel.startMenu(scanner);
         } else {
             System.out.println(ANSI_RED + "No account matching those credentials could be found");
+            Travel.startMenu(scanner);
         }
     }
 
@@ -111,6 +118,7 @@ public class AccountSystem {
             e.printStackTrace();
         }
         System.out.println(ANSI_GREEN + "Account created successfully!");
+        Travel.startMenu(scanner);
     }
 
     static class Account {
