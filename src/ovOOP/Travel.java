@@ -22,17 +22,19 @@ public class Travel {
         System.out.println(ANSI_CYAN + "Welcome to OVOOP");
         System.out.println(ANSI_CYAN + "Please choose from the following options");
         int input = 0;
-        if (Main.currentUsername != null) {
+        Data data = new Data();
+        int currentUser = data.getUserID();
+        if (currentUser != 0) {
             System.out.println(
-                    ANSI_BLACK + "You are currently logged in as " + Main.currentUsername + " with a balance of "
-                            + Main.currentBalance);
+                    ANSI_BLACK + "You are currently logged in as " + data.getUsername() + " with a balance of "
+                            + data.getBalance());
             input = Option.showOption(scanner,
                     "Credits,Start travelling,Manage accounts,Manage balance,Exit system");
         } else {
             System.out.println(ANSI_BLACK + "You are not currently logged in, please log in before using any travelling features");
             input = Option.showOption(scanner, "Credits,Manage accounts");
         }
-        if (Main.currentUsername != null) {
+        if (currentUser != 0) {
             if (input == 1) {
                 // Credits go here
                 showCredits(scanner);

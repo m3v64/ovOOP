@@ -42,8 +42,8 @@ public class AccountSystem {
         }
     }
     static void logoutSystem(Scanner scanner) {
-        Main.currentUsername = null;
-        Main.currentBalance = 0.0;
+        Data data = new Data();
+        data.setUserID(0);
         Main.clear();
         Travel.startMenu(scanner);
     }
@@ -84,11 +84,6 @@ public class AccountSystem {
         }
         if (accountOpt.isPresent()) {
             System.out.println(ANSI_GREEN + "Logged in!");
-
-            Main.currentUsername = username;
-
-            Main.currentBalance = balance;
-
             Travel.startMenu(scanner);
         } else {
             System.out.println(ANSI_RED + "No account matching those credentials could be found");

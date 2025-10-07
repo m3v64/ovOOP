@@ -16,13 +16,6 @@ public class Data {
     private String password;
     private double balance;
 
-    public Data() {
-        this.userID = 0;
-        this.username = "guest";
-        this.password = "guest";
-        this.balance = 0.0;
-    }
-
     public Data(int userID, String username, String password, double balance) {
         this.userID = userID;
         this.username = username;
@@ -35,6 +28,7 @@ public class Data {
     public String getPassword() {return password;}
     public double getBalance() {return balance;}
 
+    public void setUserID(int userID) {this.userID = userID; updateJson(this.userID, this.username, this.password, this.balance);}
     public void setUsername(String username) {this.username = username; updateJson(this.userID, this.username, this.password, this.balance);}
     public void setPassword(String password) {this.password = password; updateJson(this.userID, this.username, this.password, this.balance);}
     public void setBalance(double balance) {this.balance = balance; updateJson(this.userID, this.username, this.password, this.balance);}
