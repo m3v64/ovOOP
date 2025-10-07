@@ -12,7 +12,7 @@
   {
     "username": "morris",
     "password": "t",
-    "balance": 1.0E10
+    "balance": 1.0E100
   },
   {
     "username": "admin",
@@ -27,6 +27,11 @@
   {
     "username": "daan",
     "password": "Password",
+    "balance": 0.0
+  },
+  {
+    "username": "testatsteaterateqtqetyqrgrwhksfhkfshkrfshkfsglfsgkdfagldafglsskhbkfsdgkdagkbgfasgkdakgkdagkdakgdkafkdakgfdakgkadkgkeatgkjdfsgrdfvrfherasthjighsoigahdoghasoighfadsgfshfodshfaodgdfgfsdgfsgdfsdfdsfdsfds",
+    "password": "e",
     "balance": 0.0
   }
 ]

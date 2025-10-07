@@ -28,7 +28,7 @@ public class AccountSystem {
         System.out.println();
         System.out.println(ANSI_CYAN + "Please choose from the following list");
 
-        int accounts = Option.showOption(scanner, "Login,Sign up,Return");
+        int accounts = Option.showOption(scanner, "Login,Sign up,Return,Logout");
 
         if (accounts == 1) {
             loginSystem(scanner);
@@ -37,9 +37,16 @@ public class AccountSystem {
             signupSystem(scanner);
         } if (accounts == 3){
             Travel.startMenu(scanner);
+        } if (accounts == 4) {
+            logoutSystem(scanner);
         }
     }
-
+    static void logoutSystem(Scanner scanner) {
+        Main.currentUsername = null;
+        Main.currentBalance = 0.0;
+        Main.clear();
+        Travel.startMenu(scanner);
+    }
     static void loginSystem(Scanner scanner) {
         System.out.println();
         System.out.println(ANSI_CYAN + "Username:");
@@ -49,6 +56,7 @@ public class AccountSystem {
         System.out.println(ANSI_CYAN + "\nPassword:");
         String password = scanner.next();
         File file = new File("data/Accounts.json");
+
         Gson gson = new Gson();
         List<Account> accounts = new ArrayList<>();
 
@@ -77,9 +85,9 @@ public class AccountSystem {
         if (accountOpt.isPresent()) {
             System.out.println(ANSI_GREEN + "Logged in!");
 
-            Main.username = username;
+            Main.currentUsername = username;
 
-            Main.Balance = balance;
+            Main.currentBalance = balance;
 
             Travel.startMenu(scanner);
         } else {
