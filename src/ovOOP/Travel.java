@@ -60,6 +60,8 @@ public class Travel {
         System.out.println(Color.ANSI_BLACK + "------------------------------------------");
         System.out.println(Color.ANSI_GREEN + "Class : TIA4V1B");
         System.out.println(Color.ANSI_BLACK + "------------------------------------------");
+        System.out.println(Color.ANSI_GREEN + "Github Repository : https://github.com/m3v64/ovOOP");
+        System.out.println(Color.ANSI_BLACK + "------------------------------------------");
         startMenu(scanner);
     }
 }
