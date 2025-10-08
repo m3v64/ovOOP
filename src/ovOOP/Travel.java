@@ -45,7 +45,7 @@ public class Travel {
                 AccountSystem.displayAccounts(scanner);
                 // Accounts system goes here
             } else if (input == 3) {
-                // Balance system goes here
+                Balance.manageBalance(scanner);
             } else if (input == 4) {
                 System.out.println(ANSI_RED + "Exiting System");
                 System.exit(0);
