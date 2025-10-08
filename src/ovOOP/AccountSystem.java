@@ -62,7 +62,6 @@ public class AccountSystem {
 
             if (dataList == null) dataList = new ArrayList<>();
 
-            // find the matching user
             for (Data d : dataList) {
                 if (d.getUsername().equalsIgnoreCase(username) && d.getPassword().equals(password)) {
                     Main.userID = d.getUserID();
