@@ -7,7 +7,60 @@ public class Balance {
         Data data = new Data(Main.userID);
         System.out.println(Travel.ANSI_BLUE + "---------------------------------------");
         System.out.println(Travel.ANSI_CYAN + "Please choose from the following options");
-        System.out.println(Travel.ANSI_YELLOW + "the balance of the user " + data.getUsername() + " is " + data.getBalance());
-        int balanceMenue = Option.showOption(scanner, "deposit,withdraw");
+        System.out.println(Travel.ANSI_CYAN + "the balance of the user " + data.getUsername() + " is "
+                + Travel.ANSI_GREEN + data.getBalance());
+        int balanceMenu = Option.showOption(scanner, "Deposit,Withdraw,Main Menu");
+
+        if (balanceMenu == 1) {
+            // Deposit code here
+            System.out.println(Travel.ANSI_BLUE + "Please choose how much you would like to deposit");
+            double deposit;
+            try {
+                deposit = scanner.nextDouble();
+                double balance = data.getBalance();
+
+                if (deposit > 0) {
+                    balance = balance + deposit;
+                    data.setBalance(balance);
+                    System.out.println("Succesfully deposited " + deposit + " to balance (" + balance + ")");
+                    manageBalance(scanner);
+                } else {
+                    System.out.println("You cannot deposit numbers smaller than 1");
+                    manageBalance(scanner);
+                }
+            } catch (Exception e) {
+                System.out.println(Travel.ANSI_RED + "That is not a valid input!");
+                manageBalance(scanner);
+            }
+        } else if (balanceMenu == 2) {
+            // Withdraw code here
+            System.out.println(Travel.ANSI_BLUE + "Please choose how much you would like to withdraw");
+            double withdraw;
+            try {
+                withdraw = scanner.nextDouble();
+                double balance = data.getBalance();
+
+                if (withdraw > 0) {
+                    if (balance - withdraw > 0) {
+                        balance = balance - withdraw;
+                        data.setBalance(balance);
+                        System.out.println("Succesfully withdrawn " + withdraw + " to balance (" + balance + ")");
+                        manageBalance(scanner);
+                    }
+                    else{
+                        System.out.println("You do not have enough balance to withdraw " + withdraw);
+                        manageBalance(scanner);
+                    }
+                } else {
+                    System.out.println("You cannot deposit numbers smaller than 1");
+                    manageBalance(scanner);
+                }
+            } catch (Exception e) {
+                System.out.println(Travel.ANSI_RED + "That is not a valid input!");
+                manageBalance(scanner);
+            }
+        } else if (balanceMenu == 3) {
+            Travel.startMenu(scanner);
+        }
     }
 }
