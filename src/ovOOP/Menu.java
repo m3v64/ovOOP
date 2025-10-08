@@ -9,20 +9,20 @@ public class Menu {
     }
 
     static void startMenu(Scanner scanner) {
-        System.out.println(Color.ANSI_BLUE + "---------------------------------------");
-        System.out.println(Color.ANSI_CYAN + "Welcome to OVOOP");
-        System.out.println(Color.ANSI_CYAN + "Please choose from the following options");
+        System.out.println(Color.BLUE + "---------------------------------------");
+        System.out.println(Color.CYAN + "Welcome to OVOOP");
+        System.out.println(Color.CYAN + "Please choose from the following options");
         int input = 0;
         Data data = new Data(Main.userID);
         int currentUser = data.getUserID();
         if (currentUser != 0) {
             System.out.println(
-                    Color.ANSI_BLACK + "You are currently logged in as " + data.getUsername() + " with a balance of "
+                    Color.BLACK + "You are currently logged in as " + data.getUsername() + " with a balance of "
                             + data.getBalance());
             input = Option.showOption(scanner,
                     "Start travelling,Account Settings,Manage balance,Exit system,Credits");
         } else {
-            System.out.println(Color.ANSI_BLACK + "You are not currently logged in, please log in before using any travelling features");
+            System.out.println(Color.BLACK + "You are not currently logged in, please log in before using any travelling features");
             input = Option.showOption(scanner, "Account Settings,Credits");
         }
         if (currentUser != 0) {
@@ -38,7 +38,7 @@ public class Menu {
             } else if (input == 3) {
                 Balance.manageBalance(scanner);
             } else if (input == 4) {
-                System.out.println(Color.ANSI_RED + "Exiting System");
+                System.out.println(Color.RED + "Exiting System");
                 System.exit(0);
                 // Exits the system
             }
@@ -53,17 +53,17 @@ public class Menu {
     }
 
     static void showCredits(Scanner scanner) {
-        System.out.println(Color.ANSI_BLACK + "------------------------------------------");
-        System.out.println(Color.ANSI_GREEN + "Developers : Morris van Uden, Max Viehöfer");
-        System.out.println(Color.ANSI_BLACK + "------------------------------------------");
-        System.out.println(Color.ANSI_GREEN + "Teacher : Erik Seldenthuis");
-        System.out.println(Color.ANSI_BLACK + "------------------------------------------");
-        System.out.println(Color.ANSI_GREEN + "Class : TIA4V1B");
-        System.out.println(Color.ANSI_BLACK + "------------------------------------------");
-        System.out.println(Color.ANSI_GREEN + "web page : https://ovoop.m3v.dev (soon)");
-        System.out.println(Color.ANSI_BLACK + "------------------------------------------");
-        System.out.println(Color.ANSI_GREEN + "Github Repository : https://github.com/m3v64/ovOOP");
-        System.out.println(Color.ANSI_BLACK + "------------------------------------------");
+        System.out.println(Color.BLACK + "------------------------------------------");
+        System.out.println(Color.GREEN + "Developers : Morris van Uden, Max Viehöfer");
+        System.out.println(Color.BLACK + "------------------------------------------");
+        System.out.println(Color.GREEN + "Teacher : Erik Seldenthuis");
+        System.out.println(Color.BLACK + "------------------------------------------");
+        System.out.println(Color.GREEN + "Class : TIA4V1B");
+        System.out.println(Color.BLACK + "------------------------------------------");
+        System.out.println(Color.GREEN + "web page : https://ovoop.m3v.dev (Soon)");
+        System.out.println(Color.BLACK + "------------------------------------------");
+        System.out.println(Color.GREEN + "Github Repository : https://github.com/m3v64/ovOOP");
+        System.out.println(Color.BLACK + "------------------------------------------");
         startMenu(scanner);
     }
 

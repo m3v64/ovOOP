@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 public class AccountSystem {
     static void displayAccounts(Scanner scanner) {
         System.out.println();
-        System.out.println(Color.ANSI_CYAN + "Please choose from the following list");
+        System.out.println(Color.CYAN + "Please choose from the following list");
 
         int accounts = Option.showOption(scanner, "Login,Logout,Main Menu");
 
@@ -30,18 +30,18 @@ public class AccountSystem {
         }
     }
     static void logoutSystem(Scanner scanner) {
-        Data data = new Data(Main.userID);
-        data.setUserID(0);
+        Main.userID = 0;
         Menu.clear();
+        System.out.println(Color.GREEN + "You have been logged out successfully.");
         Menu.startMenu(scanner);
     }
     static void loginSystem(Scanner scanner) {
         System.out.println();
-        System.out.println(Color.ANSI_CYAN + "Username:");
+        System.out.println(Color.CYAN + "Username:");
 
         String username = scanner.next();
 
-        System.out.println(Color.ANSI_CYAN + "\nPassword:");
+        System.out.println(Color.CYAN + "\nPassword:");
         String password = scanner.next();
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -55,13 +55,13 @@ public class AccountSystem {
             for (Data d : dataList) {
                 if (d.getUsername().equalsIgnoreCase(username) && d.getPassword().equals(password)) {
                     Main.userID = d.getUserID();
-                    System.out.println(Color.ANSI_GREEN + "you have logged in!");
+                    System.out.println(Color.GREEN + "you have logged in!");
                     break;
                 }
             }
 
             if (Main.userID == 0) {
-                System.out.println(Color.ANSI_RED + "that account does not exist.");
+                System.out.println(Color.RED + "that account does not exist.");
             }
 
         } catch (Exception e) {
