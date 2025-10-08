@@ -32,6 +32,7 @@ public class Option {
                 if (chosen > i || chosen < 1) {
                     System.out
                             .println(ANSI_RED + "That is not a valid input! Please choose a number between 1 and " + i);
+                            scanner.nextLine();
                     chosen = 0;
                 }
             } catch (Exception e) {
@@ -40,7 +41,6 @@ public class Option {
                 chosen = 0;
             }
         }
-        scanner.nextLine();
         return chosen;
     }
 }
