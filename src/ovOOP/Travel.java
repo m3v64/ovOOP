@@ -22,7 +22,7 @@ public class Travel {
         System.out.println(ANSI_CYAN + "Welcome to OVOOP");
         System.out.println(ANSI_CYAN + "Please choose from the following options");
         int input = 0;
-        Data data = new Data();
+        Data data = new Data(Main.userID);
         int currentUser = data.getUserID();
         if (currentUser != 0) {
             System.out.println(

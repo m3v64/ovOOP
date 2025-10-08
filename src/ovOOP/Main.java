@@ -3,7 +3,7 @@ package ovOOP;
 import java.util.Scanner;
 
 public class Main {
-    public int userID;
+    public static int userID = 0;
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 

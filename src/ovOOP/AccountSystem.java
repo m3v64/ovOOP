@@ -42,7 +42,7 @@ public class AccountSystem {
         }
     }
     static void logoutSystem(Scanner scanner) {
-        Data data = new Data();
+        Data data = new Data(Main.userID);
         data.setUserID(0);
         Main.clear();
         Travel.startMenu(scanner);
@@ -55,40 +55,28 @@ public class AccountSystem {
 
         System.out.println(ANSI_CYAN + "\nPassword:");
         String password = scanner.next();
-        File file = new File("data/Accounts.json");
 
-        Gson gson = new Gson();
-        List<Account> accounts = new ArrayList<>();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        if (file.exists()) {
-            try (FileReader reader = new FileReader(file)) {
-                Type accountListType = new TypeToken<List<Account>>() {
-                }.getType();
-                accounts = gson.fromJson(reader, accountListType);
-            } catch (Exception e) {
-                e.printStackTrace();
+        try (FileReader reader = new FileReader("data/Accounts.json")) {
+            Type dataListType = new TypeToken<List<Data>>(){}.getType();
+            List<Data> dataList = gson.fromJson(reader, dataListType);
+
+            if (dataList == null) dataList = new ArrayList<>();
+
+            // find the matching user
+            for (Data d : dataList) {
+                if (d.getUsername().equalsIgnoreCase(username) && d.getPassword().equals(password)) {
+                    Main.userID = d.getUserID();
+                    break;
+                }
             }
-        }
-        Optional<Account> accountOpt = Optional.empty();
-        double balance = 0;
-        try {
-            accountOpt = accounts.stream()
-                    .filter(acc -> acc.username.equalsIgnoreCase(username) && acc.password.equals(password))
-                    .findFirst();
 
-            if (accountOpt.isPresent()) {
-                balance = accountOpt.get().balance;
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (accountOpt.isPresent()) {
-            System.out.println(ANSI_GREEN + "Logged in!");
-            Travel.startMenu(scanner);
-        } else {
-            System.out.println(ANSI_RED + "No account matching those credentials could be found");
-            Travel.startMenu(scanner);
-        }
+
+        Travel.startMenu(scanner);
     }
 
     static void signupSystem(Scanner scanner) {
