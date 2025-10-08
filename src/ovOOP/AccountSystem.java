@@ -68,8 +68,13 @@ public class AccountSystem {
             for (Data d : dataList) {
                 if (d.getUsername().equalsIgnoreCase(username) && d.getPassword().equals(password)) {
                     Main.userID = d.getUserID();
+                    System.out.println(ANSI_GREEN + "you have logged in!");
                     break;
                 }
+            }
+
+            if (Main.userID == 0) {
+                System.out.println(ANSI_RED + "that account does not exist.");
             }
 
         } catch (Exception e) {
