@@ -62,7 +62,7 @@ public class Balance {
                 manageBalance(scanner);
             }
         } else if (balanceMenu == 3) {
-            Travel.startMenu(scanner);
+            Menu.startMenu(scanner);
         }
     }
 }

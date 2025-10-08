@@ -24,7 +24,7 @@ public class AccountSystem {
             // signupSystem(scanner);
         //}
         if (accounts == 3){
-            Travel.startMenu(scanner);
+            Menu.startMenu(scanner);
         } if (accounts == 2) {
             logoutSystem(scanner);
         }
@@ -33,7 +33,7 @@ public class AccountSystem {
         Data data = new Data(Main.userID);
         data.setUserID(0);
         Main.clear();
-        Travel.startMenu(scanner);
+        Menu.startMenu(scanner);
     }
     static void loginSystem(Scanner scanner) {
         System.out.println();
@@ -68,6 +68,6 @@ public class AccountSystem {
             e.printStackTrace();
         }
 
-        Travel.startMenu(scanner);
+        Menu.startMenu(scanner);
     }
 }

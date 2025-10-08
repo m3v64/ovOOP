@@ -9,7 +9,7 @@ public class Main {
 
         clear();
 
-        Travel.startMenu(scanner);
+        Menu.startMenu(scanner);
     }
 
     public static void clear() {
