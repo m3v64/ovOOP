@@ -29,33 +29,33 @@ public class Travel {
                     ANSI_BLACK + "You are currently logged in as " + data.getUsername() + " with a balance of "
                             + data.getBalance());
             input = Option.showOption(scanner,
-                    "Credits,Start travelling,Manage accounts,Manage balance,Exit system");
+                    "Start travelling,Account Settings,Manage balance,Exit system,Credits");
         } else {
             System.out.println(ANSI_BLACK + "You are not currently logged in, please log in before using any travelling features");
-            input = Option.showOption(scanner, "Credits,Manage accounts");
+            input = Option.showOption(scanner, "Account Settings,Credits");
         }
         if (currentUser != 0) {
-            if (input == 1) {
+            if (input == 5) {
                 // Credits go here
                 showCredits(scanner);
-            } else if (input == 2) {
+            } else if (input == 1) {
                 Travel.askDestination(scanner);
                 // Travelling system
-            } else if (input == 3) {
+            } else if (input == 2) {
                 AccountSystem.displayAccounts(scanner);
                 // Accounts system goes here
-            } else if (input == 4) {
+            } else if (input == 3) {
                 // Balance system goes here
-            } else if (input == 5) {
+            } else if (input == 4) {
                 System.out.println(ANSI_RED + "Exiting System");
                 System.exit(0);
                 // Exits the system
             }
         } else {
-            if (input == 1) {
+            if (input == 2) {
                 // Credits go here
                 showCredits(scanner);
-            } else if (input == 2) {
+            } else if (input == 1) {
                 AccountSystem.displayAccounts(scanner);
             }
         }
