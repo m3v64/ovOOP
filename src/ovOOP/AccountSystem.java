@@ -3,9 +3,7 @@ package ovOOP;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -118,17 +116,5 @@ public class AccountSystem {
     //     System.out.println(ANSI_GREEN + "Account created successfully!");
     //     Travel.startMenu(scanner);
     // }
-
-    static class Account {
-        String username;
-        String password;
-        double balance;
-
-        Account(String username, String password, double balance) {
-            this.username = username;
-            this.password = password;
-            this.balance = balance;
-        }
-    }
 
 }
