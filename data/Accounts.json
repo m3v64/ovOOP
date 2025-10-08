@@ -3,42 +3,42 @@
     "userID": 0,
     "username": "guest",
     "password": "guest",
-    "location": "Dryad",
+    "location": "Dryard",
     "balance": 0.0
   },
   {
     "userID": 1,
     "username": "max",
     "password": "hollowKnightAddicted",
-    "location": "Dryad",
+    "location": "Dryard",
     "balance": 1.0E12
   },
   {
     "userID": 2,
     "username": "morris",
     "password": "t",
-    "location": "Dryad",
+    "location": "Dryard",
     "balance": 1.0E100
   },
   {
     "userID": 3,
     "username": "admin",
     "password": "admin",
-    "location": "Dryad",
+    "location": "Dryard",
     "balance": 1.0E80
   },
   {
     "userID": 4,
     "username": "owen",
     "password": "owen",
-    "location": "Dryad",
+    "location": "Dryard",
     "balance": 999.999999999999
   },
   {
     "userID": 5,
     "username": "daan",
     "password": "Password",
-    "location": "Dryad",
+    "location": "Dryard",
     "balance": 0.0
   }
 ]
