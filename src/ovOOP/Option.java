@@ -40,6 +40,7 @@ public class Option {
                 chosen = 0;
             }
         }
+        scanner.nextLine();
         return chosen;
     }
 }

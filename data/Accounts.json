@@ -21,13 +21,13 @@
     "userID": 3,
     "username": "admin",
     "password": "admin",
-    "balance": 1314.0
+    "balance": 1.0E80
   },
   {
     "userID": 4,
     "username": "owen",
-    "password": "1203039",
-    "balance": 0
+    "password": "owen",
+    "balance": 999.999999999999
   },
   {
     "userID": 5,

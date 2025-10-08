@@ -22,7 +22,8 @@ public class Balance {
                 if (deposit > 0) {
                     balance = balance + deposit;
                     data.setBalance(balance);
-                    System.out.println("Succesfully deposited " + deposit + " to balance (" + balance + ")");
+                    System.out.println("Succesfully deposited " + Travel.ANSI_GREEN + deposit + Travel.ANSI_BLUE
+                            + " to balance (" + Travel.ANSI_GREEN + balance + Travel.ANSI_BLUE + ")");
                     manageBalance(scanner);
                 } else {
                     System.out.println("You cannot deposit numbers smaller than 1");
@@ -41,14 +42,15 @@ public class Balance {
                 double balance = data.getBalance();
 
                 if (withdraw > 0) {
-                    if (balance - withdraw > 0) {
+                    if (balance - withdraw >= 0) {
                         balance = balance - withdraw;
                         data.setBalance(balance);
-                        System.out.println("Succesfully withdrawn " + withdraw + " to balance (" + balance + ")");
+                        System.out.println("Succesfully withdrawn " + Travel.ANSI_GREEN + withdraw + Travel.ANSI_BLUE
+                                + " to balance (" + Travel.ANSI_GREEN + balance + Travel.ANSI_BLUE + ")");
                         manageBalance(scanner);
-                    }
-                    else{
-                        System.out.println("You do not have enough balance to withdraw " + withdraw);
+                    } else {
+                        System.out
+                                .println("You do not have enough balance to withdraw " + Travel.ANSI_GREEN + withdraw);
                         manageBalance(scanner);
                     }
                 } else {
