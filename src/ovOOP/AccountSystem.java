@@ -32,7 +32,7 @@ public class AccountSystem {
     static void logoutSystem(Scanner scanner) {
         Data data = new Data(Main.userID);
         data.setUserID(0);
-        Main.clear();
+        Menu.clear();
         Menu.startMenu(scanner);
     }
     static void loginSystem(Scanner scanner) {

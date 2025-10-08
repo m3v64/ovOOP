@@ -64,4 +64,10 @@ public class Menu {
         System.out.println(Color.ANSI_BLACK + "------------------------------------------");
         startMenu(scanner);
     }
+
+    public static void clear() {
+        for (int i = 0; i < 5000; i++) {
+            System.out.println("\n");
+        }
+    }
 }

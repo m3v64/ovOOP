@@ -7,14 +7,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        clear();
+        Menu.clear();
 
         Menu.startMenu(scanner);
-    }
-
-    public static void clear() {
-        for (int i = 0; i < 5000; i++) {
-            System.out.println("\n");
-        }
     }
 }
