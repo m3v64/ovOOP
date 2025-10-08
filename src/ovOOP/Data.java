@@ -16,11 +16,38 @@ public class Data {
     private String password;
     private double balance;
 
-    public Data(int userID, String username, String password, double balance) {
+    // Constructor that only needs userID
+    public Data(int userID) {
         this.userID = userID;
-        this.username = username;
-        this.password = password;
-        this.balance = balance;
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        try (FileReader reader = new FileReader("data/Accounts.json")) {
+            Type dataListType = new TypeToken<List<Data>>(){}.getType();
+            List<Data> dataList = gson.fromJson(reader, dataListType);
+
+            if (dataList == null) dataList = new ArrayList<>();
+
+            // find the matching user
+            for (Data d : dataList) {
+                if (d.getUserID() == userID) {
+                    this.username = d.username;
+                    this.password = d.password;
+                    this.balance = d.balance;
+                    break;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // fallback in case userID doesn't exist
+        if (this.username == null) {
+            this.username = "guest";
+            this.password = "guest";
+            this.balance = 0.0;
+        }
     }
 
     public int getUserID() {return userID;}
@@ -28,10 +55,14 @@ public class Data {
     public String getPassword() {return password;}
     public double getBalance() {return balance;}
 
-    public void setUserID(int userID) {this.userID = userID; updateJson(this.userID, this.username, this.password, this.balance);}
-    public void setUsername(String username) {this.username = username; updateJson(this.userID, this.username, this.password, this.balance);}
-    public void setPassword(String password) {this.password = password; updateJson(this.userID, this.username, this.password, this.balance);}
-    public void setBalance(double balance) {this.balance = balance; updateJson(this.userID, this.username, this.password, this.balance);}
+    public void setUserID(int userID) {this.userID = userID; updateJson();}
+    public void setUsername(String username) {this.username = username; updateJson();}
+    public void setPassword(String password) {this.password = password; updateJson();}
+    public void setBalance(double balance) {this.balance = balance; updateJson();}
+
+    private void updateJson() {
+        updateJson(this.userID, this.username, this.password, this.balance);
+    }
 
     public static void updateJson(int userID, String newUsername, String newPassword, double newBalance) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
