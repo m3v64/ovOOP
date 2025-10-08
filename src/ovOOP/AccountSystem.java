@@ -27,16 +27,17 @@ public class AccountSystem {
         System.out.println();
         System.out.println(ANSI_CYAN + "Please choose from the following list");
 
-        int accounts = Option.showOption(scanner, "Login,Sign up,Return,Logout");
+        int accounts = Option.showOption(scanner, "Login,Logout,Main Menu");
 
         if (accounts == 1) {
             loginSystem(scanner);
         }
-        if (accounts == 2) {
-            signupSystem(scanner);
-        } if (accounts == 3){
+        // if (accounts == 2) {
+            // signupSystem(scanner);
+        //}
+        if (accounts == 3){
             Travel.startMenu(scanner);
-        } if (accounts == 4) {
+        } if (accounts == 2) {
             logoutSystem(scanner);
         }
     }
@@ -78,40 +79,40 @@ public class AccountSystem {
         Travel.startMenu(scanner);
     }
 
-    static void signupSystem(Scanner scanner) {
-        System.out.println(ANSI_CYAN + "Please enter the name of the account you want to create:");
-        String username = scanner.next().toLowerCase();
-        System.out.println(ANSI_CYAN + "Please enter the password of the account you want to create");
-        String password = scanner.next();
+    // static void signupSystem(Scanner scanner) {
+    //     System.out.println(ANSI_CYAN + "Please enter the name of the account you want to create:");
+    //     String username = scanner.next().toLowerCase();
+    //     System.out.println(ANSI_CYAN + "Please enter the password of the account you want to create");
+    //     String password = scanner.next();
 
-        File file = new File("data/Accounts.json");
+    //     File file = new File("data/Accounts.json");
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    //     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        List<Account> accounts = new ArrayList<>();
+    //     List<Account> accounts = new ArrayList<>();
 
-        if (file.exists()) {
-            try (FileReader reader = new FileReader(file)) {
-                Type accountListType = new TypeToken<List<Account>>() {
-                }.getType();
-                accounts = gson.fromJson(reader, accountListType);
-                if (accounts == null) {
-                    accounts = new ArrayList<>();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+    //     if (file.exists()) {
+    //         try (FileReader reader = new FileReader(file)) {
+    //             Type accountListType = new TypeToken<List<Account>>() {
+    //             }.getType();
+    //             accounts = gson.fromJson(reader, accountListType);
+    //             if (accounts == null) {
+    //                 accounts = new ArrayList<>();
+    //             }
+    //         } catch (Exception e) {
+    //             e.printStackTrace();
+    //         }
+    //     }
 
-        accounts.add(new Account(username, password, 0.00));
-        try (FileWriter writer = new FileWriter(file)) {
-            gson.toJson(accounts, writer);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println(ANSI_GREEN + "Account created successfully!");
-        Travel.startMenu(scanner);
-    }
+    //     accounts.add(new Account(username, password, 0.00));
+    //     try (FileWriter writer = new FileWriter(file)) {
+    //         gson.toJson(accounts, writer);
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    //     System.out.println(ANSI_GREEN + "Account created successfully!");
+    //     Travel.startMenu(scanner);
+    // }
 
     static class Account {
         String username;
