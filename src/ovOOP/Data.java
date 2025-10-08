@@ -16,7 +16,6 @@ public class Data {
     private String password;
     private double balance;
 
-    // Constructor that only needs userID
     public Data(int userID) {
         this.userID = userID;
 
@@ -28,7 +27,6 @@ public class Data {
 
             if (dataList == null) dataList = new ArrayList<>();
 
-            // find the matching user
             for (Data d : dataList) {
                 if (d.getUserID() == userID) {
                     this.username = d.username;
@@ -42,7 +40,6 @@ public class Data {
             e.printStackTrace();
         }
 
-        // fallback in case userID doesn't exist
         if (this.username == null) {
             this.username = "guest";
             this.password = "guest";
@@ -73,7 +70,6 @@ public class Data {
 
             if (dataList == null) dataList = new ArrayList<>();
 
-            // find the user and update
             for (Data d : dataList) {
                 if (d.getUserID() == userID) {
                     d.username = newUsername;
@@ -83,7 +79,6 @@ public class Data {
                 }
             }
 
-            // write it back to file
             try (FileWriter writer = new FileWriter("data/Accounts.json")) {
                 gson.toJson(dataList, writer);
                 System.out.println("User " + userID + " updated successfully!");
