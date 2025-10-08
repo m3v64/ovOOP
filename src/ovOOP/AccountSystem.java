@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 public class AccountSystem {
     static void displayAccounts(Scanner scanner) {
         System.out.println();
-        System.out.println(Travel.ANSI_CYAN + "Please choose from the following list");
+        System.out.println(Color.ANSI_CYAN + "Please choose from the following list");
 
         int accounts = Option.showOption(scanner, "Login,Logout,Main Menu");
 
@@ -37,11 +37,11 @@ public class AccountSystem {
     }
     static void loginSystem(Scanner scanner) {
         System.out.println();
-        System.out.println(Travel.ANSI_CYAN + "Username:");
+        System.out.println(Color.ANSI_CYAN + "Username:");
 
         String username = scanner.next();
 
-        System.out.println(Travel.ANSI_CYAN + "\nPassword:");
+        System.out.println(Color.ANSI_CYAN + "\nPassword:");
         String password = scanner.next();
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -55,13 +55,13 @@ public class AccountSystem {
             for (Data d : dataList) {
                 if (d.getUsername().equalsIgnoreCase(username) && d.getPassword().equals(password)) {
                     Main.userID = d.getUserID();
-                    System.out.println(Travel.ANSI_GREEN + "you have logged in!");
+                    System.out.println(Color.ANSI_GREEN + "you have logged in!");
                     break;
                 }
             }
 
             if (Main.userID == 0) {
-                System.out.println(Travel.ANSI_RED + "that account does not exist.");
+                System.out.println(Color.ANSI_RED + "that account does not exist.");
             }
 
         } catch (Exception e) {
