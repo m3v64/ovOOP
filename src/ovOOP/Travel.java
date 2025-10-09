@@ -4,9 +4,7 @@ public class Travel {
 
     private static double totalCost;
 
-    static double calculateCost(int ticketAmount, boolean businessClass, int distanceTravelling,
-            double conversionRate) {
-
+    static double calculateCost(int ticketAmount, boolean businessClass, int distanceTravelling, double conversionRate) {
         // if (Main.userID == 0){
         // return 0;
         // }
@@ -49,4 +47,5 @@ public class Travel {
         return totalCost;
     }
 
+    
 }
