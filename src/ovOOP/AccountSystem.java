@@ -3,9 +3,7 @@ package ovOOP;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

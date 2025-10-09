@@ -1,5 +1,7 @@
 package ovOOP;
 
+import java.text.DecimalFormat;
+
 public class Color {
     // Reset
     public static final String RESET = "\u001B[0m";
@@ -48,4 +50,9 @@ public class Color {
     public static final String BOLD = "\u001B[1m";
     public static final String UNDERLINE = "\u001B[4m";
     public static final String REVERSED = "\u001B[7m"; // Swaps foreground/background
+
+    public static String withLargeIntegers(double value) {
+        DecimalFormat df = new DecimalFormat("###,###,###");
+        return df.format(value);
+    }
 }

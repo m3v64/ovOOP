@@ -7,12 +7,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // double travelTotalCost = Travel.calculateCost(1000000000, true, 1000000000, 1000000000);
-        // System.out.println(travelTotalCost);
-        Scanner scanner = new Scanner(System.in);
+        Scanner initialScanner = new Scanner(System.in);
 
         Menu.clear();
 
-        Menu.startMenu(scanner);
+        Menu.startMenu(initialScanner);
     }
 }
