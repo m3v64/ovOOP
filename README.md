@@ -1,12 +1,12 @@
 
 
-# MVU Train Ticketing System 🚆
+# ovOOP public transportation System 🚆
 
 [![Java](https://img.shields.io/badge/Java-17+-blue)](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-A **console-based train ticket booking system** in Java using Object-Oriented Programming.
-Book tickets, calculate travel costs dynamically, and save trip history in JSON files.
+A **console-based public transportation system** in Java using Object-Oriented Programming.
+Book tickets, calculate travel costs dynamically, save trip history and so much more.
 
 ---
 
@@ -14,10 +14,8 @@ Book tickets, calculate travel costs dynamically, and save trip history in JSON 
 
 * 🎟 Book tickets with seat class and quantity.
 * 🛤 Calculate costs based on distance, seat class, time, peak hours, and discounts.
-* 💾 Save last origin city per passenger for future trips.
-* 📄 Generate JSON coupons with trip details.
+* 💾 Save user data per passenger for future trips.
 * 📋 Simple console menu for user interaction.
-
 ---
 
 ## **Installation**
@@ -25,8 +23,7 @@ Book tickets, calculate travel costs dynamically, and save trip history in JSON 
 1. Clone the repo:
 
 ```bash
-git clone https://github.com/yourusername/MVU-Train.git
-cd MVU-Train
+git clone https://github.com/m3v64/ovOOP.git
 ```
 
 2. Compile all Java files:
@@ -43,7 +40,7 @@ java ovOOP.Main
 
 ---
 
-## **Usage Example**
+## **Usage Example (outdated)**
 
 ```
 ----------------------------------------
@@ -56,7 +53,6 @@ Welcome to the MVU train company!
 ----------------------------------------
 Please select an option: 1
 
-Available cities: [dryard, timergulch, brittle, staglenhold, eldyard, trasin, swiftlec, lirongrale, ghostle, pearllows, irehole, lighthgro, stormwall, linere]
 You are at Dryard
 Enter destination city: Trasin
 Distance from Dryard to Trasin is 200 km.
@@ -70,39 +66,39 @@ Coupon saved to coupon.json
 
 ```
 ovOOP/
-├─ Main.java
-├─ Menu.java
-├─ AskDestination.java
-├─ TravelTo.java
-├─ CalculateTravelCost.java
-├─ OvTime.java
-├─ Coupon.java
-├─ SaveOrigin.java
-└─ resources/
-   ├─ origin.json
-   └─ coupon.json
+├─ src/ovOOP/
+|     ├─ Main.java
+|     ├─ Menu.java
+|     ├─ AskDestination.java
+|     ├─ TravelTo.java
+|     ├─ CalculateTravelCost.java
+|     ├─ OvTime.java
+|     ├─ Coupon.java
+|     └─ SaveOrigin.java
+└─ data/
+   ├─ Cities.json
+   ├─ TrainLines.json
+   └─ AccountInfo.json
 ```
 
 ---
-
 ## **JSON Storage**
 
-* **origin.json** – Tracks the last origin of each passenger.
-* **coupon.json** – Stores all booked tickets with trip details.
+* **Cities.json** – Stores a list of all cities with available connections.
+* **TrainLines.json** – Stores all currentl active train lines.
+* **AccountInfo.json** – Stores all user information such as, username and booking history.
 
 ---
 
 ## **Notes**
-
 * Only **direct routes** between cities are supported.
-* Ticket prices may vary due to random train conditions.
-* JSON files are created automatically if they don’t exist.
+* Ticket prices may vary due to random conditions.
+* This proram has permission to create JSON files automatically if they don’t exist.
 
 ---
 
 ## **Future Improvements**
 
 * Add indirect routes and route suggestions.
-* Implement user account and balance management.
 * Improve error handling and input validation.
-
+---
