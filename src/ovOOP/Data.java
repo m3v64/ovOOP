@@ -47,7 +47,7 @@ public class Data {
         if (this.username == null) {
             this.username = "guest";
             this.password = "guest";
-            this.location = "Dryard";
+            this.location = "Giad";
             this.balance = 0.0;
         }
     }
