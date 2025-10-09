@@ -11,13 +11,20 @@
     "username": "max",
     "password": "hollowKnightAddicted",
     "location": "Dryard",
-    "balance": 1.0E12
+    "balance": 1.0000000000001E16
   },
   {
     "userID": 2,
     "username": "admin",
     "password": "Administrator",
     "location": "Dryard",
-    "balance": 9.007199254740992E15
+    "balance": 1.7976931348623157E308
+  },
+  {
+    "userID": 3,
+    "username": "owen",
+    "password": "companyOwner",
+    "location": "Dryard",
+    "balance": 10000.0
   }
 ]

@@ -18,7 +18,7 @@ public class Menu {
         if (currentUser != 0) {
             System.out.println(
                     Color.BLACK + "You are currently logged in as " + data.getUsername() + " with a balance of "
-                            + data.getBalance());
+                            +  Color.GREEN + Color.withLargeIntegers(data.getBalance()));
             input = Option.showOption(scanner,
                     "Start travelling,Account Settings,Manage balance,Exit system,Credits");
         } else {

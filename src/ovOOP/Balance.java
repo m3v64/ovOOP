@@ -8,7 +8,7 @@ public class Balance {
         System.out.println(Color.BLUE + "---------------------------------------");
         System.out.println(Color.CYAN + "Please choose from the following options");
         System.out.println(Color.CYAN + "the balance of the user " + data.getUsername() + " is "
-                + Color.GREEN + data.getBalance());
+                + Color.GREEN + Color.withLargeIntegers(data.getBalance()));
         int balanceMenu = Option.showOption(scanner, "Deposit,Withdraw,Main Menu");
 
         if (balanceMenu == 1) {
@@ -22,8 +22,8 @@ public class Balance {
                 if (deposit > 0) {
                     balance = balance + deposit;
                     data.setBalance(balance);
-                    System.out.println("Succesfully deposited " + Color.GREEN + deposit + Color.BLUE
-                            + " to balance (" + Color.GREEN + balance + Color.BLUE + ")");
+                    System.out.println("Succesfully deposited " + Color.GREEN + Color.withLargeIntegers(deposit) + Color.BLUE
+                            + " to balance (" + Color.GREEN + Color.withLargeIntegers(data.getBalance()) + Color.BLUE + ")");
                     manageBalance(scanner);
                 } else {
                     System.out.println("You cannot deposit numbers smaller than 1");
@@ -45,12 +45,12 @@ public class Balance {
                     if (balance - withdraw >= 0) {
                         balance = balance - withdraw;
                         data.setBalance(balance);
-                        System.out.println("Succesfully withdrawn " + Color.GREEN + withdraw + Color.BLUE
-                                + " to balance (" + Color.GREEN + balance + Color.BLUE + ")");
+                        System.out.println("Succesfully withdrawn " + Color.GREEN + Color.withLargeIntegers(withdraw) + Color.BLUE
+                                + " to balance (" + Color.GREEN + Color.withLargeIntegers(data.getBalance()) + Color.BLUE + ")");
                         manageBalance(scanner);
                     } else {
                         System.out
-                                .println("You do not have enough balance to withdraw " + Color.GREEN + withdraw);
+                                .println("You do not have enough balance to withdraw " + Color.GREEN + Color.withLargeIntegers(withdraw));
                         manageBalance(scanner);
                     }
                 } else {
