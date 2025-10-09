@@ -66,8 +66,6 @@ public class Data {
 
 
 public static void addAccount(String username, String password, Scanner scanner) {
-
-
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     List<Data> dataList;
 
@@ -96,7 +94,7 @@ public static void addAccount(String username, String password, Scanner scanner)
     Data newUser = new Data(i);
     newUser.username = username;
     newUser.password = password;
-    newUser.location = "Dryard";
+    newUser.location = "Giad";
     newUser.balance = 0.0;
 
     dataList.add(newUser);
