@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.lang.reflect.Type;
 
+import java.util.Scanner;
+
 public class Data {
     private int userID;
     private String username;
@@ -61,6 +63,56 @@ public class Data {
     public void setPassword(String password) {this.password = password; updateJson();}
     public void setLocation(String location) {this.location = location; updateJson();}
     public void setBalance(double balance) {this.balance = balance; updateJson();}
+
+
+public static void addAccount(String username, String password, Scanner scanner) {
+
+
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    List<Data> dataList;
+
+    try (FileReader reader = new FileReader("data/Accounts.json")) {
+        Type dataListType = new TypeToken<List<Data>>() {}.getType();
+        dataList = gson.fromJson(reader, dataListType);
+        if (dataList == null) dataList = new ArrayList<>();
+    } catch (Exception e) {
+        // If file doesn't exist or can't be read, start fresh
+        dataList = new ArrayList<>();
+    }
+
+    // get highest user id
+    int i = 0;
+    for (Data d : dataList) {
+        i ++;
+
+        if (username.equalsIgnoreCase(d.username)) {
+            System.out.println("That username is already taken, Please choose another");
+            AccountSystem.displayAccounts(scanner);
+            return;
+        }
+    }
+
+    // Create and add new user
+    Data newUser = new Data(i);
+    newUser.username = username;
+    newUser.password = password;
+    newUser.location = "Dryard";
+    newUser.balance = 0.0;
+
+    dataList.add(newUser);
+
+    // Write updated list to file
+    try (FileWriter writer = new FileWriter("data/Accounts.json")) {
+        gson.toJson(dataList, writer);
+        System.out.println("New user added successfully!");
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    Main.userID = i;
+
+    Menu.startMenu(scanner);
+}
 
     private void updateJson() {
         updateJson(this.userID, this.username, this.password, this.location, this.balance);
