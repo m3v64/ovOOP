@@ -25,6 +25,6 @@
     "username": "owen",
     "password": "companyOwner",
     "location": "Dryard",
-    "balance": 10000.0
+    "balance": -1.7976931348623157E308
   }
 ]

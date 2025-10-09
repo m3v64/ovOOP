@@ -53,6 +53,12 @@ public class AccountSystem {
 
         String username = scanner.next();
 
+        if (username.equalsIgnoreCase("guest")) {
+            System.out.println("You cannot use Guest to log in");
+            Menu.startMenu(scanner);
+            return;
+        }
+
         System.out.println(Color.CYAN + "\nPassword:");
         String password = scanner.next();
 
