@@ -1,0 +1,104 @@
+[
+  {
+    "start": "Dryard",
+    "type": 0,
+    "connections": {
+      "TimerGulch": 50,
+      "Brittle": 150,
+      "EldYard": 400,
+      "Trasin": 200,
+      "SwiftLec": 500,
+      "Linere": 300,
+      "Giad": 200
+    },
+    "end": "Giad"
+  },
+  {
+    "start": "Kreutzbeck",
+    "type": 0,
+    "connections": {
+      "Portal": 100,
+      "Sankt Jeder": 100,
+      "Hesturn": 650,
+      "Elektra": 450
+    },
+    "end": "Elektra"
+  },
+  {
+    "start": "Linere",
+    "type": 1,
+    "connections": {
+      "EldYard": 300,
+      "Trasin": 300,
+      "SwiftLec": 200
+    },
+    "end": "SwiftLec"
+  },
+  {
+    "start": "StaglenHold",
+    "type": 1,
+    "connections": {
+      "Irehole": 100,
+      "Lighthgro": 100
+    },
+    "end": "Lighthgro"
+  },
+  {
+    "start": "SwiftLec",
+    "type": 2,
+    "connections": {
+      "Ghostle": 75
+    },
+    "end": "Ghostle"
+  },
+  {
+    "start": "LironGrale",
+    "type": 2,
+    "connections": {
+      "Pearllows": 50
+    },
+    "end": "Pearllows"
+  },
+  {
+    "start": "Linere",
+    "type": 2,
+    "connections": {
+      "Stormwall": 200
+    },
+    "end": "Stormwall"
+  },
+  {
+    "start": "Giad",
+    "type": 2,
+    "connections": {
+      "Portal": 100
+    },
+    "end": "Portal"
+  },
+  {
+    "start": "Kreutzbeck",
+    "type": 1,
+    "connections": {
+      "Heete Birch": 500,
+      "Arcs Styrie": 50,
+      "Charité": 675
+    },
+    "end": "Charité"
+  },
+  {
+    "start": "Charité",
+    "type": 2,
+    "connections": {
+      "Liberté et Égalité": 50
+    },
+    "end": "Liberté et Égalité"
+  },
+  {
+    "start": "Hesturn",
+    "type": 2,
+    "connections": {
+      "Capella": 50
+    },
+    "end": "Capella"
+  }
+]
