@@ -15,30 +15,9 @@
   },
   {
     "userID": 2,
-    "username": "morris",
-    "password": "t",
-    "location": "Dryard",
-    "balance": 1.0E100
-  },
-  {
-    "userID": 3,
     "username": "admin",
-    "password": "admin",
+    "password": "Administrator",
     "location": "Dryard",
-    "balance": 1.0E80
-  },
-  {
-    "userID": 4,
-    "username": "owen",
-    "password": "owen",
-    "location": "Dryard",
-    "balance": 999.999999999999
-  },
-  {
-    "userID": 5,
-    "username": "daan",
-    "password": "Password",
-    "location": "Dryard",
-    "balance": 45.0
+    "balance": 9.007199254740992E15
   }
 ]
