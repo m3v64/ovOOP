@@ -188,8 +188,7 @@ public class Data {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         try (FileReader reader = new FileReader("data/TrainLines.json")) {
-            Type dataListType = new TypeToken<List<Data>>() {
-            }.getType();
+            Type dataListType = new TypeToken<List<Data>>(){}.getType();
             List<Data> dataList = gson.fromJson(reader, dataListType);
 
             if (dataList == null)
@@ -197,19 +196,19 @@ public class Data {
 
             for (Data lineData : dataList) {
                 for (Map.Entry<String, Map<String, Object>> entry : lineData.connections.entrySet()) {
-                    String placeName = entry.getKey();
-                    if (placeName.equalsIgnoreCase(currentLocation)) {
-                        foundLines.add(lineData.line);
-                        break;
+                    Map<String, Object> destinationData = entry.getValue();
+                    for (String placeName : destinationData.keySet()) {
+                        if (placeName.equalsIgnoreCase(currentLocation)) {
+                            foundLines.add(lineData.line);
+                            break;
+                        }
                     }
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // Convert List<Integer> → int[]
         int[] lines = new int[foundLines.size()];
         for (int i = 0; i < foundLines.size(); i++) {
             lines[i] = foundLines.get(i);
@@ -218,4 +217,33 @@ public class Data {
         return lines;
     }
 
+    public static String[] getLine(int line, String currentLocation) {
+        List<Integer> foundConnections = new ArrayList<>();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        try (FileReader reader = new FileReader("data/TrainLines.json")) {
+            Type dataListType = new TypeToken<List<Data>>(){}.getType();
+            List<Data> dataList = gson.fromJson(reader, dataListType);
+
+            if (dataList == null)
+                dataList = new ArrayList<>();
+
+            for (Data lineData : dataList) {
+                for (Map.Entry<String, Map<String, Object>> entry : lineData.connections.entrySet()) {
+                    Map<String, Object> destinationData = entry.getValue();
+                    for (String placeName : destinationData.keySet()) {
+                        if (placeName.equalsIgnoreCase(currentLocation)) {
+                            // for (String commingConnections :)
+                            break;
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String[] connections = new String[foundConnections.size()];
+        return connections;
+    }
 }

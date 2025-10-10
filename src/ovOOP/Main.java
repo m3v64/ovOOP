@@ -1,5 +1,6 @@
 package ovOOP;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -11,6 +12,6 @@ public class Main {
 
         // Menu.startMenu(initialScanner);
 
-        Data.listPossibleLines("Giad");
+        System.out.println(Color.RED + Arrays.toString(Data.listPossibleLines("Giad")) + Color.RESET);
     }
 }
