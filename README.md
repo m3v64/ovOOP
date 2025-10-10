@@ -66,7 +66,7 @@ Coupon saved to coupon.json
 
 ---
 
-## **File Structure**
+## **File Structure (Outdated)**
 
 ```
 ovOOP/
