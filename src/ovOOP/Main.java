@@ -4,13 +4,13 @@ import java.util.Scanner;
 
 public class Main {
     public static int userID = 0;
-
     public static void main(String[] args) {
+        // Scanner initialScanner = new Scanner(System.in);
 
-        Scanner initialScanner = new Scanner(System.in);
+        // Menu.clear();
 
-        Menu.clear();
+        // Menu.startMenu(initialScanner);
 
-        Menu.startMenu(initialScanner);
+        Data.listPossibleLines("Giad");
     }
 }

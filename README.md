@@ -1,5 +1,4 @@
 
-
 # ovOOP public transportation System 🚆
 
 [![Java](https://img.shields.io/badge/Java-17+-blue)](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html)
@@ -16,23 +15,24 @@ Book tickets, calculate travel costs dynamically, save trip history and so much 
 * 🛤 Calculate costs based on distance, seat class, time, peak hours, and discounts.
 * 💾 Save user data per passenger for future trips.
 * 📋 Simple console menu for user interaction.
+
 ---
 
 ## **Installation**
 
-1. Clone the repo:
+1, Clone the repo:
 
 ```bash
 git clone https://github.com/m3v64/ovOOP.git
 ```
 
-2. Compile all Java files:
+2, Compile all Java files:
 
 ```bash
 javac ovOOP/*.java
 ```
 
-3. Run the program:
+3, Run the program:
 
 ```bash
 java ovOOP.Main
@@ -42,7 +42,7 @@ java ovOOP.Main
 
 ## **Usage Example (outdated)**
 
-```
+```txt
 ----------------------------------------
 Welcome to the MVU train company!
 1. Book a Ticket
@@ -64,7 +64,7 @@ Coupon saved to coupon.json
 
 ## **File Structure**
 
-```
+```txt
 ovOOP/
 ├─ src/ovOOP/
 |     ├─ Main.java
@@ -82,6 +82,7 @@ ovOOP/
 ```
 
 ---
+
 ## **JSON Storage**
 
 * **Cities.json** – Stores a list of all cities with available connections.
@@ -91,6 +92,7 @@ ovOOP/
 ---
 
 ## **Notes**
+
 * Only **direct routes** between cities are supported.
 * Ticket prices may vary due to random conditions.
 * This proram has permission to create JSON files automatically if they don’t exist.
@@ -101,4 +103,5 @@ ovOOP/
 
 * Add indirect routes and route suggestions.
 * Improve error handling and input validation.
+
 ---
