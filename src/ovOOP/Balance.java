@@ -22,7 +22,7 @@ public class Balance {
                 if (deposit > 0) {
                     balance = balance + deposit;
                     data.setBalance(balance);
-                    System.out.println("Succesfully deposited " + Color.GREEN + Color.withLargeIntegers(deposit) + Color.BLUE
+                    System.out.println("Successfully deposited " + Color.GREEN + Color.withLargeIntegers(deposit) + Color.BLUE
                             + " to balance (" + Color.GREEN + Color.withLargeIntegers(data.getBalance()) + Color.BLUE + ")");
                     manageBalance(scanner);
                 } else {
@@ -45,7 +45,7 @@ public class Balance {
                     if (balance - withdraw >= 0) {
                         balance = balance - withdraw;
                         data.setBalance(balance);
-                        System.out.println("Succesfully withdrawn " + Color.GREEN + Color.withLargeIntegers(withdraw) + Color.BLUE
+                        System.out.println("Successfully withdrawn " + Color.GREEN + Color.withLargeIntegers(withdraw) + Color.BLUE
                                 + " to balance (" + Color.GREEN + Color.withLargeIntegers(data.getBalance()) + Color.BLUE + ")");
                         manageBalance(scanner);
                     } else {

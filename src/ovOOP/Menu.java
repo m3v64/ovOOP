@@ -3,11 +3,6 @@ package ovOOP;
 import java.util.Scanner;
 
 public class Menu {
-
-    static void askDestination(Scanner scanner) {
-        // travelling system goes here
-    }
-
     static void startMenu(Scanner scanner) {
         System.out.println(Color.BLUE + "---------------------------------------");
         System.out.println(Color.CYAN + "Welcome to OVOOP");
@@ -20,9 +15,9 @@ public class Menu {
                     Color.BLACK + "You are currently logged in as " + data.getUsername() + " with a balance of "
                             +  Color.GREEN + Color.withLargeIntegers(data.getBalance()));
             input = Option.showOption(scanner,
-                    "Start travelling,Account Settings,Manage balance,Exit system,Credits");
+                    "Start traveling,Account Settings,Manage balance,Exit system,Credits");
         } else {
-            System.out.println(Color.BLACK + "You are not currently logged in, please log in before using any travelling features");
+            System.out.println(Color.BLACK + "You are not currently logged in, please log in before using any traveling features");
             input = Option.showOption(scanner, "Account Settings,Credits");
         }
         if (currentUser != 0) {
@@ -30,8 +25,8 @@ public class Menu {
                 // Credits go here
                 showCredits(scanner);
             } else if (input == 1) {
-                Menu.askDestination(scanner);
-                // Travelling system
+                Travel.askDestination(scanner);
+                // Traveling system
             } else if (input == 2) {
                 AccountSystem.displayAccounts(scanner);
                 // Accounts system goes here

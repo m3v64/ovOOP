@@ -64,7 +64,7 @@ public class AccountSystem {
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        try (FileReader reader = new FileReader("data/Accounts.json")) {
+        try (FileReader reader = new FileReader("data/AccountInfo.json")) {
             Type dataListType = new TypeToken<List<Data>>() {
             }.getType();
             List<Data> dataList = gson.fromJson(reader, dataListType);
