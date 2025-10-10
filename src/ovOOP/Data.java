@@ -58,50 +58,17 @@ public class Data {
         }
     }
 
-    public int getUserID() {
-        return userID;
-    }
+    public int getUserID() { return userID; }
+    public String getUsername() { return username; }
+    public String getPassword() { return password; }
+    public String getLocation() { return location; }
+    public double getBalance() { return balance; }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-        updateJson();
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-        updateJson();
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-        updateJson();
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-        updateJson();
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-        updateJson();
-    }
+    public void setUserID(int userID) { this.userID = userID; updateJson(); }
+    public void setUsername(String username) { this.username = username; updateJson(); }
+    public void setPassword(String password) { this.password = password; updateJson(); }
+    public void setLocation(String location) { this.location = location; updateJson(); }
+    public void setBalance(double balance) { this.balance = balance; updateJson(); }
 
     public static void addAccount(String username, String password, Scanner scanner) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -218,7 +185,7 @@ public class Data {
     }
 
     public static String[] getLine(int line, String currentLocation) {
-        List<Integer> foundConnections = new ArrayList<>();
+        List<String> comingStations = new ArrayList<>();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         try (FileReader reader = new FileReader("data/TrainLines.json")) {
@@ -229,21 +196,55 @@ public class Data {
                 dataList = new ArrayList<>();
 
             for (Data lineData : dataList) {
-                for (Map.Entry<String, Map<String, Object>> entry : lineData.connections.entrySet()) {
-                    Map<String, Object> destinationData = entry.getValue();
-                    for (String placeName : destinationData.keySet()) {
-                        if (placeName.equalsIgnoreCase(currentLocation)) {
-                            // for (String commingConnections :)
-                            break;
+                if (lineData.line == line && lineData.connections != null) {
+                    boolean foundCurrent = false;
+                    for (Map.Entry<String, Map<String, Object>> entry : lineData.connections.entrySet()) {
+                        Map<String, Object> destMap = entry.getValue();
+                        for (String city : destMap.keySet()) {
+                            if (foundCurrent) {
+                                comingStations.add(city);
+                            }
+                            if (city.equalsIgnoreCase(currentLocation)) {
+                                foundCurrent = true;
+                            }
                         }
                     }
+                    break;
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        String[] connections = new String[foundConnections.size()];
-        return connections;
+        return comingStations.toArray(new String[0]);
+    }
+
+        public static String[] getLine(int line) {
+        List<String> comingStations = new ArrayList<>();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        try (FileReader reader = new FileReader("data/TrainLines.json")) {
+            Type dataListType = new TypeToken<List<Data>>(){}.getType();
+            List<Data> dataList = gson.fromJson(reader, dataListType);
+
+            if (dataList == null)
+                dataList = new ArrayList<>();
+
+            for (Data lineData : dataList) {
+                if (lineData.line == line && lineData.connections != null) {
+                    for (Map.Entry<String, Map<String, Object>> entry : lineData.connections.entrySet()) {
+                        Map<String, Object> destMap = entry.getValue();
+                        for (String city : destMap.keySet()) {
+                            comingStations.add(city);
+                        }
+                    }
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return comingStations.toArray(new String[0]);
     }
 }

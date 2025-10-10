@@ -12,6 +12,6 @@ public class Main {
 
         // Menu.startMenu(initialScanner);
 
-        System.out.println(Color.RED + Arrays.toString(Data.listPossibleLines("Giad")) + Color.RESET);
+        System.out.println(Color.GREEN + Arrays.toString(Data.listPossibleLines("Giad")) + Color.RESET);
     }
 }
