@@ -24,7 +24,7 @@ public class Data {
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        try (FileReader reader = new FileReader("data/Accounts.json")) {
+        try (FileReader reader = new FileReader("data/AccountInfo.json")) {
             Type dataListType = new TypeToken<List<Data>>(){}.getType();
             List<Data> dataList = gson.fromJson(reader, dataListType);
 
@@ -69,7 +69,7 @@ public static void addAccount(String username, String password, Scanner scanner)
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     List<Data> dataList;
 
-    try (FileReader reader = new FileReader("data/Accounts.json")) {
+    try (FileReader reader = new FileReader("data/AccountInfo.json")) {
         Type dataListType = new TypeToken<List<Data>>() {}.getType();
         dataList = gson.fromJson(reader, dataListType);
         if (dataList == null) dataList = new ArrayList<>();
@@ -100,7 +100,7 @@ public static void addAccount(String username, String password, Scanner scanner)
     dataList.add(newUser);
 
     // Write updated list to file
-    try (FileWriter writer = new FileWriter("data/Accounts.json")) {
+    try (FileWriter writer = new FileWriter("data/AccountInfo.json")) {
         gson.toJson(dataList, writer);
         System.out.println("New user added successfully!");
     } catch (Exception e) {
@@ -119,7 +119,7 @@ public static void addAccount(String username, String password, Scanner scanner)
     public static void updateJson(int userID, String newUsername, String newPassword, String newLocation, double newBalance) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        try (FileReader reader = new FileReader("data/Accounts.json")) {
+        try (FileReader reader = new FileReader("data/AccountInfo.json")) {
             Type dataListType = new TypeToken<List<Data>>(){}.getType();
             List<Data> dataList = gson.fromJson(reader, dataListType);
 
@@ -135,7 +135,7 @@ public static void addAccount(String username, String password, Scanner scanner)
                 }
             }
 
-            try (FileWriter writer = new FileWriter("data/Accounts.json")) {
+            try (FileWriter writer = new FileWriter("data/AccountInfo.json")) {
                 gson.toJson(dataList, writer);
                 System.out.println("User " + userID + " updated successfully!");
             }

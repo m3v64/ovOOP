@@ -1,5 +1,6 @@
 [
   {
+    "line": 0,
     "start": "Dryard",
     "type": 0,
     "connections": {
@@ -14,6 +15,7 @@
     "end": "Giad"
   },
   {
+    "line": 1,
     "start": "Kreutzbeck",
     "type": 0,
     "connections": {
@@ -25,6 +27,7 @@
     "end": "Elektra"
   },
   {
+    "line": 2,
     "start": "Linere",
     "type": 1,
     "connections": {
@@ -35,6 +38,7 @@
     "end": "SwiftLec"
   },
   {
+    "line": 3,
     "start": "StaglenHold",
     "type": 1,
     "connections": {
@@ -44,6 +48,7 @@
     "end": "Lighthgro"
   },
   {
+    "line": 4,
     "start": "SwiftLec",
     "type": 2,
     "connections": {
@@ -52,6 +57,7 @@
     "end": "Ghostle"
   },
   {
+    "line": 5,
     "start": "LironGrale",
     "type": 2,
     "connections": {
@@ -60,6 +66,7 @@
     "end": "Pearllows"
   },
   {
+    "line": 6,
     "start": "Linere",
     "type": 2,
     "connections": {
@@ -68,6 +75,7 @@
     "end": "Stormwall"
   },
   {
+    "line": 7,
     "start": "Giad",
     "type": 2,
     "connections": {
@@ -76,6 +84,7 @@
     "end": "Portal"
   },
   {
+    "line": 8,
     "start": "Kreutzbeck",
     "type": 1,
     "connections": {
@@ -86,6 +95,7 @@
     "end": "Charité"
   },
   {
+    "line": 9,
     "start": "Charité",
     "type": 2,
     "connections": {
@@ -94,6 +104,7 @@
     "end": "Liberté et Égalité"
   },
   {
+    "line": 10,
     "start": "Hesturn",
     "type": 2,
     "connections": {
