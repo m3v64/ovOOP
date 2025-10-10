@@ -6,9 +6,9 @@ public class Balance {
     static void manageBalance(Scanner scanner) {
         Data data = new Data(Main.userID);
         System.out.println(Color.BLUE + "---------------------------------------");
-        System.out.println(Color.CYAN + "Please choose from the following options");
-        System.out.println(Color.CYAN + "the balance of the user " + data.getUsername() + " is "
-                + Color.GREEN + Color.withLargeIntegers(data.getBalance()));
+        System.out.println(Color.BRIGHT_CYAN + "Please choose from the following options");
+        System.out.println(Color.BRIGHT_CYAN + "the balance of the user " + data.getUsername() + " is "
+                + Color.CYAN + Color.withLargeIntegers(data.getBalance()));
         int balanceMenu = Option.showOption(scanner, "Deposit,Withdraw,Main Menu");
 
         if (balanceMenu == 1) {
@@ -22,15 +22,15 @@ public class Balance {
                 if (deposit > 0) {
                     balance = balance + deposit;
                     data.setBalance(balance);
-                    System.out.println("Successfully deposited " + Color.GREEN + Color.withLargeIntegers(deposit) + Color.BLUE
-                            + " to balance (" + Color.GREEN + Color.withLargeIntegers(data.getBalance()) + Color.BLUE + ")");
+                    System.out.println("Successfully deposited " + Color.CYAN + Color.withLargeIntegers(deposit) + Color.BLUE
+                            + " to balance (" + Color.CYAN + Color.withLargeIntegers(data.getBalance()) + Color.BLUE + ")");
                     manageBalance(scanner);
                 } else {
                     System.out.println("You cannot deposit numbers smaller than 1");
                     manageBalance(scanner);
                 }
             } catch (Exception e) {
-                System.out.println(Color.RED + "That is not a valid input!");
+                System.out.println(Color.BRIGHT_BLUE + "That is not a valid input!");
                 manageBalance(scanner);
             }
         } else if (balanceMenu == 2) {
@@ -45,12 +45,12 @@ public class Balance {
                     if (balance - withdraw >= 0) {
                         balance = balance - withdraw;
                         data.setBalance(balance);
-                        System.out.println("Successfully withdrawn " + Color.GREEN + Color.withLargeIntegers(withdraw) + Color.BLUE
-                                + " to balance (" + Color.GREEN + Color.withLargeIntegers(data.getBalance()) + Color.BLUE + ")");
+                        System.out.println("Successfully withdrawn " + Color.CYAN + Color.withLargeIntegers(withdraw) + Color.BLUE
+                                + " to balance (" + Color.CYAN + Color.withLargeIntegers(data.getBalance()) + Color.BLUE + ")");
                         manageBalance(scanner);
                     } else {
                         System.out
-                                .println("You do not have enough balance to withdraw " + Color.GREEN + Color.withLargeIntegers(withdraw));
+                                .println("You do not have enough balance to withdraw " + Color.CYAN + Color.withLargeIntegers(withdraw));
                         manageBalance(scanner);
                     }
                 } else {
@@ -58,7 +58,7 @@ public class Balance {
                     manageBalance(scanner);
                 }
             } catch (Exception e) {
-                System.out.println(Color.RED + "That is not a valid input!");
+                System.out.println(Color.BRIGHT_BLUE + "That is not a valid input!");
                 manageBalance(scanner);
             }
         } else if (balanceMenu == 3) {
