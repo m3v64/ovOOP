@@ -26,5 +26,12 @@
     "password": "companyOwner",
     "location": "Giad",
     "balance": -1.7976931348623157E308
+  },
+  {
+    "userID": 4,
+    "username": "test",
+    "password": "test",
+    "location": "Giad",
+    "balance": 1.0
   }
 ]

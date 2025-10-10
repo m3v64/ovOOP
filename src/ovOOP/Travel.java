@@ -47,7 +47,7 @@ public class Travel {
         Menu.clear();
 
         System.out.println("Please select a country you want to go to:");
-
+        /*
         // get list of countries here
 
         List<String> countries;
@@ -71,7 +71,14 @@ public class Travel {
         double conversionRate = 1;
 
         System.out.println(Travel.calculateCost(isFirstClass, distance, conversionRate));
+        */
 
+        int target = Option.showOption(scanner, "Lines that pass your station,connections,map");
+        switch (target) {
+            case 1: break;
+            case 2: break;
+            case 3: break;
+            default: System.out.println(Color.RED + "That is not a valid option" + Color.RESET); Menu.startMenu(scanner);
+        }
     }
-
 }
