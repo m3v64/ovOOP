@@ -14,6 +14,13 @@
     "balance": 1.0000000000001E16
   },
   {
+    "userID": 999,
+    "username": "morris",
+    "password": "JustCause",
+    "location": "Dryard",
+    "balance": 1.0000000000001E16
+  },
+  {
     "userID": 2,
     "username": "admin",
     "password": "Administrator",
