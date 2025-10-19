@@ -1,7 +1,7 @@
 
 # ovOOP public transportation System 🚆
 
-[![Java](https://img.shields.io/badge/Java-17+-blue)](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html)
+[![Java](https://img.shields.io/badge/Java-21-blue)](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 A **console-based public transportation system** in Java using Object-Oriented Programming.
@@ -26,16 +26,20 @@ Book tickets, calculate travel costs dynamically, save trip history and so much 
 git clone https://github.com/m3v64/ovOOP.git
 ```
 
-2, Compile all Java files:
+2. Build with Maven (recommended)
 
-```bash
-javac ovOOP/*.java
+Install a Java 21 JDK (Adoptium/Temurin or Oracle) and Maven. On Windows you can download Temurin from https://adoptium.net/ or use your package manager.
+
+Then from the project root run:
+
+```powershell
+mvn -v; mvn clean package
 ```
 
-3, Run the program:
+Run the program with:
 
-```bash
-java ovOOP.Main
+```powershell
+mvn exec:java -Dexec.mainClass="ovOOP.Main"
 ```
 
 ---
