@@ -183,7 +183,7 @@ public class Data {
         }
     }
 
-    public static int[] listPossibleLines(String currentLocation) {
+    public static List<Integer> listPossibleLines(String currentLocation) {
         List<Integer> foundLines = new ArrayList<>();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -240,17 +240,9 @@ public class Data {
 
         // Convert List<Integer> → int[]
 
-        System.out.println(foundLines);
 
-        int[] lines = new int[foundLines.size()];
-        for (int i = 0; i < foundLines.size(); i++) {
-            lines[i] = foundLines.get(i);
-        }
-
-        String json = gson.toJson(lines);
-        int[] translatedLines = gson.fromJson(json, int[].class);
-
-        return translatedLines;
+        
+        return foundLines;
     }
 
 }
