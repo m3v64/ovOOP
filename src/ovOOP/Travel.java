@@ -40,43 +40,22 @@ public class Travel {
         return totalCost;
     }
 
-    static void askDestination(Scanner scanner) {
-        // traveling system goes here
+    static void travelMenu(Scanner scanner) {
         Menu.clear();
 
-        System.out.println("Please select a country you want to go to:");
-        /*
-        // get list of countries here
-
-        List<String> countries;
-
-        countries = new ArrayList<>();
-
-        countries.add("Country1");
-
-        countries.add("Country2");
-
-        int target = Option.showOption(scanner, String.join(",", countries));
-
-        System.out.println(countries.get(target - 1));
-
-        int distance = 100;
-
-        // get distance here and set distance variable to it
-
-        boolean isFirstClass = (Option.showOption(scanner, "First class,Second class") == 1);
-
-        double conversionRate = 1;
-
-        System.out.println(Travel.calculateCost(isFirstClass, distance, conversionRate));
-        */
-
-        int target = Option.showOption(scanner, "Lines that pass your station,connections,map");
+        int target = Option.showOption(scanner, "To destination,Lines,Map");
         switch (target) {
             case 1: break;
             case 2: break;
             case 3: break;
             default: System.out.println(Color.RED + "That is not a valid option" + Color.RESET); Menu.startMenu(scanner);
         }
+    }
+
+    static void toDestinationMenu(Scanner scanner) {
+        System.out.println("Enter your destination or type 'map' to go to the map");
+        String input = scanner.nextLine();
+        int i = Data.CITIES.length();
+        System.out.println(i);
     }
 }

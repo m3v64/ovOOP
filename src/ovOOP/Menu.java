@@ -25,8 +25,8 @@ public class Menu {
                 // Credits go here
                 showCredits(scanner);
             } else if (input == 1) {
-                Travel.askDestination(scanner);
-                // Traveling system
+                // Travel Menu
+                Travel.travelMenu(scanner);
             } else if (input == 2) {
                 AccountSystem.displayAccounts(scanner);
                 // Accounts system goes here
