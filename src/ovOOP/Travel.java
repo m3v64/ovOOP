@@ -10,16 +10,11 @@ public class Travel {
         }
 
         double totalCost = 0;
-
         double fuelCostPerLiter = 2.17;
-
         double totalFuelCost = (distanceTraveling / 500.0) * fuelCostPerLiter;
-
-        totalCost += totalFuelCost;
-
-        double randomFactor = Math.random() * 0.3 + 1; // Random increase
-
-        totalCost *= randomFactor * (randomFactor / 2);
+        totalCost += totalFuelCost; // total fuel cost
+        double randomFactor = Math.random() * 0.3 + 1;
+        totalCost *= randomFactor * (randomFactor / 2); // random factor
 
         if (businessClass) {
             totalCost *= 1.7;
@@ -28,13 +23,9 @@ public class Travel {
         }
 
         totalCost *= 1.09; // taxes
-
-        totalCost *= 1.20; // Profit margin
-
-        totalCost += 2; //Base price
-
-        totalCost *= conversionRate; // Conversion between currencies
-
+        totalCost *= 1.20; // margin
+        totalCost += 2; // adition for minimal cost
+        totalCost *= conversionRate; // conversion rate for different currencies
         totalCost = Math.round(totalCost * 100) / 100.0;
 
         return totalCost;
@@ -55,7 +46,5 @@ public class Travel {
     static void toDestinationMenu(Scanner scanner) {
         System.out.println("Enter your destination or type 'map' to go to the map");
         String input = scanner.nextLine();
-        int i = Data.CITIES.length();
-        System.out.println(i);
     }
 }

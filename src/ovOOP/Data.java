@@ -14,7 +14,7 @@ import java.lang.reflect.Type;
 import java.util.Scanner;
 
 public class Data {
-    public final String CITIES[] = ["Dryard","TimerGulch","Brittle","StaglenHold","EldYard","Trasin","SwiftLec","LironGrale","Ghostle","Pearllows","Irehole","Lighthgro","Stormwall","Linere","Giad","Portal","Heete Birch","Arcs Styrie","Charité","Liberté et Égalité","Kreutzbeck","Sankt Jeder","Hesturn","Capella","Elektra"]
+    public final String CITIES[] = {"Dryard","TimerGulch","Brittle","StaglenHold","EldYard","Trasin","SwiftLec","LironGrale","Ghostle","Pearllows","Irehole","Lighthgro","Stormwall","Linere","Giad","Portal","Heete Birch","Arcs Styrie","Charité","Liberté et Égalité","Kreutzbeck","Sankt Jeder","Hesturn","Capella","Elektra"};
 
     private int userID;
     private String username;
