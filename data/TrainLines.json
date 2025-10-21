@@ -4,30 +4,14 @@
     "start": "Dryard",
     "type": 0,
     "connections": {
-      "destination0": {
-        "Dryard": { "distance": 0 }
-      },
-      "destination1": {
-        "TimerGulch": { "distance": 50 }
-      },
-      "destination2": {
-        "Brittle": { "distance": 150 }
-      },
-      "destination3": {
-        "EldYard": { "distance": 400 }
-      },
-      "destination4": {
-        "Trasin": { "distance": 200 }
-      },
-      "destination5": {
-        "SwiftLec": { "distance": 500 }
-      },
-      "destination6": {
-        "Linere": { "distance": 300 }
-      },
-      "destination7": {
+        "Dryard": { "distance": 0 },
+        "TimerGulch": { "distance": 50 },
+        "Brittle": { "distance": 150 },
+        "EldYard": { "distance": 400 },
+        "Trasin": { "distance": 200 },
+        "SwiftLec": { "distance": 500 },
+        "Linere": { "distance": 300 },
         "Giad": { "distance": 200 }
-      }
     },
     "end": "Giad"
   },
@@ -36,21 +20,11 @@
     "start": "Kreutzbeck",
     "type": 0,
     "connections": {
-      "destination0": {
-        "Kreutzbeck": { "distance": 0 }
-      },
-      "destination1": {
-        "Portal": { "distance": 100 }
-      },
-      "destination2": {
-        "Sankt Jeder": { "distance": 100 }
-      },
-      "destination3": {
-        "Hesturn": { "distance": 650 }
-      },
-      "destination4": {
+        "Kreutzbeck": { "distance": 0 },
+        "Portal": { "distance": 100 },
+        "Sankt Jeder": { "distance": 100 },
+        "Hesturn": { "distance": 650 },
         "Elektra": { "distance": 450 }
-      }
     },
     "end": "Elektra"
   },
@@ -59,18 +33,11 @@
     "start": "Linere",
     "type": 1,
     "connections": {
-      "destination0": {
-        "Linere": { "distance": 0 }
-      },
-      "destination1": {
-        "EldYard": { "distance": 300 }
-      },
-      "destination2": {
-        "Trasin": { "distance": 300 }
-      },
-      "destination3": {
+        "Linere": { "distance": 0 },
+        "EldYard": { "distance": 300 },
+        "Trasin": { "distance": 300 },
         "SwiftLec": { "distance": 200 }
-      }
+
     },
     "end": "SwiftLec"
   },
@@ -79,15 +46,10 @@
     "start": "StaglenHold",
     "type": 1,
     "connections": {
-      "destination0": {
-        "StaglenHold": { "distance": 0 }
-      },
-      "destination1": {
-        "Irehole": { "distance": 100 }
-      },
-      "destination2": {
+        "StaglenHold": { "distance": 0 },
+        "Irehole": { "distance": 100 },
         "Lighthgro": { "distance": 100 }
-      }
+
     },
     "end": "Lighthgro"
   },
@@ -96,12 +58,8 @@
     "start": "SwiftLec",
     "type": 2,
     "connections": {
-      "destination0": {
-        "SwiftLec": { "distance": 0 }
-      },
-      "destination1": {
+        "SwiftLec": { "distance": 0 },
         "Ghostle": { "distance": 75 }
-      }
     },
     "end": "Ghostle"
   },
@@ -110,12 +68,8 @@
     "start": "LironGrale",
     "type": 2,
     "connections": {
-      "destination0": {
-        "LironGrale": { "distance": 0 }
-      },
-      "destination1": {
+        "LironGrale": { "distance": 0 },
         "Pearllows": { "distance": 50 }
-      }
     },
     "end": "Pearllows"
   },
@@ -124,12 +78,8 @@
     "start": "Linere",
     "type": 2,
     "connections": {
-      "destination0": {
-        "Linere": { "distance": 0 }
-      },
-      "destination1": {
+        "Linere": { "distance": 0 },
         "Stormwall": { "distance": 200 }
-      }
     },
     "end": "Stormwall"
   },
@@ -138,12 +88,10 @@
     "start": "Giad",
     "type": 2,
     "connections": {
-      "destination0": {
-        "Giad": { "distance": 0 }
-      },
-      "destination1": {
-        "Portal": { "distance": 100 }
-      }
+
+      "Giad": { "distance": 0 },
+      "Portal": { "distance": 100 }
+
     },
     "end": "Portal"
   },
@@ -152,46 +100,30 @@
     "start": "Kreutzbeck",
     "type": 1,
     "connections": {
-      "destination0": {
-        "Kreutzbeck": { "distance": 0 }
-      },
-      "destination1": {
-        "Heete Birch": { "distance": 500 }
-      },
-      "destination2": {
-        "Arcs Styrie": { "distance": 50 }
-      },
-      "destination3": {
-        "Charité": { "distance": 675 }
-      }
+        "Kreutzbeck": { "distance": 0 },
+        "Heete Birch": { "distance": 500 },
+        "Arcs Styrie": { "distance": 50 },
+        "Charite": { "distance": 675 }
     },
-    "end": "Charité"
+    "end": "Charite"
   },
   {
     "line": 9,
-    "start": "Charité",
+    "start": "Charite",
     "type": 2,
     "connections": {
-      "destination0": {
-        "Charité": { "distance": 0 }
-      },
-      "destination1": {
-        "Liberté et Égalité": { "distance": 50 }
-      }
+        "Charite": { "distance": 0 },
+        "Liberte et Egalite": { "distance": 50 }
     },
-    "end": "Liberté et Égalité"
+    "end": "Liberte et Egalite"
   },
   {
     "line": 10,
     "start": "Hesturn",
     "type": 2,
     "connections": {
-      "destination0": {
-        "Hesturn": { "distance": 0 }
-      },
-      "destination1": {
+        "Hesturn": { "distance": 0 },
         "Capella": { "distance": 50 }
-      }
     },
     "end": "Capella"
   }

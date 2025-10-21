@@ -187,35 +187,70 @@ public class Data {
         List<Integer> foundLines = new ArrayList<>();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        try (FileReader reader = new FileReader("data/TrainLines.json")) {
-            Type dataListType = new TypeToken<List<Data>>() {
-            }.getType();
-            List<Data> dataList = gson.fromJson(reader, dataListType);
+        java.io.Reader reader = null;
+        try {
+            // Prefer filesystem file if present, otherwise try classpath resource
+            java.io.File file = new java.io.File("data/TrainLines.json");
+            if (file.exists()) {
+                reader = new java.io.FileReader(file);
+            } else {
+                java.io.InputStream is = Data.class.getResourceAsStream("/data/TrainLines.json");
+                if (is != null) {
+                    reader = new java.io.InputStreamReader(is, java.nio.charset.StandardCharsets.UTF_8);
+                } else {
+                    System.err.println("TrainLines.json not found in filesystem or classpath");
+                }
+            }
 
-            if (dataList == null)
-                dataList = new ArrayList<>();
+            if (reader != null) {
+                Type dataListType = new TypeToken<List<Data>>() {
+                }.getType();
+                List<Data> dataList = gson.fromJson(reader, dataListType);
 
-            for (Data lineData : dataList) {
-                for (Map.Entry<String, Map<String, Object>> entry : lineData.connections.entrySet()) {
-                    String placeName = entry.getKey();
-                    if (placeName.equalsIgnoreCase(currentLocation)) {
-                        foundLines.add(lineData.line);
-                        break;
+                if (dataList == null)
+                    dataList = new ArrayList<>();
+
+                for (Data lineData : dataList) {
+                    if (lineData == null || lineData.connections == null)
+                        continue;
+
+                    for (Map.Entry<String, Map<String, Object>> entry : lineData.connections.entrySet()) {
+                        String placeName = entry.getKey();
+                        if (placeName != null && placeName.equalsIgnoreCase(currentLocation)) {
+                            foundLines.add(lineData.line);
+                            
+                            break;
+                        }
                     }
                 }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (Exception ignored) {
+                }
+            }
         }
 
+
+
         // Convert List<Integer> → int[]
+
+        System.out.println(foundLines);
+
         int[] lines = new int[foundLines.size()];
         for (int i = 0; i < foundLines.size(); i++) {
             lines[i] = foundLines.get(i);
         }
 
-        return lines;
+        String json = gson.toJson(lines);
+        int[] translatedLines = gson.fromJson(json, int[].class);
+
+        return translatedLines;
     }
 
 }
