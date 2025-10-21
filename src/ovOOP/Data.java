@@ -238,9 +238,6 @@ public class Data {
 
 
 
-        // Convert List<Integer> → int[]
-
-
         
         return foundLines;
     }
