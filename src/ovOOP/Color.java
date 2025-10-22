@@ -52,7 +52,7 @@ public class Color {
     public static final String REVERSED = "\u001B[7m"; // Swaps foreground/background
 
     public static String withLargeIntegers(double value) {
-        DecimalFormat df = new DecimalFormat("###,###,###.00");
+        DecimalFormat df = new DecimalFormat("###,###,##0.00");
         return df.format(value);
     }
 }

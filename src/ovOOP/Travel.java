@@ -54,16 +54,17 @@ public class Travel {
 
         System.out.println(Color.CYAN + "Please select a country you want to go to:" + Color.RESET);
 
-        // get list of countries here
+
 
         String origin = data.getLocation();
 
-        List<String> countries;
+        List<String> countries = new ArrayList<>();
 
-        countries = new ArrayList<>();
+        for (int i : data.listPossibleLines(data.getLocation())) {
+            countries.add(Integer.toString(i));
+        }
 
-        countries.add("Country1");
-        countries.add("Country2");
+        
 
         int target = Option.showOption(scanner, String.join(",", countries));
 

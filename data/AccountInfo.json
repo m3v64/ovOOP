@@ -46,5 +46,13 @@
     "location": "Giad",
     "balance": -1.0E131,
     "line": 0
+  },
+  {
+    "userID": 6,
+    "username": "test",
+    "password": "test",
+    "location": "Giad",
+    "balance": 1000.0,
+    "line": 0
   }
 ]
