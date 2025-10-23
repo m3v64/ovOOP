@@ -26,15 +26,21 @@ public class Menu {
             input = Option.showOption(scanner, "Account Settings,Credits");
         }
         if (currentUser != 0) {
-            switch (input) {
-                case 1 -> Travel.askDestination(scanner);
-                case 2 -> AccountSystem.displayAccounts(scanner);
-                case 3 -> Balance.manageBalance(scanner);
-                case 4 -> {
-                    System.out.println(Color.BRIGHT_BLUE + "Exiting System. Goodbye!");
-                    System.exit(0);
-                }
-                case 5 -> showCredits(scanner);
+            if (input == 5) {
+                // Credits go here
+                showCredits(scanner);
+            } else if (input == 1) {
+                // Travel Menu
+                Travel.travelMenu(scanner);
+            } else if (input == 2) {
+                AccountSystem.displayAccounts(scanner);
+                // Accounts system goes here
+            } else if (input == 3) {
+                Balance.manageBalance(scanner);
+            } else if (input == 4) {
+                System.out.println(Color.RED + "Exiting System");
+                System.exit(0);
+                // Exits the system
             }
         } else {
             switch (input) {
