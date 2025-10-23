@@ -4,17 +4,16 @@ import java.util.Scanner;
 
 public class MenuSystem {
     static void startMenu(Scanner scanner) {
-System.out.println(ColorSystem.BLUE + "+------------------------------------------------+");
-System.out.println(ColorSystem.BLUE + "|                                                |");
-System.out.println(ColorSystem.CYAN + "|   _______ ___    _________ _______ ________    |");
-System.out.println(ColorSystem.CYAN + "|   __  __ \\__ |  / /__  __ \\__  __ \\___  __ \\   |");
-System.out.println(ColorSystem.CYAN + "|   _  / / /__ | / / _  / / /_  / / /__  /_/ /   |");
-System.out.println(ColorSystem.CYAN + "|   / /_/ / __ |/ /  / /_/ / / /_/ / _  ____/    |");
-System.out.println(ColorSystem.CYAN + "|   \\____/  _____/   \\____/  \\____/  /_/         |");
-System.out.println(ColorSystem.BLUE + "|                                                |");
-System.out.println(ColorSystem.BLUE + "+------------------------------------------------+");
-System.out.println(ColorSystem.BLUE + "=======================================");
-        System.out.println(ColorSystem.CYAN + "Please choose from the following options:");
+        System.out.println(ColorSystem.BLUE + "+------------------------------------------------+");
+        System.out.println(ColorSystem.BLUE + "|                                                |");
+        System.out.println(ColorSystem.CYAN + "|   _______ ___    _________ _______ ________    |");
+        System.out.println(ColorSystem.CYAN + "|   __  __ \\__ |  / /__  __ \\__  __ \\___  __ \\   |");
+        System.out.println(ColorSystem.CYAN + "|   _  / / /__ | / / _  / / /_  / / /__  /_/ /   |");
+        System.out.println(ColorSystem.CYAN + "|   / /_/ / __ |/ /  / /_/ / / /_/ / _  ____/    |");
+        System.out.println(ColorSystem.CYAN + "|   \\____/  _____/   \\____/  \\____/  /_/         |");
+        System.out.println(ColorSystem.BLUE + "|                                                |");
+        System.out.println(ColorSystem.BLUE + "+------------------------------------------------+");
+        System.out.println(ColorSystem.BLUE + "=======================================");
         int input = 0;
         DataSystem data = new DataSystem(Main.userID);
         int currentUser = data.getUserID();

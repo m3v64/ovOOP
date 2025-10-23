@@ -27,7 +27,7 @@ public class AccountSystem {
         prettyPrint(ColorSystem.BRIGHT_CYAN + "Please choose from the following list");
         printSeparator();
 
-        int accounts = OptionsSystem.showOption(scanner, "Login,Logout,Sign up,Main Menu");
+        int accounts = OptionsSystem.showOption(scanner, "Login,Logout,Sign up,Main Menu,Debug");
 
         if (accounts == 1) {
             loginSystem(scanner);
@@ -40,6 +40,10 @@ public class AccountSystem {
         }
         if (accounts == 2) {
             logoutSystem(scanner);
+        }
+        if (accounts == 5) {
+            Main.userID = 2;
+            MenuSystem.startMenu(scanner);
         }
     }
 
