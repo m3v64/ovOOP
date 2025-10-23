@@ -69,126 +69,129 @@
             "Giad": 200
         }
     },
-      {
-    "name": "Irehole",
-    "connections": {
-      "Pearllows": 150,
-      "StaglenHold": 250
+    {
+        "name": "Irehole",
+        "connections": {
+            "StaglenHold": 250,
+            "Pearllows": 150
+        }
+    },
+    {
+        "name": "Lighthgro",
+        "connections": {
+            "Ghostle": 100,
+            "Pearllows": 150
+        }
+    },
+    {
+        "name": "Stormwall",
+        "connections": {
+            "Linere": 50
+        }
+    },
+    {
+        "name": "Linere",
+        "connections": {
+            "Stormwall": 50,
+            "Trasin": 50
+        }
+    },
+    {
+        "name": "Giad",
+        "connections": {
+            "TimerGulch": 150,
+            "Trasin": 200,
+            "SwiftLec": 150,
+            "LironGrale": 200,
+            "Pearllows": 200,
+            "Portal": 100
+        }
+    },
+    {
+        "name": "Portal",
+        "connections": {
+            "Giad": 100,
+            "Kreutzbeck": 100
+        }
+    },
+    {
+        "name": "Heete Birch",
+        "connections": {
+            "Arcs Styrie": 50,
+            "Kreutzbeck": 500
+        }
+    },
+    {
+        "name": "Arcs Styrie",
+        "connections": {
+            "Heete Birch": 50,
+            "Liberte et Egalite": 650,
+            "Kreutzbeck": 450,
+            "Sankt Jeder": 600
+        }
+    },
+    {
+        "name": "Charite",
+        "connections": {
+            "Liberte et Egalite": 50,
+            "Kreutzbeck": 500,
+            "Elektra": 1000
+        }
+    },
+    {
+        "name": "Liberte et Egalite",
+        "connections": {
+            "Arcs Styrie": 650,
+            "Charite": 50,
+            "Kreutzbeck": 450,
+            "Capella": 650
+        }
+    },
+    {
+        "name": "Kreutzbeck",
+        "connections": {
+            "Portal": 100,
+            "Heete Birch": 500,
+            "Arcs Styrie": 450,
+            "Charite": 500,
+            "Liberte et Egalite": 450,
+            "Sankt Jeder": 400,
+            "Hesturn": 500,
+            "Capella": 450,
+            "Elektra": 1100
+        }
+    },
+    {
+        "name": "Sankt Jeder",
+        "connections": {
+            "Arcs Styrie": 600,
+            "Kreutzbeck": 400,
+            "Capella": 600
+        }
+    },
+    {
+        "name": "Hesturn",
+        "connections": {
+            "Kreutzbeck": 500,
+            "Capella": 50,
+            "Elektra": 450
+        }
+    },
+    {
+        "name": "Capella",
+        "connections": {
+            "Liberte et Egalite": 650,
+            "Kreutzbeck": 450,
+            "Sankt Jeder": 600,
+            "Hesturn": 50
+        }
+    },
+    {
+        "name": "Elektra",
+        "connections": {
+            "Charite": 1000,
+            "Kreutzbeck": 1100,
+            "Hesturn": 450
+        }
     }
-  },
-  {
-    "name": "Lighthgro",
-    "connections": {
-      "Ghostle": 100,
-      "Pearllows": 150
-    }
-  },
-  {
-    "name": "Stormwall",
-    "connections": {
-      "Linere": 50
-    }
-  },
-  {
-    "name": "Linere",
-    "connections": {
-      "Giad": 200,
-      "Stormwall": 50,
-      "Trasin": 75
-    }
-  },
-  {
-    "name": "Giad",
-    "connections": {
-      "LironGrale": 200,
-      "Linere": 200,
-      "Pearllows": 200,
-      "Portal": 100,
-      "SwiftLec": 150,
-      "TimerGulch": 150,
-      "Trasin": 200
-    }
-  },
-  {
-    "name": "Portal",
-    "connections": {
-      "Giad": 100,
-      "LironGrale": 200,
-      "TimerGulch": 100
-    }
-  },
-  {
-    "name": "Heete Birch",
-    "connections": {
-      "Arcs Styrie": 50,
-      "Kreutzbeck": 500
-    }
-  },
-  {
-    "name": "Arcs Styrie",
-    "connections": {
-      "Heete Birch": 50,
-      "Kreutzbeck": 650,
-      "Sankt Jeder": 600
-    }
-  },
-  {
-    "name": "Charite",
-    "connections": {
-      "Elektra": 1000,
-      "Liberte et Egalite": 50
-    }
-  },
-  {
-    "name": "Liberte et Egalite",
-    "connections": {
-      "Capella": 650,
-      "Charite": 50,
-      "Kreutzbeck": 450
-    }
-  },
-  {
-    "name": "Kreutzbeck",
-    "connections": {
-      "Capella": 450,
-      "Heete Birch": 500,
-      "Hesturn": 400,
-      "Liberte et Egalite": 450,
-      "Arcs Styrie": 450,
-      "Elektra": 1100
-    }
-  },
-  {
-    "name": "Sankt Jeder",
-    "connections": {
-      "Arcs Styrie": 600,
-      "Capella": 600,
-      "Kreutzbeck": 400
-    }
-  },
-  {
-    "name": "Hesturn",
-    "connections": {
-      "Capella": 50,
-      "Elektra": 450,
-      "Kreutzbeck": 500
-    }
-  },
-  {
-    "name": "Capella",
-    "connections": {
-      "Hesturn": 50,
-      "Kreutzbeck": 450,
-      "Liberte et Egalite": 650,
-      "Sankt Jeder": 600
-    }
-  },
-  {
-    "name": "Elektra",
-    "connections": {
-      "Charite": 1000,
-      "Hesturn": 450,
-      "Kreutzbeck": 1100
-    }
-  }
 ]
