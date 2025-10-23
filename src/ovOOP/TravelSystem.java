@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.management.monitor.MonitorNotification;
+
 public class TravelSystem {
 
     static double calculateCost(boolean businessClass, int distanceTraveling, double conversionRate) {
@@ -135,6 +137,8 @@ public class TravelSystem {
 
 
         data.setLocation(cities.get(target));
+
+        MenuSystem.startMenu(scanner);
 
     }
 }
