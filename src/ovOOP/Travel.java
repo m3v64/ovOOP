@@ -115,9 +115,11 @@ public class Travel {
 
         
 
-        int target = Option.showOption(scanner, String.join(",", cities));
+        int target = Option.showOption(scanner, String.join(",", cities)) - 1;
 
-        System.out.println(Color.BRIGHT_BLUE + "Selected destination: " + Color.BRIGHT_CYAN + cities.get(target - 1) + Color.RESET);
+        
+
+        System.out.println(Color.BRIGHT_BLUE + "Selected destination: " + Color.BRIGHT_CYAN + cities.get(target) + Color.RESET);
 
         int distance = 100;
 
@@ -129,7 +131,10 @@ public class Travel {
 
         double totalCost = Travel.calculateCost(isFirstClass, distance, conversionRate);
 
-        Travel.CreateInvoice(scanner, totalCost, isFirstClass, origin, cities.get(target - 1), "OVOOP");
+        Travel.CreateInvoice(scanner, totalCost, isFirstClass, origin, cities.get(target), "OVOOP");
+
+
+        data.setLocation(cities.get(target));
 
     }
 }
