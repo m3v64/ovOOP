@@ -47,4 +47,5 @@ public class Travel {
         System.out.println("Enter your destination or type 'map' to go to the map");
         String input = scanner.nextLine();
     }
+    // test
 }
