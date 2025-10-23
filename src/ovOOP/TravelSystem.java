@@ -105,8 +105,6 @@ public class TravelSystem {
 
         System.out.println(ColorSystem.CYAN + "Please select a country you want to go to:" + ColorSystem.RESET);
 
-
-
         String origin = data.getLocation();
 
         List<String> cities = new ArrayList<>();
@@ -115,11 +113,7 @@ public class TravelSystem {
              cities.add(i);
         }
 
-        
-
-        int target = OptionsSystem.showOption(scanner, String.join(",", cities)) - 1;
-
-        
+        int target = OptionsSystem.showOption(scanner, String.join(",", cities)) - 1;  
 
         System.out.println(ColorSystem.BRIGHT_BLUE + "Selected destination: " + ColorSystem.BRIGHT_CYAN + cities.get(target) + ColorSystem.RESET);
 

@@ -1,19 +1,16 @@
 package ovOOP;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static int userID = 0;
 
     public static void main(String[] args) {
-
-
         Scanner initialScanner = new Scanner(System.in);
 
         MenuSystem.clear();
 
         MenuSystem.startMenu(initialScanner);
-
-        //System.out.println(Data.listPossibleLines("Liberte et Egalite"));
     }
 }

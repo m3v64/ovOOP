@@ -2,10 +2,13 @@ package ovOOP;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +17,10 @@ import java.lang.reflect.Type;
 import java.util.Scanner;
 
 public class DataSystem {
-    public final String CITIES[] = {"Dryard","TimerGulch","Brittle","StaglenHold","EldYard","Trasin","SwiftLec","LironGrale","Ghostle","Pearllows","Irehole","Lighthgro","Stormwall","Linere","Giad","Portal","Heete Birch","Arcs Styrie","Charité","Liberté et Égalité","Kreutzbeck","Sankt Jeder","Hesturn","Capella","Elektra"};
+    public final String CITIES[] = { "Dryard", "TimerGulch", "Brittle", "StaglenHold", "EldYard", "Trasin", "SwiftLec",
+            "LironGrale", "Ghostle", "Pearllows", "Irehole", "Lighthgro", "Stormwall", "Linere", "Giad", "Portal",
+            "Heete Birch", "Arcs Styrie", "Charité", "Liberté et Égalité", "Kreutzbeck", "Sankt Jeder", "Hesturn",
+            "Capella", "Elektra" };
 
     private int userID;
     private String username;
@@ -22,8 +28,9 @@ public class DataSystem {
     private String location;
     private double balance;
 
-    public Map<String, Map<String, Object>> connections;
-    public int line;
+    private Map<String, Map<String, Object>> connections;
+    private int line;
+    private String start;
 
     public DataSystem(int userID) {
         this.userID = userID;
@@ -60,17 +67,50 @@ public class DataSystem {
         }
     }
 
-    public int getUserID() { return userID; }
-    public String getUsername() { return username; }
-    public String getPassword() { return password; }
-    public String getLocation() { return location; }
-    public double getBalance() { return balance; }
+    public int getUserID() {
+        return userID;
+    }
 
-    public void setUserID(int userID) { this.userID = userID; updateJson(); }
-    public void setUsername(String username) { this.username = username; updateJson(); }
-    public void setPassword(String password) { this.password = password; updateJson(); }
-    public void setLocation(String location) { this.location = location; updateJson(); }
-    public void setBalance(double balance) { this.balance = balance; updateJson(); }
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+        updateJson();
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+        updateJson();
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+        updateJson();
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+        updateJson();
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+        updateJson();
+    }
 
     public static void addAccount(String username, String password, Scanner scanner) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -154,61 +194,44 @@ public class DataSystem {
 
     public static List<Integer> listPossibleLines(String currentLocation) {
         List<Integer> foundLines = new ArrayList<>();
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Gson gson = new Gson();
 
-        java.io.Reader reader = null;
-        try {
-            // Prefer filesystem file if present, otherwise try classpath resource
-            java.io.File file = new java.io.File("data/TrainLines.json");
-            if (file.exists()) {
-                reader = new java.io.FileReader(file);
-            } else {
-                java.io.InputStream is = DataSystem.class.getResourceAsStream("/data/TrainLines.json");
-                if (is != null) {
-                    reader = new java.io.InputStreamReader(is, java.nio.charset.StandardCharsets.UTF_8);
+        try (Reader reader = new FileReader("data/TrainLines.json")) {
+            Type dataListType = new TypeToken<List<DataSystem>>() {
+            }.getType();
+            List<DataSystem> dataList = gson.fromJson(reader, dataListType);
+
+            if (dataList == null)
+                return foundLines;
+
+            for (DataSystem lineData : dataList) {
+                if (lineData == null || lineData.connections == null)
+                    continue;
+
+                boolean foundMatch = false;
+
+                if (lineData.start.equalsIgnoreCase(currentLocation)) {
+                    foundMatch = true;
                 } else {
-                    System.err.println("TrainLines.json not found in filesystem or classpath");
-                }
-            }
-
-            if (reader != null) {
-                Type dataListType = new TypeToken<List<DataSystem>>() {
-                }.getType();
-                List<DataSystem> dataList = gson.fromJson(reader, dataListType);
-
-                if (dataList == null)
-                    dataList = new ArrayList<>();
-
-                for (DataSystem lineData : dataList) {
-                    if (lineData == null || lineData.connections == null)
-                        continue;
-
-                    for (Map.Entry<String, Map<String, Object>> entry : lineData.connections.entrySet()) {
-                        String placeName = entry.getKey();
+                    for (String placeName : lineData.connections.keySet()) {
                         if (placeName != null && placeName.equalsIgnoreCase(currentLocation)) {
-                            foundLines.add(lineData.line);
-                            
+                            foundMatch = true;
                             break;
                         }
                     }
                 }
-            }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (Exception ignored) {
+                if (foundMatch) {
+                    foundLines.add(lineData.line);
                 }
             }
+        } catch (IOException e) {
+            System.err.println("Error reading TrainLines.json: " + e.getMessage());
+        } catch (JsonSyntaxException e) {
+            System.err.println("Malformed JSON in TrainLines.json: " + e.getMessage());
         }
 
-
-
-        
-        return foundLines;
+        return new ArrayList<>(foundLines);
     }
 
     public static String[] getLine(int line, String currentLocation) {
@@ -216,7 +239,8 @@ public class DataSystem {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         try (FileReader reader = new FileReader("data/TrainLines.json")) {
-            Type dataListType = new TypeToken<List<DataSystem>>(){}.getType();
+            Type dataListType = new TypeToken<List<DataSystem>>() {
+            }.getType();
             List<DataSystem> dataList = gson.fromJson(reader, dataListType);
 
             if (dataList == null)
@@ -246,12 +270,13 @@ public class DataSystem {
         return comingStations.toArray(new String[0]);
     }
 
-        public static String[] getLine(int line) {
+    public static String[] getLine(int line) {
         List<String> comingStations = new ArrayList<>();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         try (FileReader reader = new FileReader("data/TrainLines.json")) {
-            Type dataListType = new TypeToken<List<DataSystem>>(){}.getType();
+            Type dataListType = new TypeToken<List<DataSystem>>() {
+            }.getType();
             List<DataSystem> dataList = gson.fromJson(reader, dataListType);
 
             if (dataList == null)
