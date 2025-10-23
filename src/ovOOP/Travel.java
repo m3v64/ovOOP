@@ -58,17 +58,17 @@ public class Travel {
 
         String origin = data.getLocation();
 
-        List<String> countries = new ArrayList<>();
+        List<String> cities = new ArrayList<>();
 
         for (int i : data.listPossibleLines(data.getLocation())) {
-            countries.add(Integer.toString(i));
+            cities.add(Integer.toString(i));
         }
 
         
 
-        int target = Option.showOption(scanner, String.join(",", countries));
+        int target = Option.showOption(scanner, String.join(",", cities));
 
-        System.out.println(Color.BRIGHT_BLUE + "Selected destination: " + Color.BRIGHT_CYAN + countries.get(target - 1) + Color.RESET);
+        System.out.println(Color.BRIGHT_BLUE + "Selected destination: " + Color.BRIGHT_CYAN + cities.get(target - 1) + Color.RESET);
 
         int distance = 100;
 
@@ -80,7 +80,7 @@ public class Travel {
 
         double totalCost = Travel.calculateCost(isFirstClass, distance, conversionRate);
 
-        Travel.CreateInvoice(scanner, totalCost, isFirstClass, origin, countries.get(target - 1), "OVOOP");
+        Travel.CreateInvoice(scanner, totalCost, isFirstClass, origin, cities.get(target - 1), "OVOOP");
 
     }
 
