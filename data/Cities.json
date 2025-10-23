@@ -2,99 +2,70 @@
     {
         "name": "Dryard",
         "connections": {
-            "TimerGulch": 50,
-            "Brittle": 150,
-            "EldYard": 400,
-            "Trasin": 200,
-            "SwiftLec": 500,
-            "Linere": 300,
-            "Giad": 200
+            "Brittle": 100
         }
     },
     {
         "name": "TimerGulch",
         "connections": {
-            "Dryard": 50,
-            "Brittle": 130,
-            "Linere": 200,
-            "Giad": 200
+            "EldYard": 200,
+            "Giad": 150
         }
     },
     {
         "name": "Brittle",
         "connections": {
-            "Dryard": 150,
-            "TimerGulch": 100,
-            "Linere": 200,
-            "Giad": 200
+            "Dryard": 100,
+            "StaglenHold": 150
         }
     },
     {
         "name": "StaglenHold",
         "connections": {
-            "Brittle": 100,
-            "Irehole": 100,
-            "Lighthgro": 100,
-            "Linere": 200,
-            "Giad": 200
+            "Brittle": 150,
+            "SwiftLec": 175,
+            "Irehole": 250
         }
     },
     {
         "name": "EldYard",
         "connections": {
-            "Dryard": 400,
-            "Trasin": 300,
-            "SwiftLec": 500,
-            "Stormwall": 75,
-            "Linere": 300,
-            "Giad": 200
+            "TimerGulch": 200,
+            "LironGrale": 400
         }
     },
     {
         "name": "Trasin",
         "connections": {
-            "Dryard": 200,
-            "EldYard": 300,
-            "SwiftLec": 200,
-            "LironGrale": 100,
-            "Linere": 200,
+            "Linere": 75,
             "Giad": 200
         }
     },
     {
         "name": "SwiftLec",
         "connections": {
-            "Dryard": 500,
-            "EldYard": 500,
-            "Trasin": 200,
-            "LironGrale": 75,
-            "Stormwall": 200,
-            "Linere": 200,
-            "Giad": 200
+            "StaglenHold": 175,
+            "Giad": 150
         }
     },
     {
         "name": "LironGrale",
         "connections": {
-            "Trasin": 100,
-            "Pearllows": 50,
-            "Linere": 200,
+            "EldYard": 400,
             "Giad": 200
         }
     },
     {
         "name": "Ghostle",
         "connections": {
-            "SwiftLec": 75,
-            "Linere": 200,
-            "Giad": 200
+            "Lighthgro": 100
         }
     },
     {
         "name": "Pearllows",
         "connections": {
-            "LironGrale": 50,
-            "Linere": 200,
+            "Irehole": 150,
+            "Lighthgro": 150,
             "Giad": 200
         }
     },
