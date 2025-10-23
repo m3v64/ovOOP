@@ -87,7 +87,7 @@ public class TravelSystem {
 
         int target = OptionsSystem.showOption(scanner, "To destination,Lines,Map");
         switch (target) {
-            case 1: toDestinationMenu(scanner);;
+            case 1: toDestinationMenu(scanner);
             case 2: break;
             case 3: break;
             default: System.out.println(ColorSystem.RED + "That is not a valid option" + ColorSystem.RESET); MenuSystem.startMenu(scanner);
