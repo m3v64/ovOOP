@@ -8,9 +8,9 @@ public class Main {
     public static void main(String[] args) {
         Scanner initialScanner = new Scanner(System.in);
 
-        Menu.clear();
+        MenuSystem.clear();
 
-        Menu.startMenu(initialScanner);
+        MenuSystem.startMenu(initialScanner);
 
         //System.out.println(Data.listPossibleLines("Liberte et Egalite"));
     }

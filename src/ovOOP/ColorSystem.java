@@ -2,7 +2,7 @@ package ovOOP;
 
 import java.text.DecimalFormat;
 
-public class Color {
+public class ColorSystem {
     // Reset
     public static final String RESET = "\u001B[0m";
 

@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 
 import java.util.Scanner;
 
-public class Data {
+public class DataSystem {
     public final String CITIES[] = {"Dryard","TimerGulch","Brittle","StaglenHold","EldYard","Trasin","SwiftLec","LironGrale","Ghostle","Pearllows","Irehole","Lighthgro","Stormwall","Linere","Giad","Portal","Heete Birch","Arcs Styrie","Charité","Liberté et Égalité","Kreutzbeck","Sankt Jeder","Hesturn","Capella","Elektra"};
 
     private int userID;
@@ -25,20 +25,20 @@ public class Data {
     public Map<String, Map<String, Object>> connections;
     public int line;
 
-    public Data(int userID) {
+    public DataSystem(int userID) {
         this.userID = userID;
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         try (FileReader reader = new FileReader("data/AccountInfo.json")) {
-            Type dataListType = new TypeToken<List<Data>>() {
+            Type dataListType = new TypeToken<List<DataSystem>>() {
             }.getType();
-            List<Data> dataList = gson.fromJson(reader, dataListType);
+            List<DataSystem> dataList = gson.fromJson(reader, dataListType);
 
             if (dataList == null)
                 dataList = new ArrayList<>();
 
-            for (Data d : dataList) {
+            for (DataSystem d : dataList) {
                 if (d.getUserID() == userID) {
                     this.username = d.username;
                     this.password = d.password;
@@ -74,10 +74,10 @@ public class Data {
 
     public static void addAccount(String username, String password, Scanner scanner) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        List<Data> dataList;
+        List<DataSystem> dataList;
 
         try (FileReader reader = new FileReader("data/AccountInfo.json")) {
-            Type dataListType = new TypeToken<List<Data>>() {
+            Type dataListType = new TypeToken<List<DataSystem>>() {
             }.getType();
             dataList = gson.fromJson(reader, dataListType);
             if (dataList == null)
@@ -87,7 +87,7 @@ public class Data {
         }
 
         int i = 0;
-        for (Data d : dataList) {
+        for (DataSystem d : dataList) {
             i++;
 
             if (username.equalsIgnoreCase(d.username)) {
@@ -97,7 +97,7 @@ public class Data {
             }
         }
 
-        Data newUser = new Data(i);
+        DataSystem newUser = new DataSystem(i);
         newUser.username = username;
         newUser.password = password;
         newUser.location = "Giad";
@@ -114,7 +114,7 @@ public class Data {
 
         Main.userID = i;
 
-        Menu.startMenu(scanner);
+        MenuSystem.startMenu(scanner);
     }
 
     private void updateJson() {
@@ -126,14 +126,14 @@ public class Data {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         try (FileReader reader = new FileReader("data/AccountInfo.json")) {
-            Type dataListType = new TypeToken<List<Data>>() {
+            Type dataListType = new TypeToken<List<DataSystem>>() {
             }.getType();
-            List<Data> dataList = gson.fromJson(reader, dataListType);
+            List<DataSystem> dataList = gson.fromJson(reader, dataListType);
 
             if (dataList == null)
                 dataList = new ArrayList<>();
 
-            for (Data d : dataList) {
+            for (DataSystem d : dataList) {
                 if (d.getUserID() == userID) {
                     d.username = newUsername;
                     d.password = newPassword;
@@ -163,7 +163,7 @@ public class Data {
             if (file.exists()) {
                 reader = new java.io.FileReader(file);
             } else {
-                java.io.InputStream is = Data.class.getResourceAsStream("/data/TrainLines.json");
+                java.io.InputStream is = DataSystem.class.getResourceAsStream("/data/TrainLines.json");
                 if (is != null) {
                     reader = new java.io.InputStreamReader(is, java.nio.charset.StandardCharsets.UTF_8);
                 } else {
@@ -172,14 +172,14 @@ public class Data {
             }
 
             if (reader != null) {
-                Type dataListType = new TypeToken<List<Data>>() {
+                Type dataListType = new TypeToken<List<DataSystem>>() {
                 }.getType();
-                List<Data> dataList = gson.fromJson(reader, dataListType);
+                List<DataSystem> dataList = gson.fromJson(reader, dataListType);
 
                 if (dataList == null)
                     dataList = new ArrayList<>();
 
-                for (Data lineData : dataList) {
+                for (DataSystem lineData : dataList) {
                     if (lineData == null || lineData.connections == null)
                         continue;
 
@@ -216,13 +216,13 @@ public class Data {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         try (FileReader reader = new FileReader("data/TrainLines.json")) {
-            Type dataListType = new TypeToken<List<Data>>(){}.getType();
-            List<Data> dataList = gson.fromJson(reader, dataListType);
+            Type dataListType = new TypeToken<List<DataSystem>>(){}.getType();
+            List<DataSystem> dataList = gson.fromJson(reader, dataListType);
 
             if (dataList == null)
                 dataList = new ArrayList<>();
 
-            for (Data lineData : dataList) {
+            for (DataSystem lineData : dataList) {
                 if (lineData.line == line && lineData.connections != null) {
                     boolean foundCurrent = false;
                     for (Map.Entry<String, Map<String, Object>> entry : lineData.connections.entrySet()) {
@@ -251,13 +251,13 @@ public class Data {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         try (FileReader reader = new FileReader("data/TrainLines.json")) {
-            Type dataListType = new TypeToken<List<Data>>(){}.getType();
-            List<Data> dataList = gson.fromJson(reader, dataListType);
+            Type dataListType = new TypeToken<List<DataSystem>>(){}.getType();
+            List<DataSystem> dataList = gson.fromJson(reader, dataListType);
 
             if (dataList == null)
                 dataList = new ArrayList<>();
 
-            for (Data lineData : dataList) {
+            for (DataSystem lineData : dataList) {
                 if (lineData.line == line && lineData.connections != null) {
                     for (Map.Entry<String, Map<String, Object>> entry : lineData.connections.entrySet()) {
                         Map<String, Object> destMap = entry.getValue();
