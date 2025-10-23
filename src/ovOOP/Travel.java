@@ -1,5 +1,7 @@
 package ovOOP;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Travel {
@@ -31,12 +33,59 @@ public class Travel {
         return totalCost;
     }
 
+    static void CreateInvoice(Scanner scanner, double totalCost, boolean isFirstClass, String origin,
+            String destination, String trainCompany) {
+        System.out.println(Color.BRIGHT_BLUE + "Would you like to print your invoice?" + Color.RESET);
+        boolean willPrint = (Option.showOption(scanner, "Yes,No") == 1);
+
+        if (!willPrint) {
+            Menu.startMenu(scanner);
+            return;
+        }
+        int invoiceId = (int) (Math.random() * 900000) + 100000; // 100000 to 999999
+
+        System.out.println(Color.BRIGHT_CYAN + "====================================================");
+        System.out.println(
+                Color.BRIGHT_BLUE + Color.BOLD + trainCompany + " Transport - INVOICE #" + invoiceId + Color.RESET);
+        System.out.println(Color.BRIGHT_CYAN + "====================================================");
+        System.out.println(Color.CYAN + "Thank you for using " + trainCompany + " Transport for your traveling!" + Color.RESET);
+        System.out.println(Color.BRIGHT_CYAN + "----------------------------------------------------");
+        Data data = new Data(Main.userID);
+        System.out.println(Color.BRIGHT_CYAN + "Invoice to: " + Color.BRIGHT_CYAN + data.getUsername() + Color.RESET);
+        System.out.println(Color.BRIGHT_CYAN + "----------------------------------------------------");
+        System.out.println(Color.BRIGHT_BLUE + "From: " + Color.BRIGHT_CYAN + origin + Color.RESET + 
+                           Color.BRIGHT_BLUE + "  To: " + Color.BRIGHT_CYAN + destination + Color.RESET);
+        System.out.println(Color.BRIGHT_CYAN + "----------------------------------------------------");
+
+        // Base fare
+        double baseFare = 2.00;
+        System.out.println(Color.BRIGHT_CYAN + "Base fare      : " + Color.BRIGHT_BLUE + Color.withLargeIntegers(baseFare) + Color.RESET);
+
+        // Fixed VAT and profit
+        double vat = 0.03;
+        double profitMargin = 0.07;
+        System.out.println(Color.BRIGHT_CYAN + "VAT (9%)       : " + Color.BRIGHT_BLUE + Color.withLargeIntegers(vat) + Color.RESET);
+        System.out.println(Color.BRIGHT_CYAN + "Profit Margin  : " + Color.BRIGHT_BLUE + Color.withLargeIntegers(profitMargin) + Color.RESET);
+
+        // Travel price
+        double travelPrice = 0.37;
+        System.out.println(Color.BRIGHT_CYAN + "Travel price   : " + Color.BRIGHT_BLUE + Color.withLargeIntegers(travelPrice) + Color.RESET);
+
+        // Total cost
+        totalCost = baseFare + vat + profitMargin + travelPrice;
+        System.out.println(Color.BRIGHT_CYAN + "----------------------------------------------------");
+        System.out.println(Color.BRIGHT_CYAN + Color.BOLD + "Total price    : " + Color.BRIGHT_CYAN + Color.withLargeIntegers(totalCost) + Color.RESET);
+
+        System.out.println(Color.BRIGHT_CYAN + "====================================================" + Color.RESET);
+
+    }
+
     static void travelMenu(Scanner scanner) {
         Menu.clear();
 
         int target = Option.showOption(scanner, "To destination,Lines,Map");
         switch (target) {
-            case 1: break;
+            case 1: toDestinationMenu(scanner);;
             case 2: break;
             case 3: break;
             default: System.out.println(Color.RED + "That is not a valid option" + Color.RESET); Menu.startMenu(scanner);
@@ -44,8 +93,43 @@ public class Travel {
     }
 
     static void toDestinationMenu(Scanner scanner) {
-        System.out.println("Enter your destination or type 'map' to go to the map");
-        String input = scanner.nextLine();
+        Menu.clear();
+
+        Data data = new Data(Main.userID);
+
+        System.out.println(Color.BRIGHT_CYAN + "╔════════════════════════════════════════════════════╗");
+        System.out.println(Color.BRIGHT_BLUE + "  You are currently at: " + Color.BRIGHT_CYAN + data.getLocation());
+        System.out.println(Color.BRIGHT_CYAN + "╚════════════════════════════════════════════════════╝" + Color.RESET);
+
+        System.out.println(Color.CYAN + "Please select a country you want to go to:" + Color.RESET);
+
+
+
+        String origin = data.getLocation();
+
+        List<String> cities = new ArrayList<>();
+
+         for (String i : data.CITIES) {
+             cities.add(i);
+        }
+
+        
+
+        int target = Option.showOption(scanner, String.join(",", cities));
+
+        System.out.println(Color.BRIGHT_BLUE + "Selected destination: " + Color.BRIGHT_CYAN + cities.get(target - 1) + Color.RESET);
+
+        int distance = 100;
+
+        // get distance here and set distance variable to it
+
+        boolean isFirstClass = (Option.showOption(scanner, "First class,Second class") == 1);
+
+        double conversionRate = 1;
+
+        double totalCost = Travel.calculateCost(isFirstClass, distance, conversionRate);
+
+        Travel.CreateInvoice(scanner, totalCost, isFirstClass, origin, cities.get(target - 1), "OVOOP");
+
     }
-    // test
 }
