@@ -22,17 +22,56 @@ public class MapGenerationSystem {
     public void displayMap(int mapWidth, int mapHeight) {
         String[] generatedMap = generateEmptyMap(mapWidth, mapHeight);
 
-        generatedMap = paintMapLine(0, 0, 6, 6, generatedMap, 1);
-
-        generatedMap = paintMapLine(0, 30, 6, 11, generatedMap, 1);
-
-        generatedMap = paintMapSquare(6, 6, generatedMap, 1, 5, 5);
-
-        //generatedMap = paintMapPixel(1, 1, generatedMap, 2);
+        generateMap(mapHeight, mapWidth, generatedMap);
 
         for (String row : generatedMap) {
             System.out.println(row);
         }
+    }
+
+    public String[] generateMap(int mapHeight, int mapWidth, String[] mapArray) {
+        String[] generatedMap = mapArray;
+
+        int baseX = 10;
+
+        int baseY = 15;
+
+        int[] generatedDistance = generateCity(baseX, baseY, 100);
+
+        generatedMap = paintMapLine(baseX, baseY, generatedDistance[1] + baseX, generatedDistance[0] + baseY,
+                generatedMap, 2);
+
+        paintMapSquare(baseX + generatedDistance[1], baseY + generatedDistance[0], generatedMap, 5, 3, 2);
+
+        generatedDistance = generateCity(baseX, baseY, 500);
+
+        generatedMap = paintMapLine(baseX, baseY, generatedDistance[1] + baseX, generatedDistance[0] + baseY,
+                generatedMap, 2);
+
+        paintMapSquare(baseX + generatedDistance[1], baseY + generatedDistance[0], generatedMap, 5, 3, 2);
+
+        generatedMap = paintMapSquare(baseX, baseY, generatedMap, 1, 3, 2);
+
+        return generatedMap;
+    }
+
+    public int[] generateCity(int baseX, int baseY, int distance) {
+
+        int totalDistance = distance / 30;
+
+        double randomFactor = Math.random() * 2;
+
+        System.out.println(randomFactor);
+
+        int yDistance = (int) (totalDistance * randomFactor) + 1;
+
+        int xDistance = totalDistance - yDistance + 3;
+
+        System.out.println(xDistance + " + " + yDistance + " = " + totalDistance);
+
+        int[] generatedDistance = { yDistance, xDistance };
+
+        return generatedDistance;
     }
 
     public String[] paintMapLine(int x1, int y1, int x2, int y2, String[] mapArray, int pickedColor) {
@@ -91,6 +130,7 @@ public class MapGenerationSystem {
             case 2 -> color = ColorSystem.WHITE_BG;
             case 3 -> color = ColorSystem.BLACK_BG;
             case 4 -> color = ColorSystem.BRIGHT_GREEN_BG;
+            case 5 -> color = ColorSystem.BRIGHT_BLACK_BG;
             default -> color = ColorSystem.BRIGHT_GREEN_BG;
         }
 
