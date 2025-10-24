@@ -28,7 +28,7 @@ public class MapGenerationSystem {
 
         generatedMap = paintMapSquare(6, 6, generatedMap, 1, 5, 5);
 
-        // generatedMap = paintMapPixel(1, 1, generatedMap, 2);
+        //generatedMap = paintMapPixel(1, 1, generatedMap, 2);
 
         for (String row : generatedMap) {
             System.out.println(row);

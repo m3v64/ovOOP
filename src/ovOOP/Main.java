@@ -9,7 +9,7 @@ public class Main {
 
         MapGenerationSystem initialMapGenerator = new MapGenerationSystem();
 
-        initialMapGenerator.displayMap(100,35);
+        initialMapGenerator.displayMap(35,100);
 
         // Scanner initialScanner = new Scanner(System.in);
 
