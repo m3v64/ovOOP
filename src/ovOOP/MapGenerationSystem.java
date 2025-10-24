@@ -4,12 +4,12 @@ import java.util.regex.Pattern;
 
 public class MapGenerationSystem {
 
-    public String[] generateMap(int mapWidth, int mapHeight) {
-        String[] mapRows = new String[mapHeight];
+    public String[] generateEmptyMap(int mapWidth, int mapHeight) {
+        String[] mapRows = new String[mapWidth];
 
-        for (int i = 0; i < mapHeight; i++) {
+        for (int i = 0; i < mapWidth; i++) {
             StringBuilder row = new StringBuilder();
-            for (int j = 0; j < mapWidth; j++) {
+            for (int j = 0; j < mapHeight; j++) {
 
                 row.append(ColorSystem.BRIGHT_GREEN_BG).append(" ").append(ColorSystem.RESET);
             }
@@ -20,7 +20,7 @@ public class MapGenerationSystem {
     }
 
     public void displayMap(int mapWidth, int mapHeight) {
-        String[] generatedMap = generateMap(mapWidth, mapHeight);
+        String[] generatedMap = generateEmptyMap(mapWidth, mapHeight);
 
         generatedMap = paintMapLine(0, 0, 6, 6, generatedMap, 1);
 
