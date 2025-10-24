@@ -14,7 +14,7 @@ public class TravelSystem {
 
     int[] trainLineTransfers; // structure [from, to, from, to]
     String[] passingCities; // structure ["giad", "etc..."]
-    int distanceTraveld; 
+    int distanceTraveld;
 
     public TravelSystem(int[] trainLineTransfers, String[] passingCities, int distanceTraveld) {
         this.trainLineTransfers = trainLineTransfers;
@@ -30,7 +30,8 @@ public class TravelSystem {
         if (passingCities != null) {
             for (int i = 0; i < passingCities.length; i++) {
                 sb.append(passingCities[i]);
-                if (i < passingCities.length - 1) sb.append(", ");
+                if (i < passingCities.length - 1)
+                    sb.append(", ");
             }
         }
         sb.append("], trainLineTransfers=");
@@ -38,7 +39,8 @@ public class TravelSystem {
         if (trainLineTransfers != null) {
             for (int i = 0; i < trainLineTransfers.length; i++) {
                 sb.append(trainLineTransfers[i]);
-                if (i < trainLineTransfers.length - 1) sb.append(", ");
+                if (i < trainLineTransfers.length - 1)
+                    sb.append(", ");
             }
         }
         sb.append("]}");
@@ -85,37 +87,46 @@ public class TravelSystem {
 
         System.out.println(ColorSystem.BRIGHT_CYAN + "====================================================");
         System.out.println(
-                ColorSystem.BRIGHT_BLUE + ColorSystem.BOLD + trainCompany + " Transport - INVOICE #" + invoiceId + ColorSystem.RESET);
+                ColorSystem.BRIGHT_BLUE + ColorSystem.BOLD + trainCompany + " Transport - INVOICE #" + invoiceId
+                        + ColorSystem.RESET);
         System.out.println(ColorSystem.BRIGHT_CYAN + "====================================================");
-        System.out.println(ColorSystem.CYAN + "Thank you for using " + trainCompany + " Transport for your traveling!" + ColorSystem.RESET);
+        System.out.println(ColorSystem.CYAN + "Thank you for using " + trainCompany + " Transport for your traveling!"
+                + ColorSystem.RESET);
         System.out.println(ColorSystem.BRIGHT_CYAN + "----------------------------------------------------");
         DataSystem data = new DataSystem(Main.userID);
-        System.out.println(ColorSystem.BRIGHT_CYAN + "Invoice to: " + ColorSystem.BRIGHT_CYAN + data.getUsername() + ColorSystem.RESET);
+        System.out.println(ColorSystem.BRIGHT_CYAN + "Invoice to: " + ColorSystem.BRIGHT_CYAN + data.getUsername()
+                + ColorSystem.RESET);
         System.out.println(ColorSystem.BRIGHT_CYAN + "----------------------------------------------------");
-        System.out.println(ColorSystem.BRIGHT_BLUE + "From: " + ColorSystem.BRIGHT_CYAN + origin + ColorSystem.RESET + 
-                           ColorSystem.BRIGHT_BLUE + "  To: " + ColorSystem.BRIGHT_CYAN + destination + ColorSystem.RESET);
+        System.out.println(ColorSystem.BRIGHT_BLUE + "From: " + ColorSystem.BRIGHT_CYAN + origin + ColorSystem.RESET +
+                ColorSystem.BRIGHT_BLUE + "  To: " + ColorSystem.BRIGHT_CYAN + destination + ColorSystem.RESET);
         System.out.println(ColorSystem.BRIGHT_CYAN + "----------------------------------------------------");
 
         // Base fare
         double baseFare = 2.00;
-        System.out.println(ColorSystem.BRIGHT_CYAN + "Base fare      : " + ColorSystem.BRIGHT_BLUE + ColorSystem.withLargeIntegers(baseFare) + ColorSystem.RESET);
+        System.out.println(ColorSystem.BRIGHT_CYAN + "Base fare      : " + ColorSystem.BRIGHT_BLUE
+                + ColorSystem.withLargeIntegers(baseFare) + ColorSystem.RESET);
 
         // Fixed VAT and profit
         double vat = 0.03;
         double profitMargin = 0.07;
-        System.out.println(ColorSystem.BRIGHT_CYAN + "VAT (9%)       : " + ColorSystem.BRIGHT_BLUE + ColorSystem.withLargeIntegers(vat) + ColorSystem.RESET);
-        System.out.println(ColorSystem.BRIGHT_CYAN + "Profit Margin  : " + ColorSystem.BRIGHT_BLUE + ColorSystem.withLargeIntegers(profitMargin) + ColorSystem.RESET);
+        System.out.println(ColorSystem.BRIGHT_CYAN + "VAT (9%)       : " + ColorSystem.BRIGHT_BLUE
+                + ColorSystem.withLargeIntegers(vat) + ColorSystem.RESET);
+        System.out.println(ColorSystem.BRIGHT_CYAN + "Profit Margin  : " + ColorSystem.BRIGHT_BLUE
+                + ColorSystem.withLargeIntegers(profitMargin) + ColorSystem.RESET);
 
         // Travel price
         double travelPrice = 0.37;
-        System.out.println(ColorSystem.BRIGHT_CYAN + "Travel price   : " + ColorSystem.BRIGHT_BLUE + ColorSystem.withLargeIntegers(travelPrice) + ColorSystem.RESET);
+        System.out.println(ColorSystem.BRIGHT_CYAN + "Travel price   : " + ColorSystem.BRIGHT_BLUE
+                + ColorSystem.withLargeIntegers(travelPrice) + ColorSystem.RESET);
 
         // Total cost
         totalCost = baseFare + vat + profitMargin + travelPrice;
         System.out.println(ColorSystem.BRIGHT_CYAN + "----------------------------------------------------");
-        System.out.println(ColorSystem.BRIGHT_CYAN + ColorSystem.BOLD + "Total price    : " + ColorSystem.BRIGHT_CYAN + ColorSystem.withLargeIntegers(totalCost) + ColorSystem.RESET);
+        System.out.println(ColorSystem.BRIGHT_CYAN + ColorSystem.BOLD + "Total price    : " + ColorSystem.BRIGHT_CYAN
+                + ColorSystem.withLargeIntegers(totalCost) + ColorSystem.RESET);
 
-        System.out.println(ColorSystem.BRIGHT_CYAN + "====================================================" + ColorSystem.RESET);
+        System.out.println(
+                ColorSystem.BRIGHT_CYAN + "====================================================" + ColorSystem.RESET);
 
     }
 
@@ -124,11 +135,28 @@ public class TravelSystem {
 
         int target = OptionsSystem.showOption(scanner, "To destination,Lines,Map");
         switch (target) {
-            case 1: toDestinationMenu(scanner);
-            case 2: break;
-            case 3: break;
-            default: System.out.println(ColorSystem.RED + "That is not a valid option" + ColorSystem.RESET); MenuSystem.startMenu(scanner);
+            case 1:
+                toDestinationMenu(scanner);
+                break;
+            case 2:
+                break;
+            case 3:
+                mapMenu(scanner);
+                break;
+            default:
+                System.out.println(ColorSystem.RED + "That is not a valid option" + ColorSystem.RESET);
+                MenuSystem.startMenu(scanner);
         }
+    }
+
+    static void mapMenu(Scanner scanner) {
+        MapGenerationSystem initialMapGenerator = new MapGenerationSystem();
+
+        initialMapGenerator.displayMap(35, 100);
+
+        scanner.nextLine();
+
+        TravelSystem.travelMenu(scanner);
     }
 
     static void toDestinationMenu(Scanner scanner) {
@@ -137,20 +165,23 @@ public class TravelSystem {
         DataSystem data = new DataSystem(Main.userID);
 
         System.out.println(ColorSystem.BRIGHT_CYAN + "╔════════════════════════════════════════════════════╗");
-        System.out.println(ColorSystem.BRIGHT_BLUE + "  You are currently at: " + ColorSystem.BRIGHT_CYAN + data.getLocation());
-        System.out.println(ColorSystem.BRIGHT_CYAN + "╚════════════════════════════════════════════════════╝" + ColorSystem.RESET);
+        System.out.println(
+                ColorSystem.BRIGHT_BLUE + "  You are currently at: " + ColorSystem.BRIGHT_CYAN + data.getLocation());
+        System.out.println(
+                ColorSystem.BRIGHT_CYAN + "╚════════════════════════════════════════════════════╝" + ColorSystem.RESET);
 
         System.out.println(ColorSystem.CYAN + "Please select a country you want to go to:" + ColorSystem.RESET);
 
         List<String> cities = new ArrayList<>();
 
-         for (String i : data.CITIES) {
-             cities.add(i);
+        for (String i : data.CITIES) {
+            cities.add(i);
         }
 
-        int target = OptionsSystem.showOption(scanner, String.join(",", cities)) - 1;  
+        int target = OptionsSystem.showOption(scanner, String.join(",", cities)) - 1;
 
-        System.out.println(ColorSystem.BRIGHT_BLUE + "Selected destination: " + ColorSystem.BRIGHT_CYAN + cities.get(target) + ColorSystem.RESET);
+        System.out.println(ColorSystem.BRIGHT_BLUE + "Selected destination: " + ColorSystem.BRIGHT_CYAN
+                + cities.get(target) + ColorSystem.RESET);
 
         // find route method implementation
 
@@ -160,7 +191,8 @@ public class TravelSystem {
         DataSystem data = new DataSystem(Main.userID);
         String source = data.getLocation();
         List<String> emptyResult = new ArrayList<>();
-        if (source == null) return new TravelSystem(new int[0], new String[0], 0);
+        if (source == null)
+            return new TravelSystem(new int[0], new String[0], 0);
         if (source.equalsIgnoreCase(destination)) {
             emptyResult.add(source);
             return new TravelSystem(new int[0], emptyResult.toArray(new String[0]), 0);
@@ -192,10 +224,12 @@ public class TravelSystem {
 
         while (!pq.isEmpty()) {
             String u = pq.poll();
-            if (u.equalsIgnoreCase(destination)) break;
+            if (u.equalsIgnoreCase(destination))
+                break;
             int du = dist.get(u);
             Map<String, Integer> neighbors = graph.get(u);
-            if (neighbors == null) continue;
+            if (neighbors == null)
+                continue;
             for (Map.Entry<String, Integer> e : neighbors.entrySet()) {
                 String v = e.getKey();
                 int w = e.getValue();
@@ -240,7 +274,8 @@ public class TravelSystem {
             if (graph.containsKey(u)) {
                 d = graph.get(u).get(v);
             }
-            if (d == null) d = 0;
+            if (d == null)
+                d = 0;
             totalDistance += d;
 
             int line = DataSystem.findLineBetween(u, v);
@@ -264,7 +299,8 @@ public class TravelSystem {
         }
 
         int[] trainLineTransfers = new int[transfers.size()];
-        for (int i = 0; i < transfers.size(); i++) trainLineTransfers[i] = transfers.get(i);
+        for (int i = 0; i < transfers.size(); i++)
+            trainLineTransfers[i] = transfers.get(i);
 
         String[] passingCities = path.toArray(new String[0]);
         int distanceTraveld = totalDistance;

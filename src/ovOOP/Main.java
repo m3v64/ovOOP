@@ -7,14 +7,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        MapGenerationSystem initialMapGenerator = new MapGenerationSystem();
 
-        initialMapGenerator.displayMap(35,100);
+        Scanner initialScanner = new Scanner(System.in);
 
-        // Scanner initialScanner = new Scanner(System.in);
+        MenuSystem.clear();
 
-        // MenuSystem.clear();
-
-        // MenuSystem.startMenu(initialScanner);
+        MenuSystem.startMenu(initialScanner);
     }
 }
