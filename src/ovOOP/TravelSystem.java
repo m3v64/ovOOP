@@ -20,9 +20,17 @@ public class TravelSystem {
         this.distanceTraveld = distanceTraveld;
     }
 
-    public int[] trainLineTransfers() { return trainLineTransfers; }
-    public String[] passingCities() { return passingCities; }
-    public int distanceTraveld() { return distanceTraveld; }
+    public int[] trainLineTransfers() {
+        return trainLineTransfers;
+    }
+
+    public String[] passingCities() {
+        return passingCities;
+    }
+
+    public int distanceTraveld() {
+        return distanceTraveld;
+    }
 
     @Override
     public String toString() {
@@ -154,7 +162,20 @@ public class TravelSystem {
     static void mapMenu(Scanner scanner) {
         MapGenerationSystem initialMapGenerator = new MapGenerationSystem();
 
-        initialMapGenerator.displayMap(35, 100);
+        initialMapGenerator.generateEmptyMap(120, 34);
+
+        // Store the returned City objects
+        MapGenerationSystem.City cityDryard = initialMapGenerator.addCity("Dryard", 1);
+        MapGenerationSystem.City cityGiad = initialMapGenerator.addCity("Giad", 3);
+        MapGenerationSystem.City cityGhostle = initialMapGenerator.addCity("Ghostle", 3);
+
+        // Now you can connect them
+        initialMapGenerator.connectCities(cityGhostle, cityGiad, 300);
+        initialMapGenerator.connectCities(cityDryard, cityGiad, 300);
+
+        initialMapGenerator.drawMap();
+
+        initialMapGenerator.displayMap();
 
         scanner.nextLine();
 
@@ -182,7 +203,8 @@ public class TravelSystem {
 
         int target = OptionsSystem.showOption(scanner, String.join(",", cities)) - 1;
 
-        System.out.println(ColorSystem.BRIGHT_BLUE + "Selected destination: " + ColorSystem.BRIGHT_CYAN + cities.get(target) + ColorSystem.RESET);
+        System.out.println(ColorSystem.BRIGHT_BLUE + "Selected destination: " + ColorSystem.BRIGHT_CYAN
+                + cities.get(target) + ColorSystem.RESET);
 
         String destination = cities.get(target);
         TravelSystem route = findRoute(destination);
@@ -192,7 +214,8 @@ public class TravelSystem {
         } else {
             routeStr = "No route found";
         }
-        System.out.println(ColorSystem.BRIGHT_BLUE + "Route: " + ColorSystem.BRIGHT_CYAN + routeStr + ColorSystem.RESET);
+        System.out
+                .println(ColorSystem.BRIGHT_BLUE + "Route: " + ColorSystem.BRIGHT_CYAN + routeStr + ColorSystem.RESET);
 
     }
 
@@ -212,7 +235,7 @@ public class TravelSystem {
         if (commonLine != -1) {
             List<String> sequentialPath = DataSystem.getSequentialPathOnLine(commonLine, source, destination);
             int sequentialDistance = DataSystem.getSequentialDistanceOnLine(commonLine, source, destination);
-            
+
             if (!sequentialPath.isEmpty()) {
                 return new TravelSystem(new int[0], sequentialPath.toArray(new String[0]), sequentialDistance);
             }

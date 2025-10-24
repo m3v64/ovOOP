@@ -22,36 +22,36 @@ public class MenuSystem {
                 ColorSystem.BRIGHT_CYAN + String.format("Logged in as: %-20s", data.getUsername()) +
                 ColorSystem.CYAN + " | Balance: " + ColorSystem.withLargeIntegers(data.getBalance())
             );
-            System.out.println(ColorSystem.BLUE + "---------------------------------------");
-            input = OptionsSystem.showOption(scanner,
-                    "Start traveling,Account Settings,Manage balance,Exit system,Credits");
-        } else {
-            System.out.println(ColorSystem.BRIGHT_CYAN + "You are not currently logged in.");
-            System.out.println(ColorSystem.BRIGHT_CYAN + "Please log in before using any traveling features.");
-            System.out.println(ColorSystem.BLUE + "---------------------------------------");
-            input = OptionsSystem.showOption(scanner, "Account Settings,Credits");
-        }
-        if (currentUser != 0) {
-            if (input == 5) {
-                // Credits go here
-                showCredits(scanner);
-            } else if (input == 1) {
-                // Travel Menu
-                TravelSystem.travelMenu(scanner);
-            } else if (input == 2) {
-                AccountSystem.displayAccounts(scanner);
-                // Accounts system goes here
-            } else if (input == 3) {
-                BalanceSystem.manageBalance(scanner);
-            } else if (input == 4) {
-                System.out.println(ColorSystem.RED + "Exiting System");
-                System.exit(0);
-                // Exits the system
+                System.out.println(ColorSystem.BLUE + "---------------------------------------");
+                input = OptionsSystem.showOption(scanner,
+                        "Start traveling,Account Settings,Manage balance,Exit system,Credits");
+            } else {
+                System.out.println(ColorSystem.BRIGHT_CYAN + "You are not currently logged in.");
+                System.out.println(ColorSystem.BRIGHT_CYAN + "Please log in before using any traveling features.");
+                System.out.println(ColorSystem.BLUE + "---------------------------------------");
+                input = OptionsSystem.showOption(scanner, "Account Settings,Credits");
             }
-        } else {
-            switch (input) {
-                case 1 -> AccountSystem.displayAccounts(scanner);
-                case 2 -> showCredits(scanner);
+            if (currentUser != 0) {
+                if (input == 5) {
+                    // Credits go here
+                    showCredits(scanner);
+                } else if (input == 1) {
+                    // Travel Menu
+                    TravelSystem.travelMenu(scanner);
+                } else if (input == 2) {
+                    AccountSystem.displayAccounts(scanner);
+                    // Accounts system goes here
+                } else if (input == 3) {
+                    BalanceSystem.manageBalance(scanner);
+                } else if (input == 4) {
+                    System.out.println(ColorSystem.RED + "Exiting System");
+                    System.exit(0);
+                    // Exits the system
+                }
+            } else {
+                switch (input) {
+                    case 1 -> AccountSystem.displayAccounts(scanner);
+                    case 2 -> showCredits(scanner);
             }
         }
     }
