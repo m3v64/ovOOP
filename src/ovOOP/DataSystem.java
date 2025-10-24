@@ -299,35 +299,26 @@ public class DataSystem {
 
     public static java.util.Map<String, java.util.Map<String, Integer>> buildGraph() {
         java.util.Map<String, java.util.Map<String, Integer>> graph = new java.util.HashMap<>();
-        Gson gson = new Gson();
-
+        
         try (java.io.Reader reader = new java.io.FileReader("data/TrainLines.json")) {
-            Type dataListType = new TypeToken<List<DataSystem>>() {
-            }.getType();
-            List<DataSystem> dataList = gson.fromJson(reader, dataListType);
+            com.google.gson.JsonArray jsonArray = com.google.gson.JsonParser.parseReader(reader).getAsJsonArray();
 
-            if (dataList == null)
-                return graph;
-
-            for (DataSystem lineData : dataList) {
-                if (lineData == null || lineData.connections == null || lineData.start == null)
+            for (int i = 0; i < jsonArray.size(); i++) {
+                com.google.gson.JsonObject lineData = jsonArray.get(i).getAsJsonObject();
+                
+                if (!lineData.has("start") || !lineData.has("connections"))
                     continue;
 
-                String prev = lineData.start;
+                String start = lineData.get("start").getAsString();
+                com.google.gson.JsonObject connections = lineData.get("connections").getAsJsonObject();
+                
+                String prev = start;
 
-                for (java.util.Map.Entry<String, Map<String, Object>> entry : lineData.connections.entrySet()) {
+                // Iterate through connections in order (JsonObject maintains insertion order in newer Gson)
+                for (java.util.Map.Entry<String, com.google.gson.JsonElement> entry : connections.entrySet()) {
                     String city = entry.getKey();
-                    Map<String, Object> destMap = entry.getValue();
-                    int distance = 0;
-                    if (destMap != null && destMap.get("distance") instanceof Number) {
-                        distance = ((Number) destMap.get("distance")).intValue();
-                    } else if (destMap != null && destMap.get("distance") != null) {
-                        try {
-                            distance = Integer.parseInt(destMap.get("distance").toString());
-                        } catch (Exception e) {
-                            distance = 0;
-                        }
-                    }
+                    com.google.gson.JsonObject destData = entry.getValue().getAsJsonObject();
+                    int distance = destData.get("distance").getAsInt();
 
                     // add edge between prev and city (sequential stations along the line)
                     if (!graph.containsKey(prev)) {
@@ -385,5 +376,119 @@ public class DataSystem {
         }
 
         return -1;
+    }
+
+    public static List<String> getSequentialPathOnLine(int lineNum, String start, String destination) {
+        List<String> path = new ArrayList<>();
+        
+        try (java.io.Reader reader = new java.io.FileReader("data/TrainLines.json")) {
+            com.google.gson.JsonArray jsonArray = com.google.gson.JsonParser.parseReader(reader).getAsJsonArray();
+
+            for (int i = 0; i < jsonArray.size(); i++) {
+                com.google.gson.JsonObject lineData = jsonArray.get(i).getAsJsonObject();
+                
+                if (lineData.get("line").getAsInt() != lineNum)
+                    continue;
+
+                String lineStart = lineData.get("start").getAsString();
+                com.google.gson.JsonObject connections = lineData.get("connections").getAsJsonObject();
+                
+                // Build ordered list of all stations on this line
+                List<String> allStations = new ArrayList<>();
+                allStations.add(lineStart);
+                for (java.util.Map.Entry<String, com.google.gson.JsonElement> entry : connections.entrySet()) {
+                    allStations.add(entry.getKey());
+                }
+
+                // Find indices of start and destination
+                int startIdx = -1;
+                int destIdx = -1;
+                for (int j = 0; j < allStations.size(); j++) {
+                    if (allStations.get(j).equalsIgnoreCase(start)) {
+                        if (startIdx == -1) startIdx = j; // Take first occurrence
+                    }
+                    if (allStations.get(j).equalsIgnoreCase(destination)) {
+                        if (destIdx == -1) destIdx = j; // Take first occurrence
+                    }
+                }
+
+                if (startIdx == -1 || destIdx == -1) return path;
+
+                // Extract sequential path
+                if (startIdx <= destIdx) {
+                    for (int j = startIdx; j <= destIdx; j++) {
+                        path.add(allStations.get(j));
+                    }
+                } else {
+                    // going backwards on the line
+                    for (int j = startIdx; j >= destIdx; j--) {
+                        path.add(allStations.get(j));
+                    }
+                }
+                break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return path;
+    }
+
+    public static int getSequentialDistanceOnLine(int lineNum, String start, String destination) {
+        int totalDistance = 0;
+        
+        try (java.io.Reader reader = new java.io.FileReader("data/TrainLines.json")) {
+            com.google.gson.JsonArray jsonArray = com.google.gson.JsonParser.parseReader(reader).getAsJsonArray();
+
+            for (int i = 0; i < jsonArray.size(); i++) {
+                com.google.gson.JsonObject lineData = jsonArray.get(i).getAsJsonObject();
+                
+                if (lineData.get("line").getAsInt() != lineNum)
+                    continue;
+
+                String lineStart = lineData.get("start").getAsString();
+                com.google.gson.JsonObject connections = lineData.get("connections").getAsJsonObject();
+                
+                // Build ordered list of all stations with distances
+                List<String> allStations = new ArrayList<>();
+                List<Integer> distances = new ArrayList<>();
+                allStations.add(lineStart);
+                
+                for (java.util.Map.Entry<String, com.google.gson.JsonElement> entry : connections.entrySet()) {
+                    allStations.add(entry.getKey());
+                    distances.add(entry.getValue().getAsJsonObject().get("distance").getAsInt());
+                }
+
+                // Find indices - take first occurrence only
+                int startIdx = -1;
+                int destIdx = -1;
+                for (int j = 0; j < allStations.size(); j++) {
+                    if (allStations.get(j).equalsIgnoreCase(start)) {
+                        if (startIdx == -1) startIdx = j; // Take first occurrence
+                    }
+                    if (allStations.get(j).equalsIgnoreCase(destination)) {
+                        if (destIdx == -1) destIdx = j; // Take first occurrence
+                    }
+                }
+
+                if (startIdx == -1 || destIdx == -1) return 0;
+
+                // Sum distances along the sequential path
+                if (startIdx <= destIdx) {
+                    for (int j = startIdx; j < destIdx; j++) {
+                        totalDistance += distances.get(j);
+                    }
+                } else {
+                    for (int j = startIdx - 1; j >= destIdx; j--) {
+                        totalDistance += distances.get(j);
+                    }
+                }
+                break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return totalDistance;
     }
 }

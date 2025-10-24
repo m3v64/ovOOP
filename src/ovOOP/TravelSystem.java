@@ -3,12 +3,10 @@ package ovOOP;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-// removed unused Set/HashSet imports
 import java.util.Map;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.Comparator;
-// removed unused Collections import
 
 public class TravelSystem {
 
@@ -21,6 +19,10 @@ public class TravelSystem {
         this.passingCities = passingCities;
         this.distanceTraveld = distanceTraveld;
     }
+
+    public int[] trainLineTransfers() { return trainLineTransfers; }
+    public String[] passingCities() { return passingCities; }
+    public int distanceTraveld() { return distanceTraveld; }
 
     @Override
     public String toString() {
@@ -180,10 +182,17 @@ public class TravelSystem {
 
         int target = OptionsSystem.showOption(scanner, String.join(",", cities)) - 1;
 
-        System.out.println(ColorSystem.BRIGHT_BLUE + "Selected destination: " + ColorSystem.BRIGHT_CYAN
-                + cities.get(target) + ColorSystem.RESET);
+        System.out.println(ColorSystem.BRIGHT_BLUE + "Selected destination: " + ColorSystem.BRIGHT_CYAN + cities.get(target) + ColorSystem.RESET);
 
-        // find route method implementation
+        String destination = cities.get(target);
+        TravelSystem route = findRoute(destination);
+        String routeStr;
+        if (route.passingCities() != null && route.passingCities().length > 0) {
+            routeStr = String.join(" -> ", route.passingCities());
+        } else {
+            routeStr = "No route found";
+        }
+        System.out.println(ColorSystem.BRIGHT_BLUE + "Route: " + ColorSystem.BRIGHT_CYAN + routeStr + ColorSystem.RESET);
 
     }
 
@@ -196,6 +205,17 @@ public class TravelSystem {
         if (source.equalsIgnoreCase(destination)) {
             emptyResult.add(source);
             return new TravelSystem(new int[0], emptyResult.toArray(new String[0]), 0);
+        }
+
+        // Check if both cities are on the same line - if so, return sequential path
+        int commonLine = DataSystem.findLineBetween(source, destination);
+        if (commonLine != -1) {
+            List<String> sequentialPath = DataSystem.getSequentialPathOnLine(commonLine, source, destination);
+            int sequentialDistance = DataSystem.getSequentialDistanceOnLine(commonLine, source, destination);
+            
+            if (!sequentialPath.isEmpty()) {
+                return new TravelSystem(new int[0], sequentialPath.toArray(new String[0]), sequentialDistance);
+            }
         }
 
         Map<String, Map<String, Integer>> graph = DataSystem.buildGraph();
