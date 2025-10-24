@@ -3,10 +3,47 @@ package ovOOP;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import javax.management.monitor.MonitorNotification;
+// removed unused Set/HashSet imports
+import java.util.Map;
+import java.util.HashMap;
+import java.util.PriorityQueue;
+import java.util.Comparator;
+// removed unused Collections import
 
 public class TravelSystem {
+
+    int[] trainLineTransfers; // structure [from, to, from, to]
+    String[] passingCities; // structure ["giad", "etc..."]
+    int distanceTraveld; 
+
+    public TravelSystem(int[] trainLineTransfers, String[] passingCities, int distanceTraveld) {
+        this.trainLineTransfers = trainLineTransfers;
+        this.passingCities = passingCities;
+        this.distanceTraveld = distanceTraveld;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("TravelSystem{distanceTraveld=").append(distanceTraveld).append(", passingCities=");
+        sb.append("[");
+        if (passingCities != null) {
+            for (int i = 0; i < passingCities.length; i++) {
+                sb.append(passingCities[i]);
+                if (i < passingCities.length - 1) sb.append(", ");
+            }
+        }
+        sb.append("], trainLineTransfers=");
+        sb.append("[");
+        if (trainLineTransfers != null) {
+            for (int i = 0; i < trainLineTransfers.length; i++) {
+                sb.append(trainLineTransfers[i]);
+                if (i < trainLineTransfers.length - 1) sb.append(", ");
+            }
+        }
+        sb.append("]}");
+        return sb.toString();
+    }
 
     static double calculateCost(boolean businessClass, int distanceTraveling, double conversionRate) {
         if (Main.userID == 0) {
@@ -105,8 +142,6 @@ public class TravelSystem {
 
         System.out.println(ColorSystem.CYAN + "Please select a country you want to go to:" + ColorSystem.RESET);
 
-        String origin = data.getLocation();
-
         List<String> cities = new ArrayList<>();
 
          for (String i : data.CITIES) {
@@ -117,22 +152,123 @@ public class TravelSystem {
 
         System.out.println(ColorSystem.BRIGHT_BLUE + "Selected destination: " + ColorSystem.BRIGHT_CYAN + cities.get(target) + ColorSystem.RESET);
 
-        int distance = 100;
+        // find route method implementation
 
-        // get distance here and set distance variable to it
+    }
 
-        boolean isFirstClass = (OptionsSystem.showOption(scanner, "First class,Second class") == 1);
+    static TravelSystem findRoute(String destination) {
+        DataSystem data = new DataSystem(Main.userID);
+        String source = data.getLocation();
+        List<String> emptyResult = new ArrayList<>();
+        if (source == null) return new TravelSystem(new int[0], new String[0], 0);
+        if (source.equalsIgnoreCase(destination)) {
+            emptyResult.add(source);
+            return new TravelSystem(new int[0], emptyResult.toArray(new String[0]), 0);
+        }
 
-        double conversionRate = 1;
+        Map<String, Map<String, Integer>> graph = DataSystem.buildGraph();
 
-        double totalCost = TravelSystem.calculateCost(isFirstClass, distance, conversionRate);
+        if (!graph.containsKey(source) || !graph.containsKey(destination)) {
+            // Either source or destination not present in graph: return source only
+            List<String> path = new ArrayList<>();
+            path.add(source);
+            return new TravelSystem(new int[0], path.toArray(new String[0]), 0);
+        }
 
-        TravelSystem.CreateInvoice(scanner, totalCost, isFirstClass, origin, cities.get(target), "OVOOP");
+        // Dijkstra's algorithm
+        Map<String, Integer> dist = new HashMap<>();
+        Map<String, String> prev = new HashMap<>();
+        for (String node : graph.keySet()) {
+            dist.put(node, Integer.MAX_VALUE);
+        }
+        dist.put(source, 0);
 
+        PriorityQueue<String> pq = new PriorityQueue<>(new Comparator<String>() {
+            public int compare(String a, String b) {
+                return Integer.compare(dist.get(a), dist.get(b));
+            }
+        });
+        pq.add(source);
 
-        data.setLocation(cities.get(target));
+        while (!pq.isEmpty()) {
+            String u = pq.poll();
+            if (u.equalsIgnoreCase(destination)) break;
+            int du = dist.get(u);
+            Map<String, Integer> neighbors = graph.get(u);
+            if (neighbors == null) continue;
+            for (Map.Entry<String, Integer> e : neighbors.entrySet()) {
+                String v = e.getKey();
+                int w = e.getValue();
+                int alt = du + w;
+                if (alt < dist.getOrDefault(v, Integer.MAX_VALUE)) {
+                    dist.put(v, alt);
+                    prev.put(v, u);
+                    // reinsert v into priority queue to update its priority
+                    pq.remove(v);
+                    pq.add(v);
+                }
+            }
+        }
 
-        MenuSystem.startMenu(scanner);
+        // Reconstruct path
+        List<String> path = new ArrayList<>();
+        if (!prev.containsKey(destination)) {
+            // No path found
+            path.add(source);
+            // return object with only passingCities containing source and zero distance
+            return new TravelSystem(new int[0], path.toArray(new String[0]), 0);
+        }
 
+        String at = destination;
+        while (at != null) {
+            path.add(0, at);
+            at = prev.get(at);
+        }
+
+        // ensure source at start
+        if (!path.isEmpty() && !path.get(0).equalsIgnoreCase(source)) {
+            path.add(0, source);
+        }
+
+        // compute total distance and line sequence
+        int totalDistance = 0;
+        List<Integer> lineSeq = new ArrayList<>();
+        for (int i = 0; i < path.size() - 1; i++) {
+            String u = path.get(i);
+            String v = path.get(i + 1);
+            Integer d = null;
+            if (graph.containsKey(u)) {
+                d = graph.get(u).get(v);
+            }
+            if (d == null) d = 0;
+            totalDistance += d;
+
+            int line = DataSystem.findLineBetween(u, v);
+            lineSeq.add(line);
+        }
+
+        // reduce contiguous same lines
+        List<Integer> reduced = new ArrayList<>();
+        for (int i = 0; i < lineSeq.size(); i++) {
+            int ln = lineSeq.get(i);
+            if (reduced.isEmpty() || reduced.get(reduced.size() - 1) != ln) {
+                reduced.add(ln);
+            }
+        }
+
+        // build transfer array as adjacent pairs [from,to,from,to]
+        List<Integer> transfers = new ArrayList<>();
+        for (int i = 0; i < reduced.size() - 1; i++) {
+            transfers.add(reduced.get(i));
+            transfers.add(reduced.get(i + 1));
+        }
+
+        int[] trainLineTransfers = new int[transfers.size()];
+        for (int i = 0; i < transfers.size(); i++) trainLineTransfers[i] = transfers.get(i);
+
+        String[] passingCities = path.toArray(new String[0]);
+        int distanceTraveld = totalDistance;
+
+        return new TravelSystem(trainLineTransfers, passingCities, distanceTraveld);
     }
 }
