@@ -6,10 +6,15 @@ public class Main {
     public static int userID = 0;
 
     public static void main(String[] args) {
-        Scanner initialScanner = new Scanner(System.in);
 
-        MenuSystem.clear();
+        MapGenerationSystem initialMapGenerator = new MapGenerationSystem();
 
-        MenuSystem.startMenu(initialScanner);
+        initialMapGenerator.displayMap(100,35);
+
+        // Scanner initialScanner = new Scanner(System.in);
+
+        // MenuSystem.clear();
+
+        // MenuSystem.startMenu(initialScanner);
     }
 }
