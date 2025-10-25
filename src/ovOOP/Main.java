@@ -6,7 +6,20 @@ public class Main {
     public static int userID = 0;
 
     public static void main(String[] args) {
+
         Scanner initialScanner = new Scanner(System.in);
+
+        // MapGenerationSystem mapGenerator = new MapGenerationSystem();
+
+        // int[][] map = mapGenerator.createEmptyMap(35, 100, 0);
+
+        // DataSystem data = new DataSystem(userID);
+
+        // String[] cityList = data.CITIES;
+
+        // mapGenerator.initializeCities(cityList, true);
+
+        // mapGenerator.displayMap(map, initialScanner, false);
 
         MenuSystem.clear();
 
@@ -14,7 +27,8 @@ public class Main {
 
         // DataSystem data = new DataSystem(userID);
         // for (String city : data.CITIES) {
-        //     System.out.println("Route from giad to " + city + ": " + TravelSystem.findRoute(city));
+        // System.out.println("Route from giad to " + city + ": " +
+        // TravelSystem.findRoute(city));
         // }
     }
 }

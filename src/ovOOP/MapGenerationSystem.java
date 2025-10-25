@@ -1,14 +1,12 @@
 package ovOOP;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.Optional;
+import java.util.Scanner;
 
 public class MapGenerationSystem {
 
-    // City representation
-    public static class City {
-        int x, y;
+    public class City {
         String name;
         int color;
 
@@ -18,141 +16,126 @@ public class MapGenerationSystem {
         }
     }
 
-    // Connection representation
-    private static class Connection {
-        City cityA;
-        City cityB;
-        int distance; // can be used for scaling or labels
+    public class Line {
+        String name;
+        String[] citiesInLine;
+        int lineColor;
 
-        Connection(City a, City b, int distance) {
-            this.cityA = a;
-            this.cityB = b;
-            this.distance = distance;
+        Line(String name, String[] citiesInLine, int lineColor) {
+            this.name = name;
+            this.citiesInLine = citiesInLine;
+            this.lineColor = lineColor;
         }
     }
 
-    private List<City> cities = new ArrayList<>();
-    private List<Connection> connections = new ArrayList<>();
-    private String[][] mapArray;
-    private int mapWidth;
-    private int mapHeight;
-    private Random random = new Random();
-
-    // Generate empty map
-    public void generateEmptyMap(int width, int height) {
-        mapWidth = width;
-        mapHeight = height;
-        mapArray = new String[height][width];
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                mapArray[y][x] = ColorSystem.BRIGHT_GREEN_BG + " ";
+    public void initializeCities(String[] cityList, boolean debug) {
+        String[] cities = cityList;
+        if (debug) {
+            for (String i : cities) {
+                System.out.println(i);
             }
         }
     }
 
-    // Add city with random placement
-    public City addCity(String name, int color) {
-        City city = new City(name, color);
-        city.x = random.nextInt(mapWidth - 4) + 2;
-        city.y = random.nextInt(mapHeight - 4) + 2;
-        cities.add(city);
-        return city;
-    }
+    public int[][] createEmptyMap(int mapWidth, int mapHeight, int backgroundColor) {
+        int[][] mapValues = new int[mapWidth][mapHeight];
 
-    // Add a connection between cities with a distance
-    public void connectCities(City a, City b, int distance) {
-        connections.add(new Connection(a, b, distance));
-    }
-
-    // Draw map: cities + connections
-    public void drawMap() {
-        // Draw connections first
-        for (Connection conn : connections) {
-            paintMapLine(conn.cityA.x, conn.cityA.y, conn.cityB.x, conn.cityB.y, 2); // subway line color
-            drawDistanceLabel(conn); // optional: label distance
-        }
-
-        // Draw cities
-        for (City city : cities) {
-            paintMapSquare(city.x, city.y, 3, 3, city.color);
-            drawCityLabel(city);
-        }
-    }
-
-    // Draw city name above or beside the city square
-    private void drawCityLabel(City city) {
-        int labelX = Math.min(city.x + 4, mapWidth - 1);
-        int labelY = Math.max(city.y - 1, 0);
-        for (int i = 0; i < city.name.length(); i++) {
-            if (labelX + i < mapWidth) {
-                mapArray[labelY][labelX + i] = ColorSystem.RESET + city.name.charAt(i);
+        for (int i = 0; i < mapWidth; i++) {
+            for (int j = 0; j < mapHeight; j++) {
+                mapValues[i][j] = backgroundColor;
             }
         }
+        return mapValues;
     }
 
-    // Draw distance label near the middle of the connection
-    private void drawDistanceLabel(Connection conn) {
-        int midX = (conn.cityA.x + conn.cityB.x) / 2;
-        int midY = (conn.cityA.y + conn.cityB.y) / 2;
-        String distStr = String.valueOf(conn.distance);
-        for (int i = 0; i < distStr.length(); i++) {
-            if (midX + i < mapWidth) {
-                mapArray[midY][midX + i] = ColorSystem.RESET + distStr.charAt(i);
+    public void displayMap(int[][] map, Scanner scanner, boolean debugSendRawMap) {
+        for (int[] row : map) {
+            for (int num : row) {
+                if (debugSendRawMap) {
+                    System.out.print(num);
+                } else {
+                    switch (num) {
+                        case 0:
+                            System.out.print(ColorSystem.BLUE_BG + " " + ColorSystem.RESET);
+                            break;
+                        case 1:
+                            System.out.print(ColorSystem.BRIGHT_BLACK_BG + " " + ColorSystem.RESET);
+                            break;
+                        case 2:
+                            System.out.print(ColorSystem.GREEN_BG + " " + ColorSystem.RESET);
+                            break;
+                        case 3:
+                            System.out.print(" ");
+                            break;
+                    }
+                }
+            }
+            System.out.println();
+        }
+        System.out.println(ColorSystem.CYAN + "Press enter to continue");
+        scanner.nextLine();
+
+    }
+
+    public int[][] paintPixel(int[][] map, int xCoordinate, int yCoordinate, int selectedColor) {
+        int[][] updatedMap = map;
+
+        updatedMap[xCoordinate][yCoordinate] = selectedColor;
+
+        return updatedMap;
+    }
+
+    public int[][] paintSquare(int[][] map, int xCoordinate, int yCoordinate, int selectedColor,
+            int squareHeight, int squareWidth) {
+        int[][] updatedMap = map;
+
+        int rows = map.length;
+        int cols = map[0].length;
+
+        int xStart = xCoordinate - squareWidth / 2;
+        int yStart = yCoordinate - squareHeight / 2;
+
+        for (int i = 0; i < squareWidth; i++) {
+            for (int j = 0; j < squareHeight; j++) {
+                int x = xStart + i;
+                int y = yStart + j;
+
+                if (x >= 0 && x < rows && y >= 0 && y < cols) {
+                    updatedMap[x][y] = selectedColor;
+                }
             }
         }
+
+        return updatedMap;
     }
 
-    // Display the map
-    public void displayMap() {
-        for (int y = 0; y < mapArray.length; y++) {
-            StringBuilder row = new StringBuilder();
-            for (int x = 0; x < mapArray[0].length; x++) {
-                row.append(mapArray[y][x]).append(ColorSystem.RESET);
+    public int[][] paintLine(int[][] map, int fromX, int fromY, int toX, int toY, int selectedColor) {
+        int[][] updatedMap = map;
+
+        int dx = toX - fromX;
+        int dy = toY - fromY;
+
+        if (dx == 0) { // Vertical line
+            int startY = Math.min(fromY, toY);
+            int endY = Math.max(fromY, toY);
+            for (int y = startY; y <= endY; y++) {
+                updatedMap = paintPixel(updatedMap, fromX, y, selectedColor);
             }
-            System.out.println(row);
+            return updatedMap;
         }
+
+        double m = (double) dy / dx;
+
+        int startX = Math.min(fromX, toX);
+        int endX = Math.max(fromX, toX);
+        int initialY = (startX == fromX) ? fromY : toY;
+
+        for (int x = startX; x <= endX; x++) {
+            int y = (int) Math.round(initialY + m * (x - startX));
+            updatedMap = paintPixel(updatedMap, x, y, selectedColor);
+        }
+
+        return updatedMap;
     }
 
-    // Paint a pixel
-    public void paintMapPixel(int x, int y, int pickedColor) {
-        if (y < 0 || y >= mapArray.length || x < 0 || x >= mapArray[0].length) return;
-
-        String color;
-        switch (pickedColor) {
-            case 0 -> color = ColorSystem.GREEN_BG;
-            case 1 -> color = ColorSystem.BLUE_BG;
-            case 2 -> color = ColorSystem.WHITE_BG;
-            case 3 -> color = ColorSystem.BLACK_BG;
-            case 4 -> color = ColorSystem.BRIGHT_GREEN_BG;
-            case 5 -> color = ColorSystem.BRIGHT_BLACK_BG;
-            default -> color = ColorSystem.BRIGHT_GREEN_BG;
-        }
-        mapArray[y][x] = color + " ";
-    }
-
-    // Paint a square
-    public void paintMapSquare(int x, int y, int width, int height, int pickedColor) {
-        for (int row = 0; row < height; row++) {
-            for (int col = 0; col < width; col++) {
-                paintMapPixel(x + col, y + row, pickedColor);
-            }
-        }
-    }
-
-    // Bresenham's line algorithm
-    public void paintMapLine(int x1, int y1, int x2, int y2, int pickedColor) {
-        int dx = Math.abs(x2 - x1);
-        int dy = Math.abs(y2 - y1);
-        int sx = x1 < x2 ? 1 : -1;
-        int sy = y1 < y2 ? 1 : -1;
-        int err = dx - dy;
-
-        while (true) {
-            paintMapPixel(x1, y1, pickedColor);
-            if (x1 == x2 && y1 == y2) break;
-            int e2 = 2 * err;
-            if (e2 > -dy) { err -= dy; x1 += sx; }
-            if (e2 < dx) { err += dx; y1 += sy; }
-        }
-    }
 }
