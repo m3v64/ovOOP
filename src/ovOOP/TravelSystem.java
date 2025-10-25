@@ -132,17 +132,16 @@ public class TravelSystem {
     }
 
     static void mapMenu(Scanner scanner) {
-        MapGenerationSystem initialMapGenerator = new MapGenerationSystem();
 
-                MapGenerationSystem mapGenerator = new MapGenerationSystem();
+        MapGenerationSystem mapGenerator = new MapGenerationSystem();
 
         mapGenerator.initializeMap(100, 35, '.');
 
-        mapGenerator.generateCity(13, 30, "Dryard", true);
+        String[] testCities = { "Test1", "Test2", "Test3", "Test4", "Test5", "Test6", "Test7" };
 
-        mapGenerator.generateCity(25, 20, "Brittle", true);
+        int[] testCitiesYOffset = {0, 5, 7, -7, 8, -9, 15};
 
-        mapGenerator.paintLineLayer(mapGenerator.getRoadLayer(), 13, 30, 25, 20, '#');
+        mapGenerator.generateLine(testCities, 10, testCitiesYOffset);
 
         // Display the map
         mapGenerator.displayMap(false);

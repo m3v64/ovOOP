@@ -34,14 +34,33 @@ public class MapGenerationSystem {
     }
 
     // Generate city and optionally add text above it
-    public void generateCity(int forcedX, int forcedY, String cityName, boolean atCity) {
+    public void generateCity(int x, int y, String cityName, boolean atCity) {
         char cityChar = atCity ? 'C' : 'V';
-        paintSquareLayer(cityLayer, forcedX, forcedY, cityChar, 2, 2);
+        paintSquareLayer(cityLayer, x, y, cityChar, 2, 2);
 
         // Center city name above city
-        int textX = forcedX - (cityName.length() / 2);
-        int textY = Math.max(forcedY - 2, 0);
+        int textX = x - (cityName.length() / 2);
+        int textY = Math.max(y - 2, 0);
         paintTextLayer(textLayer, textX, textY, cityName);
+    }
+
+    public void generateLine(String[] citiesInLine, int distanceBetweenCities, int[] yOffsets) {
+        if (yOffsets.length != citiesInLine.length) {
+            throw new IllegalArgumentException("yOffsets length must match citiesInLine length");
+        }
+
+        for (int i = 0; i < citiesInLine.length; i++) {
+            int x = 1 + distanceBetweenCities * i;
+            int y = (mapHeight / 2) + yOffsets[i]; // different Y per city
+
+            generateCity(x, y, citiesInLine[i], false);
+
+            if (i > 0) {
+                int prevX = 1 + distanceBetweenCities * (i - 1);
+                int prevY = (mapHeight / 2) + yOffsets[i - 1];
+                paintLineLayer(backgroundLayer, prevX, prevY, x, y, '#');
+            }
+        }
     }
 
     // Paint text on a layer
@@ -77,30 +96,33 @@ public class MapGenerationSystem {
     }
 
     // Paint line on a layer
+    // Paint a line on a layer using Bresenham's line algorithm
     public void paintLineLayer(char[][] layer, int fromX, int fromY, int toX, int toY, char character) {
-        int dx = toX - fromX;
-        int dy = toY - fromY;
+        int dx = Math.abs(toX - fromX);
+        int dy = Math.abs(toY - fromY);
+        int sx = fromX < toX ? 1 : -1;
+        int sy = fromY < toY ? 1 : -1;
+        int err = dx - dy;
 
-        if (dx == 0) { // Vertical
-            int startY = Math.min(fromY, toY);
-            int endY = Math.max(fromY, toY);
-            for (int y = startY; y <= endY; y++) {
-                if (y >= 0 && y < mapHeight && fromX >= 0 && fromX < mapWidth) {
-                    layer[y][fromX] = character;
-                }
-            }
-            return;
-        }
+        int x = fromX;
+        int y = fromY;
 
-        double m = (double) dy / dx;
-        int startX = Math.min(fromX, toX);
-        int endX = Math.max(fromX, toX);
-        int initialY = (startX == fromX) ? fromY : toY;
-
-        for (int x = startX; x <= endX; x++) {
-            int y = (int) Math.round(initialY + m * (x - startX));
-            if (y >= 0 && y < mapHeight && x >= 0 && x < mapWidth) {
+        while (true) {
+            if (x >= 0 && x < mapWidth && y >= 0 && y < mapHeight) {
                 layer[y][x] = character;
+            }
+
+            if (x == toX && y == toY)
+                break;
+
+            int e2 = 2 * err;
+            if (e2 > -dy) {
+                err -= dy;
+                x += sx;
+            }
+            if (e2 < dx) {
+                err += dx;
+                y += sy;
             }
         }
     }
