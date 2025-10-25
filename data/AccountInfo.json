@@ -5,7 +5,9 @@
     "password": "guest",
     "location": "Giad",
     "balance": 0.0,
-    "line": 0
+    "line": 0,
+    "defaultClass": 2,
+    "defaultCurrencyConversionRate": 1.0
   },
   {
     "userID": 1,
@@ -13,7 +15,9 @@
     "password": "hollowKnightAddicted",
     "location": "Giad",
     "balance": 1.0000000000001E15,
-    "line": 0
+    "line": 0,
+    "defaultClass": 2,
+    "defaultCurrencyConversionRate": 1.0
   },
   {
     "userID": 2,
@@ -21,7 +25,9 @@
     "password": "Administrator",
     "location": "Giad",
     "balance": 1.7976931348623157E308,
-    "line": 0
+    "line": 0,
+    "defaultClass": 2,
+    "defaultCurrencyConversionRate": 1.0
   },
   {
     "userID": 3,
@@ -29,7 +35,9 @@
     "password": "companyOwner",
     "location": "Giad",
     "balance": -1.7976931348623157E308,
-    "line": 0
+    "line": 0,
+    "defaultClass": 2,
+    "defaultCurrencyConversionRate": 1.0
   },
   {
     "userID": 4,
@@ -37,7 +45,9 @@
     "password": "JustCause",
     "location": "Dryard",
     "balance": 1.0000000000001E16,
-    "line": 0
+    "line": 0,
+    "defaultClass": 2,
+    "defaultCurrencyConversionRate": 1.0
   },
   {
     "userID": 5,
@@ -45,7 +55,9 @@
     "password": "BananenGek",
     "location": "Giad",
     "balance": -1.0E131,
-    "line": 0
+    "line": 0,
+    "defaultClass": 2,
+    "defaultCurrencyConversionRate": 1.0
   },
   {
     "userID": 6,
@@ -53,6 +65,8 @@
     "password": "test",
     "location": "SwiftLec",
     "balance": 1000.0,
-    "line": 0
+    "line": 0,
+    "defaultClass": 2,
+    "defaultCurrencyConversionRate": 1.0
   }
 ]

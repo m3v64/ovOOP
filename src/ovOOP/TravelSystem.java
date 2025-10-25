@@ -59,7 +59,7 @@ public class TravelSystem {
         return totalCost;
     }
 
-    static void CreateInvoice(Scanner scanner, double totalCost, boolean isFirstClass, String origin,String destination, String trainCompany) {
+    static void createInvoice(Scanner scanner, double totalCost, boolean isFirstClass, String origin, String destination, String trainCompany) {
         System.out.println(ColorSystem.BRIGHT_BLUE + "Would you like to print your invoice?" + ColorSystem.RESET);
         boolean willPrint = (OptionsSystem.showOption(scanner, "Yes,No") == 1);
 
@@ -106,11 +106,8 @@ public class TravelSystem {
 
         int target = OptionsSystem.showOption(scanner, "To destination,Lines,Map");
         switch (target) {
-            case 1:
-                toDestinationMenu(scanner);
-                break;
-            case 2:
-                break;
+            case 1: toDestinationMenu(scanner); break;
+            case 2: break;
             case 3:
                 mapMenu(scanner);
                 break;
@@ -162,10 +159,20 @@ public class TravelSystem {
 
         int target = OptionsSystem.showOption(scanner, String.join(",", cities)) - 1;
 
+        System.out.println("Select your prefered railway corporation");
+        String trainCompany;
+        int trainCompanyIndex = OptionsSystem.showOption(scanner, "MVU public transport corporation,Predia railway logistics");
+        switch (trainCompanyIndex) {
+            case 1: trainCompany = "MVU"; break;
+            case 2: trainCompany = "Predia"; break;
+            default: trainCompany = "MVU"; break;
+        }
+
         System.out.println(ColorSystem.BRIGHT_BLUE + "Selected destination: " + ColorSystem.BRIGHT_CYAN+ cities.get(target) + ColorSystem.RESET);
 
         String destination = cities.get(target);
         TravelSystem route = findRoute(destination);
+
         String routeStr;
         if (route.passingCities() != null && route.passingCities().length > 0) {
             routeStr = String.join(" -> ", route.passingCities());
@@ -192,9 +199,9 @@ public class TravelSystem {
         System.out.println(ColorSystem.BRIGHT_BLUE + "Distance: " + ColorSystem.BRIGHT_CYAN + route.distanceTraveld() + "Km" + ColorSystem.RESET);
         System.out.println(ColorSystem.BRIGHT_BLUE + "Line's: " + ColorSystem.BRIGHT_CYAN + lineStr + ColorSystem.RESET);
 
-        System.out.println("========================================");
-        System.out.println("is that correct?");
-        System.out.println("Y/n");
+        createInvoice(scanner, calculateCost(data.isFirstClass(), route.distanceTraveld(), data.getConversionRate()), data.isFirstClass(), data.getLocation(), destination, trainCompany);
+
+        // continue here with aditional ui elements
     }
 
     static TravelSystem findRoute(String destination) {

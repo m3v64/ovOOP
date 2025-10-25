@@ -1,149 +1,262 @@
 [
   {
-    "line": 0,
-    "start": "Giad",
-    "mainLine": true,
-    "connections": {
-        "SwiftLec": { "distance": 150 },
-        "StaglenHold": { "distance": 175 },
-        "Brittle": { "distance": 150 },
-        "Dryard": { "distance": 100 }
-    }
+    "company": "MVU",
+    "lines":
+    [{
+      "line": 0,
+      "start": "Giad",
+      "mainLine": true,
+      "connections": {
+          "SwiftLec": { "distance": 150 },
+          "StaglenHold": { "distance": 175 },
+          "Brittle": { "distance": 150 },
+          "Dryard": { "distance": 100 }
+      }
+    },
+    {
+      "line": 1,
+      "start": "StaglenHold",
+      "mainLine": false,
+      "connections": {
+          "Irehole": { "distance": 250 }
+      }
+    },
+    {
+      "line": 2,
+      "start": "Giad",
+      "mainLine": true,
+      "connections": {
+          "Pearllows": { "distance": 200 },
+          "Lighthgro": { "distance": 150 },
+          "Ghostle": { "distance": 100 }
+      }
+    },
+    {
+      "line": 3,
+      "start": "Pearllows",
+      "mainLine": false,
+      "connections": {
+          "Irehole": { "distance": 150 }
+      }
+    },
+    {
+      "line": 4,
+      "start": "Giad",
+      "mainLine": true,
+      "connections": {
+          "LironGrale": { "distance": 200 },
+          "EldYard": { "distance": 400 },
+          "TimerGulch": { "distance": 200 },
+          "Giad": { "distance": 150 }
+      }
+    },
+    {
+      "line": 5,
+      "start": "Giad",
+      "mainLine": true,
+      "connections": {
+          "Trasin": { "distance": 200 },
+          "Linere": { "distance": 75 },
+          "Stormwall": { "distance": 150 }
+      }
+    },
+    {
+      "line": 6,
+      "start": "Giad",
+      "mainLine": false,
+      "connections": {
+          "Portal": { "distance": 100 }
+      }
+    },
+    {
+      "line": 7,
+      "start": "Kreutzbeck",
+      "mainLine": false,
+      "connections": {
+          "Portal": { "distance": 100 }
+      }
+    },
+    {
+      "line": 8,
+      "start": "Kreutzbeck",
+      "mainLine": true,
+      "connections": {
+          "Hesturn": { "distance": 500 },
+          "Elektra": { "distance": 450 },
+          "Charite": { "distance": 1000 },
+          "Kreutzbeck": { "distance": 500 }
+      }
+    },
+    {
+      "line": 9,
+      "start": "Sankt Jeder",
+      "mainLine": true,
+      "connections": {
+          "Kreutzbeck": { "distance": 500 },
+          "Liberte et Egalite": { "distance": 450 }
+      }
+    },
+    {
+      "line": 10,
+      "start": "Arcs Styrie",
+      "mainLine": true,
+      "connections": {
+          "Kreutzbeck": { "distance": 450 },
+          "Capella": { "distance": 450 }
+      }
+    },
+    {
+      "line": 11,
+      "start": "Capella",
+      "mainLine": false,
+      "connections": {
+          "Hesturn": { "distance": 50 }
+      }
+    },
+    {
+      "line": 12,
+      "start": "Liberte et Egalite",
+      "mainLine": false,
+      "connections": {
+          "Charite": { "distance": 50 }
+      }
+    },
+    {
+      "line": 13,
+      "start": "Arcs Styrie",
+      "mainLine": false,
+      "connections": {
+          "Heete Birch": { "distance": 50 }
+      }
+    },
+    {
+      "line": 14,
+      "start": "Heete Birch",
+      "mainLine": true,
+      "connections": {
+          "Kreutzbeck": { "distance": 500 },
+          "Elektra": { "distance": 1100 }
+      }
+    },
+    {
+      "line": 15,
+      "start": "Liberte et Egalite",
+      "mainLine": true,
+      "connections": {
+          "Arcs Styrie": { "distance": 650 },
+          "Sankt Jeder": { "distance": 600 },
+          "Capella": { "distance": 600 },
+          "Liberte et Egalite": { "distance": 650 }
+      }
+    }]
   },
   {
-    "line": 1,
-    "start": "StaglenHold",
-    "mainLine": false,
-    "connections": {
-        "Irehole": { "distance": 250 }
-    }
-  },
-  {
-    "line": 2,
-    "start": "Giad",
-    "mainLine": true,
-    "connections": {
-        "Pearllows": { "distance": 200 },
-        "Lighthgro": { "distance": 150 },
-        "Ghostle": { "distance": 100 }
-    }
-  },
-  {
-    "line": 3,
-    "start": "Pearllows",
-    "mainLine": false,
-    "connections": {
-        "Irehole": { "distance": 150 }
-    }
-  },
-  {
-    "line": 4,
-    "start": "Giad",
-    "mainLine": true,
-    "connections": {
-        "LironGrale": { "distance": 200 },
-        "EldYard": { "distance": 400 },
-        "TimerGulch": { "distance": 200 },
-        "Giad": { "distance": 150 }
-    }
-  },
-  {
-    "line": 5,
-    "start": "Giad",
-    "mainLine": true,
-    "connections": {
-        "Trasin": { "distance": 200 },
-        "Linere": { "distance": 75 },
-        "Stormwall": { "distance": 150 }
-    }
-  },
-  {
-    "line": 6,
-    "start": "Giad",
-    "mainLine": false,
-    "connections": {
-        "Portal": { "distance": 100 }
-    }
-  },
-  {
-    "line": 7,
-    "start": "Kreutzbeck",
-    "mainLine": false,
-    "connections": {
-        "Portal": { "distance": 100 }
-    }
-  },
-  {
-    "line": 8,
-    "start": "Kreutzbeck",
-    "mainLine": true,
-    "connections": {
-        "Hesturn": { "distance": 500 },
-        "Elektra": { "distance": 450 },
-        "Charite": { "distance": 1000 },
-        "Kreutzbeck": { "distance": 500 }
-    }
-  },
-  {
-    "line": 9,
-    "start": "Sankt Jeder",
-    "mainLine": true,
-    "connections": {
-        "Kreutzbeck": { "distance": 500 },
-        "Liberte et Egalite": { "distance": 450 }
-    }
-  },
-  {
-    "line": 10,
-    "start": "Arcs Styrie",
-    "mainLine": true,
-    "connections": {
-        "Kreutzbeck": { "distance": 450 },
-        "Capella": { "distance": 450 }
-    }
-  },
-  {
-    "line": 11,
-    "start": "Capella",
-    "mainLine": false,
-    "connections": {
-        "Hesturn": { "distance": 50 }
-    }
-  },
-  {
-    "line": 12,
-    "start": "Liberte et Egalite",
-    "mainLine": false,
-    "connections": {
-        "Charite": { "distance": 50 }
-    }
-  },
-  {
-    "line": 13,
-    "start": "Arcs Styrie",
-    "mainLine": false,
-    "connections": {
-        "Heete Birch": { "distance": 50 }
-    }
-  },
-  {
-    "line": 14,
-    "start": "Heete Birch",
-    "mainLine": true,
-    "connections": {
-        "Kreutzbeck": { "distance": 500 },
-        "Elektra": { "distance": 1100 }
-    }
-  },
-  {
-    "line": 15,
-    "start": "Liberte et Egalite",
-    "mainLine": true,
-    "connections": {
-        "Arcs Styrie": { "distance": 650 },
-        "Sankt Jeder": { "distance": 600 },
-        "Capella": { "distance": 600 },
-        "Liberte et Egalite": { "distance": 650 }
-    }
+    "company": "Predia",
+    "lines":
+    [{
+      "line": 0,
+      "start": "Giad",
+      "mainLine": true,
+      "connections": {
+          "Predia HQ": { "distance": 150 },
+          "EldYard": { "distance": 200 }
+      }
+    },
+    {
+      "line": 1,
+      "start": "EldYard",
+      "mainLine": true,
+      "connections": {
+          "TimerGulch": { "distance": 200 },
+          "LironGrale": { "distance": 350 }
+      }
+    },
+    {
+      "line": 2,
+      "start": "Giad",
+      "mainLine": true,
+      "connections": {
+          "SwiftLec": { "distance": 150 },
+          "StaglenHold": { "distance": 175 },
+          "Irehole": { "distance": 100 },
+          "Pearllows": { "distance": 150 }
+      }
+    },
+    {
+      "line": 3,
+      "start": "Pearllows",
+      "mainLine": true,
+      "connections": {
+          "Lighthgro": { "distance": 150 },
+          "Ghostle": { "distance": 100 }
+      }
+    },
+    {
+      "line": 4,
+      "start": "StaglenHold",
+      "mainLine": true,
+      "connections": {
+          "Brittle": { "distance": 150 },
+          "Dryard": { "distance": 100 }
+      }
+    },
+    {
+      "line": 5,
+      "start": "SwiftLec",
+      "mainLine": true,
+      "connections": {
+          "Trasin": { "distance": 200 },
+          "Linere": { "distance": 75 },
+          "Stormwall": { "distance": 150 }
+      }
+    },
+    {
+      "line": 6,
+      "start": "Giad",
+      "mainLine": false,
+      "connections": {
+          "Portal": { "distance": 100 }
+      }
+    },
+    {
+      "line": 7,
+      "start": "Kreutzbeck",
+      "mainLine": false,
+      "connections": {
+          "Portal": { "distance": 100 }
+      }
+    },
+    {
+      "line": 8,
+      "start": "Heete Birch",
+      "mainLine": true,
+      "connections": {
+          "Arcs Styrie": { "distance": 50 },
+          "Kreutzbeck": { "distance": 450 },
+          "Capella": { "distance": 450 },
+          "Hesturn": { "distance": 50 },
+          "Elektra": { "distance": 450 }
+      }
+    },
+    {
+      "line": 9,
+      "start": "Sankt Jeder",
+      "mainLine": true,
+      "connections": {
+          "Kreutzbeck": { "distance": 400 },
+          "Charite": { "distance": 500 },
+          "Liberte et Egalite": { "distance": 50 },
+          "Elektra": { "distance": 450 }
+      }
+    },
+    {
+      "line": 10,
+      "start": "Elektra",
+      "mainLine": true,
+      "connections": {
+          "Kreutzbeck": { "distance": 1100 },
+          "Portal": { "distance": 100 }
+      }
+    }]
   }
 ]

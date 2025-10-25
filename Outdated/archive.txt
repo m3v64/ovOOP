@@ -32,3 +32,17 @@
 //     System.out.println(ANSI_GREEN + "Account created successfully!");
 //     Travel.startMenu(scanner);
 // }
+
+
+// fix this
+DataSystem data = new DataSystem(Main.userID);
+int index = 0;
+System.out.println(ColorSystem.BLUE + "====================================================" + ColorSystem.RESET);
+for (String i : data.CITIES) {
+    System.out.println(ColorSystem.BLUE + "   " + index + ". " + i + ColorSystem.RESET); 
+    index++;
+}
+System.out.println(ColorSystem.BLUE + "====================================================" + ColorSystem.RESET);
+System.out.println(ColorSystem.BRIGHT_CYAN + "To return, press Enter..." + ColorSystem.RESET);
+scanner.nextLine();
+TravelSystem.travelMenu(scanner);

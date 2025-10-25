@@ -27,10 +27,12 @@ public class DataSystem {
     private String password;
     private String location;
     private double balance;
+    private int defaultClass;
+    private double defaultCurrencyConversionRate;
 
-    private Map<String, Map<String, Object>> connections;
-    private int line;
-    private String start;
+    // private Map<String, Map<String, Object>> connections;
+    // private int line;
+    // private String start;
 
     public DataSystem(int userID) {
         this.userID = userID;
@@ -51,6 +53,8 @@ public class DataSystem {
                     this.password = d.password;
                     this.location = d.location;
                     this.balance = d.balance;
+                    this.defaultClass = d.defaultClass;
+                    this.defaultCurrencyConversionRate = d.defaultCurrencyConversionRate;
                     break;
                 }
             }
@@ -64,6 +68,8 @@ public class DataSystem {
             this.password = "guest";
             this.location = "Giad";
             this.balance = 0.0;
+            this.defaultClass = 2;
+            this.defaultCurrencyConversionRate = 1.0;
         }
     }
 
@@ -85,6 +91,14 @@ public class DataSystem {
 
     public double getBalance() {
         return balance;
+    }
+
+    public int getDefaultClass() {
+        return defaultClass;
+    }
+
+    public double getConversionRate() {
+        return defaultCurrencyConversionRate;
     }
 
     public void setUserID(int userID) {
@@ -110,6 +124,24 @@ public class DataSystem {
     public void setBalance(double balance) {
         this.balance = balance;
         updateJson();
+    }
+
+    public void setDefaultClass(int defaultClass) {
+        this.defaultClass = defaultClass;
+        updateJson();
+    }
+
+    public void setConversionRate(double defaultCurrencyConversionRate) {
+        this.defaultCurrencyConversionRate = defaultCurrencyConversionRate;
+        updateJson();
+    }
+
+    public boolean isFirstClass() {
+        boolean isFirstClass = false;
+        if (this.defaultClass == 1) {
+            isFirstClass = true;
+        }
+        return isFirstClass;
     }
 
     public static void addAccount(String username, String password, Scanner scanner) {
@@ -142,6 +174,8 @@ public class DataSystem {
         newUser.password = password;
         newUser.location = "Giad";
         newUser.balance = 0.0;
+        newUser.defaultClass = 2;
+        newUser.defaultCurrencyConversionRate = 1.0;
 
         dataList.add(newUser);
 
@@ -158,11 +192,10 @@ public class DataSystem {
     }
 
     private void updateJson() {
-        updateJson(this.userID, this.username, this.password, this.location, this.balance);
+        updateJson(this.userID, this.username, this.password, this.location, this.balance, this.defaultClass, this.defaultCurrencyConversionRate);
     }
 
-    public static void updateJson(int userID, String newUsername, String newPassword, String newLocation,
-            double newBalance) {
+    public static void updateJson(int userID, String newUsername, String newPassword, String newLocation, double newBalance, int newDefaultClass, double newConversionRate) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         try (FileReader reader = new FileReader("data/AccountInfo.json")) {
@@ -179,6 +212,8 @@ public class DataSystem {
                     d.password = newPassword;
                     d.location = newLocation;
                     d.balance = newBalance;
+                    d.defaultClass = newDefaultClass;
+                    d.defaultCurrencyConversionRate = newConversionRate;
                     break;
                 }
             }
@@ -194,35 +229,47 @@ public class DataSystem {
 
     public static List<Integer> listPossibleLines(String currentLocation) {
         List<Integer> foundLines = new ArrayList<>();
-        Gson gson = new Gson();
+        
 
         try (Reader reader = new FileReader("data/TrainLines.json")) {
-            Type dataListType = new TypeToken<List<DataSystem>>() {
-            }.getType();
-            List<DataSystem> dataList = gson.fromJson(reader, dataListType);
+            com.google.gson.JsonArray companies = com.google.gson.JsonParser.parseReader(reader).getAsJsonArray();
 
-            if (dataList == null)
-                return foundLines;
+            for (com.google.gson.JsonElement companyEl : companies) {
+                if (!companyEl.isJsonObject()) continue;
+                com.google.gson.JsonObject companyObj = companyEl.getAsJsonObject();
+                if (!companyObj.has("lines") || !companyObj.get("lines").isJsonArray()) continue;
+                com.google.gson.JsonArray lines = companyObj.getAsJsonArray("lines");
 
-            for (DataSystem lineData : dataList) {
-                if (lineData == null || lineData.connections == null)
-                    continue;
+                for (com.google.gson.JsonElement lineEl : lines) {
+                    if (!lineEl.isJsonObject()) continue;
+                    com.google.gson.JsonObject lineObj = lineEl.getAsJsonObject();
 
-                boolean foundMatch = false;
+                    if (!lineObj.has("start") && !lineObj.has("connections")) continue;
 
-                if (lineData.start.equalsIgnoreCase(currentLocation)) {
-                    foundMatch = true;
-                } else {
-                    for (String placeName : lineData.connections.keySet()) {
-                        if (placeName != null && placeName.equalsIgnoreCase(currentLocation)) {
-                            foundMatch = true;
-                            break;
+                    boolean foundMatch = false;
+                    String start = lineObj.has("start") ? lineObj.get("start").getAsString() : null;
+                    if (start != null && start.equalsIgnoreCase(currentLocation)) {
+                        foundMatch = true;
+                    }
+
+                    if (!foundMatch && lineObj.has("connections") && lineObj.get("connections").isJsonObject()) {
+                        com.google.gson.JsonObject connections = lineObj.getAsJsonObject("connections");
+                        for (java.util.Map.Entry<String, com.google.gson.JsonElement> entry : connections.entrySet()) {
+                            String placeName = entry.getKey();
+                            if (placeName != null && placeName.equalsIgnoreCase(currentLocation)) {
+                                foundMatch = true;
+                                break;
+                            }
                         }
                     }
-                }
 
-                if (foundMatch) {
-                    foundLines.add(lineData.line);
+                    if (foundMatch && lineObj.has("line")) {
+                        try {
+                            foundLines.add(lineObj.get("line").getAsInt());
+                        } catch (Exception ex) {
+                            // ignore malformed line id
+                        }
+                    }
                 }
             }
         } catch (IOException e) {
@@ -235,22 +282,26 @@ public class DataSystem {
     }
 
     public static String getStart(int line) {
-        Gson gson = new Gson();
-        String start = null;
+    String start = null;
 
         try (Reader reader = new FileReader("data/TrainLines.json")) {
-            Type dataListType = new TypeToken<List<DataSystem>>() {
-            }.getType();
-            List<DataSystem> dataList = gson.fromJson(reader, dataListType);
+            com.google.gson.JsonArray companies = com.google.gson.JsonParser.parseReader(reader).getAsJsonArray();
 
-            if (dataList != null) {
-                for (DataSystem lineData : dataList) {
-                    if (lineData == null || lineData.connections == null)
-                        continue;
-
-                    if (lineData.line == line) {
-                        start = lineData.start;
-                        break;
+            for (com.google.gson.JsonElement companyEl : companies) {
+                if (!companyEl.isJsonObject()) continue;
+                com.google.gson.JsonObject companyObj = companyEl.getAsJsonObject();
+                if (!companyObj.has("lines") || !companyObj.get("lines").isJsonArray()) continue;
+                for (com.google.gson.JsonElement lineEl : companyObj.getAsJsonArray("lines")) {
+                    if (!lineEl.isJsonObject()) continue;
+                    com.google.gson.JsonObject lineObj = lineEl.getAsJsonObject();
+                    if (!lineObj.has("line")) continue;
+                    try {
+                        if (lineObj.get("line").getAsInt() == line) {
+                            if (lineObj.has("start")) start = lineObj.get("start").getAsString();
+                            return start;
+                        }
+                    } catch (Exception ex) {
+                        // skip malformed
                     }
                 }
             }
@@ -265,29 +316,38 @@ public class DataSystem {
 
     public static String[] getLine(int line) {
         List<String> lineStations = new ArrayList<>();
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        
 
         try (FileReader reader = new FileReader("data/TrainLines.json")) {
-            Type dataListType = new TypeToken<List<DataSystem>>() {
-            }.getType();
-            List<DataSystem> dataList = gson.fromJson(reader, dataListType);
+            com.google.gson.JsonArray companies = com.google.gson.JsonParser.parseReader(reader).getAsJsonArray();
 
-            if (dataList == null)
-                dataList = new ArrayList<>();
+            for (com.google.gson.JsonElement companyEl : companies) {
+                if (!companyEl.isJsonObject()) continue;
+                com.google.gson.JsonObject companyObj = companyEl.getAsJsonObject();
+                if (!companyObj.has("lines") || !companyObj.get("lines").isJsonArray()) continue;
+                for (com.google.gson.JsonElement lineEl : companyObj.getAsJsonArray("lines")) {
+                    if (!lineEl.isJsonObject()) continue;
+                    com.google.gson.JsonObject lineObj = lineEl.getAsJsonObject();
+                    if (!lineObj.has("line")) continue;
+                    try {
+                        if (lineObj.get("line").getAsInt() != line) continue;
+                    } catch (Exception ex) {
+                        continue;
+                    }
 
-            for (DataSystem lineData : dataList) {
-                if (lineData.line == line && lineData.connections != null) {
-                    // include the line start as the first station
-                    if (lineData.start != null) {
-                        lineStations.add(lineData.start);
+                    if (lineObj.has("start") && !lineObj.get("start").isJsonNull()) {
+                        lineStations.add(lineObj.get("start").getAsString());
                     }
-                    for (Map.Entry<String, Map<String, Object>> entry : lineData.connections.entrySet()) {
-                        // The JSON structure is: "connections": { "CityName": { "distance": 123 } }
-                        // entry.getKey() is the city name; entry.getValue() is the inner map with distance.
-                        String cityName = entry.getKey();
-                        lineStations.add(cityName);
+
+                    if (lineObj.has("connections") && lineObj.get("connections").isJsonObject()) {
+                        com.google.gson.JsonObject connections = lineObj.getAsJsonObject("connections");
+                        for (java.util.Map.Entry<String, com.google.gson.JsonElement> entry : connections.entrySet()) {
+                            String cityName = entry.getKey();
+                            lineStations.add(cityName);
+                        }
                     }
-                    break;
+
+                    return lineStations.toArray(new String[0]);
                 }
             }
         } catch (Exception e) {
@@ -301,37 +361,44 @@ public class DataSystem {
         java.util.Map<String, java.util.Map<String, Integer>> graph = new java.util.HashMap<>();
         
         try (java.io.Reader reader = new java.io.FileReader("data/TrainLines.json")) {
-            com.google.gson.JsonArray jsonArray = com.google.gson.JsonParser.parseReader(reader).getAsJsonArray();
+            com.google.gson.JsonArray companies = com.google.gson.JsonParser.parseReader(reader).getAsJsonArray();
 
-            for (int i = 0; i < jsonArray.size(); i++) {
-                com.google.gson.JsonObject lineData = jsonArray.get(i).getAsJsonObject();
-                
-                if (!lineData.has("start") || !lineData.has("connections"))
-                    continue;
+            for (com.google.gson.JsonElement companyEl : companies) {
+                if (!companyEl.isJsonObject()) continue;
+                com.google.gson.JsonObject companyObj = companyEl.getAsJsonObject();
+                if (!companyObj.has("lines") || !companyObj.get("lines").isJsonArray()) continue;
 
-                String start = lineData.get("start").getAsString();
-                com.google.gson.JsonObject connections = lineData.get("connections").getAsJsonObject();
-                
-                String prev = start;
+                for (com.google.gson.JsonElement lineEl : companyObj.getAsJsonArray("lines")) {
+                    if (!lineEl.isJsonObject()) continue;
+                    com.google.gson.JsonObject lineData = lineEl.getAsJsonObject();
 
-                // Iterate through connections in order (JsonObject maintains insertion order in newer Gson)
-                for (java.util.Map.Entry<String, com.google.gson.JsonElement> entry : connections.entrySet()) {
-                    String city = entry.getKey();
-                    com.google.gson.JsonObject destData = entry.getValue().getAsJsonObject();
-                    int distance = destData.get("distance").getAsInt();
+                    if (!lineData.has("start") || !lineData.has("connections"))
+                        continue;
 
-                    // add edge between prev and city (sequential stations along the line)
-                    if (!graph.containsKey(prev)) {
-                        graph.put(prev, new java.util.HashMap<String, Integer>());
+                    String start = lineData.get("start").getAsString();
+                    com.google.gson.JsonObject connections = lineData.get("connections").getAsJsonObject();
+
+                    String prev = start;
+
+                    // Iterate through connections in order (JsonObject maintains insertion order in newer Gson)
+                    for (java.util.Map.Entry<String, com.google.gson.JsonElement> entry : connections.entrySet()) {
+                        String city = entry.getKey();
+                        com.google.gson.JsonObject destData = entry.getValue().getAsJsonObject();
+                        int distance = destData.get("distance").getAsInt();
+
+                        // add edge between prev and city (sequential stations along the line)
+                        if (!graph.containsKey(prev)) {
+                            graph.put(prev, new java.util.HashMap<String, Integer>());
+                        }
+                        graph.get(prev).put(city, distance);
+
+                        if (!graph.containsKey(city)) {
+                            graph.put(city, new java.util.HashMap<String, Integer>());
+                        }
+                        graph.get(city).put(prev, distance);
+
+                        prev = city;
                     }
-                    graph.get(prev).put(city, distance);
-
-                    if (!graph.containsKey(city)) {
-                        graph.put(city, new java.util.HashMap<String, Integer>());
-                    }
-                    graph.get(city).put(prev, distance);
-
-                    prev = city;
                 }
             }
         } catch (Exception e) {
@@ -343,32 +410,42 @@ public class DataSystem {
 
     public static int findLineBetween(String a, String b) {
         if (a == null || b == null) return -1;
-        Gson gson = new Gson();
-
         try (java.io.Reader reader = new java.io.FileReader("data/TrainLines.json")) {
-            Type dataListType = new TypeToken<List<DataSystem>>() {
-            }.getType();
-            List<DataSystem> dataList = gson.fromJson(reader, dataListType);
+            com.google.gson.JsonArray companies = com.google.gson.JsonParser.parseReader(reader).getAsJsonArray();
 
-            if (dataList == null) return -1;
+            for (com.google.gson.JsonElement companyEl : companies) {
+                if (!companyEl.isJsonObject()) continue;
+                com.google.gson.JsonObject companyObj = companyEl.getAsJsonObject();
+                if (!companyObj.has("lines") || !companyObj.get("lines").isJsonArray()) continue;
 
-            for (DataSystem lineData : dataList) {
-                if (lineData == null || lineData.connections == null)
-                    continue;
+                for (com.google.gson.JsonElement lineEl : companyObj.getAsJsonArray("lines")) {
+                    if (!lineEl.isJsonObject()) continue;
+                    com.google.gson.JsonObject lineData = lineEl.getAsJsonObject();
 
-                boolean hasA = false;
-                boolean hasB = false;
+                    if (!lineData.has("line")) continue;
 
-                if (lineData.start != null && lineData.start.equalsIgnoreCase(a)) hasA = true;
-                if (lineData.start != null && lineData.start.equalsIgnoreCase(b)) hasB = true;
+                    boolean hasA = false;
+                    boolean hasB = false;
 
-                for (String placeName : lineData.connections.keySet()) {
-                    if (placeName != null && placeName.equalsIgnoreCase(a)) hasA = true;
-                    if (placeName != null && placeName.equalsIgnoreCase(b)) hasB = true;
-                }
+                    if (lineData.has("start") && lineData.get("start").getAsString().equalsIgnoreCase(a)) hasA = true;
+                    if (lineData.has("start") && lineData.get("start").getAsString().equalsIgnoreCase(b)) hasB = true;
 
-                if (hasA && hasB) {
-                    return lineData.line;
+                    if (lineData.has("connections") && lineData.get("connections").isJsonObject()) {
+                        com.google.gson.JsonObject connections = lineData.getAsJsonObject("connections");
+                        for (java.util.Map.Entry<String, com.google.gson.JsonElement> entry : connections.entrySet()) {
+                            String placeName = entry.getKey();
+                            if (placeName != null && placeName.equalsIgnoreCase(a)) hasA = true;
+                            if (placeName != null && placeName.equalsIgnoreCase(b)) hasB = true;
+                        }
+                    }
+
+                    if (hasA && hasB) {
+                        try {
+                            return lineData.get("line").getAsInt();
+                        } catch (Exception ex) {
+                            // malformed
+                        }
+                    }
                 }
             }
         } catch (Exception e) {
@@ -382,50 +459,58 @@ public class DataSystem {
         List<String> path = new ArrayList<>();
         
         try (java.io.Reader reader = new java.io.FileReader("data/TrainLines.json")) {
-            com.google.gson.JsonArray jsonArray = com.google.gson.JsonParser.parseReader(reader).getAsJsonArray();
+            com.google.gson.JsonArray companies = com.google.gson.JsonParser.parseReader(reader).getAsJsonArray();
 
-            for (int i = 0; i < jsonArray.size(); i++) {
-                com.google.gson.JsonObject lineData = jsonArray.get(i).getAsJsonObject();
-                
-                if (lineData.get("line").getAsInt() != lineNum)
-                    continue;
+            for (com.google.gson.JsonElement companyEl : companies) {
+                if (!companyEl.isJsonObject()) continue;
+                com.google.gson.JsonObject companyObj = companyEl.getAsJsonObject();
+                if (!companyObj.has("lines") || !companyObj.get("lines").isJsonArray()) continue;
 
-                String lineStart = lineData.get("start").getAsString();
-                com.google.gson.JsonObject connections = lineData.get("connections").getAsJsonObject();
-                
-                // Build ordered list of all stations on this line
-                List<String> allStations = new ArrayList<>();
-                allStations.add(lineStart);
-                for (java.util.Map.Entry<String, com.google.gson.JsonElement> entry : connections.entrySet()) {
-                    allStations.add(entry.getKey());
+                for (com.google.gson.JsonElement lineEl : companyObj.getAsJsonArray("lines")) {
+                    if (!lineEl.isJsonObject()) continue;
+                    com.google.gson.JsonObject lineData = lineEl.getAsJsonObject();
+                    if (!lineData.has("line") || !lineData.has("start") || !lineData.has("connections")) continue;
+                    try {
+                        if (lineData.get("line").getAsInt() != lineNum) continue;
+                    } catch (Exception ex) { continue; }
+
+                    String lineStart = lineData.get("start").getAsString();
+                    com.google.gson.JsonObject connections = lineData.get("connections").getAsJsonObject();
+
+                    // Build ordered list of all stations on this line
+                    List<String> allStations = new ArrayList<>();
+                    allStations.add(lineStart);
+                    for (java.util.Map.Entry<String, com.google.gson.JsonElement> entry : connections.entrySet()) {
+                        allStations.add(entry.getKey());
+                    }
+
+                    // Find indices of start and destination
+                    int startIdx = -1;
+                    int destIdx = -1;
+                    for (int j = 0; j < allStations.size(); j++) {
+                        if (allStations.get(j).equalsIgnoreCase(start)) {
+                            if (startIdx == -1) startIdx = j; // Take first occurrence
+                        }
+                        if (allStations.get(j).equalsIgnoreCase(destination)) {
+                            if (destIdx == -1) destIdx = j; // Take first occurrence
+                        }
+                    }
+
+                    if (startIdx == -1 || destIdx == -1) return path;
+
+                    // Extract sequential path
+                    if (startIdx <= destIdx) {
+                        for (int j = startIdx; j <= destIdx; j++) {
+                            path.add(allStations.get(j));
+                        }
+                    } else {
+                        // going backwards on the line
+                        for (int j = startIdx; j >= destIdx; j--) {
+                            path.add(allStations.get(j));
+                        }
+                    }
+                    return path;
                 }
-
-                // Find indices of start and destination
-                int startIdx = -1;
-                int destIdx = -1;
-                for (int j = 0; j < allStations.size(); j++) {
-                    if (allStations.get(j).equalsIgnoreCase(start)) {
-                        if (startIdx == -1) startIdx = j; // Take first occurrence
-                    }
-                    if (allStations.get(j).equalsIgnoreCase(destination)) {
-                        if (destIdx == -1) destIdx = j; // Take first occurrence
-                    }
-                }
-
-                if (startIdx == -1 || destIdx == -1) return path;
-
-                // Extract sequential path
-                if (startIdx <= destIdx) {
-                    for (int j = startIdx; j <= destIdx; j++) {
-                        path.add(allStations.get(j));
-                    }
-                } else {
-                    // going backwards on the line
-                    for (int j = startIdx; j >= destIdx; j--) {
-                        path.add(allStations.get(j));
-                    }
-                }
-                break;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -438,52 +523,60 @@ public class DataSystem {
         int totalDistance = 0;
         
         try (java.io.Reader reader = new java.io.FileReader("data/TrainLines.json")) {
-            com.google.gson.JsonArray jsonArray = com.google.gson.JsonParser.parseReader(reader).getAsJsonArray();
+            com.google.gson.JsonArray companies = com.google.gson.JsonParser.parseReader(reader).getAsJsonArray();
 
-            for (int i = 0; i < jsonArray.size(); i++) {
-                com.google.gson.JsonObject lineData = jsonArray.get(i).getAsJsonObject();
-                
-                if (lineData.get("line").getAsInt() != lineNum)
-                    continue;
+            for (com.google.gson.JsonElement companyEl : companies) {
+                if (!companyEl.isJsonObject()) continue;
+                com.google.gson.JsonObject companyObj = companyEl.getAsJsonObject();
+                if (!companyObj.has("lines") || !companyObj.get("lines").isJsonArray()) continue;
 
-                String lineStart = lineData.get("start").getAsString();
-                com.google.gson.JsonObject connections = lineData.get("connections").getAsJsonObject();
-                
-                // Build ordered list of all stations with distances
-                List<String> allStations = new ArrayList<>();
-                List<Integer> distances = new ArrayList<>();
-                allStations.add(lineStart);
-                
-                for (java.util.Map.Entry<String, com.google.gson.JsonElement> entry : connections.entrySet()) {
-                    allStations.add(entry.getKey());
-                    distances.add(entry.getValue().getAsJsonObject().get("distance").getAsInt());
+                for (com.google.gson.JsonElement lineEl : companyObj.getAsJsonArray("lines")) {
+                    if (!lineEl.isJsonObject()) continue;
+                    com.google.gson.JsonObject lineData = lineEl.getAsJsonObject();
+                    if (!lineData.has("line") || !lineData.has("start") || !lineData.has("connections")) continue;
+                    try {
+                        if (lineData.get("line").getAsInt() != lineNum) continue;
+                    } catch (Exception ex) { continue; }
+
+                    String lineStart = lineData.get("start").getAsString();
+                    com.google.gson.JsonObject connections = lineData.get("connections").getAsJsonObject();
+
+                    // Build ordered list of all stations with distances
+                    List<String> allStations = new ArrayList<>();
+                    List<Integer> distances = new ArrayList<>();
+                    allStations.add(lineStart);
+
+                    for (java.util.Map.Entry<String, com.google.gson.JsonElement> entry : connections.entrySet()) {
+                        allStations.add(entry.getKey());
+                        distances.add(entry.getValue().getAsJsonObject().get("distance").getAsInt());
+                    }
+
+                    // Find indices - take first occurrence only
+                    int startIdx = -1;
+                    int destIdx = -1;
+                    for (int j = 0; j < allStations.size(); j++) {
+                        if (allStations.get(j).equalsIgnoreCase(start)) {
+                            if (startIdx == -1) startIdx = j; // Take first occurrence
+                        }
+                        if (allStations.get(j).equalsIgnoreCase(destination)) {
+                            if (destIdx == -1) destIdx = j; // Take first occurrence
+                        }
+                    }
+
+                    if (startIdx == -1 || destIdx == -1) return 0;
+
+                    // Sum distances along the sequential path
+                    if (startIdx <= destIdx) {
+                        for (int j = startIdx; j < destIdx; j++) {
+                            totalDistance += distances.get(j);
+                        }
+                    } else {
+                        for (int j = startIdx - 1; j >= destIdx; j--) {
+                            totalDistance += distances.get(j);
+                        }
+                    }
+                    return totalDistance;
                 }
-
-                // Find indices - take first occurrence only
-                int startIdx = -1;
-                int destIdx = -1;
-                for (int j = 0; j < allStations.size(); j++) {
-                    if (allStations.get(j).equalsIgnoreCase(start)) {
-                        if (startIdx == -1) startIdx = j; // Take first occurrence
-                    }
-                    if (allStations.get(j).equalsIgnoreCase(destination)) {
-                        if (destIdx == -1) destIdx = j; // Take first occurrence
-                    }
-                }
-
-                if (startIdx == -1 || destIdx == -1) return 0;
-
-                // Sum distances along the sequential path
-                if (startIdx <= destIdx) {
-                    for (int j = startIdx; j < destIdx; j++) {
-                        totalDistance += distances.get(j);
-                    }
-                } else {
-                    for (int j = startIdx - 1; j >= destIdx; j--) {
-                        totalDistance += distances.get(j);
-                    }
-                }
-                break;
             }
         } catch (Exception e) {
             e.printStackTrace();
