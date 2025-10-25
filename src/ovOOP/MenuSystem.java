@@ -23,13 +23,13 @@ public class MenuSystem {
                 ColorSystem.CYAN + " | Balance: " + ColorSystem.withLargeIntegers(data.getBalance())
             );
                 System.out.println(ColorSystem.BLUE + "---------------------------------------");
-                input = OptionsSystem.showOption(scanner,
+                input = OptionsSystem.showOption(scanner, "Main Menu",
                         "Start traveling,Account Settings,Manage balance,Exit system,Credits");
             } else {
                 System.out.println(ColorSystem.BRIGHT_CYAN + "You are not currently logged in.");
                 System.out.println(ColorSystem.BRIGHT_CYAN + "Please log in before using any traveling features.");
                 System.out.println(ColorSystem.BLUE + "---------------------------------------");
-                input = OptionsSystem.showOption(scanner, "Account Settings,Credits");
+                input = OptionsSystem.showOption(scanner, "Main Menu", "Account Settings,Credits");
             }
             if (currentUser != 0) {
                 if (input == 5) {

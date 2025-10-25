@@ -27,7 +27,7 @@ public class AccountSystem {
         prettyPrint(ColorSystem.BRIGHT_CYAN + "Please choose from the following list");
         printSeparator();
 
-        int accounts = OptionsSystem.showOption(scanner, "Login,Logout,Sign up,Main Menu,Debug");
+        int accounts = OptionsSystem.showOption(scanner, "Account Menu", "Login,Logout,Sign up,Main Menu,Debug");
 
         if (accounts == 1) {
             loginSystem(scanner);
