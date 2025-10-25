@@ -38,11 +38,11 @@ public class TravelSystem {
         }
 
         double totalCost = 0;
-        double fuelCostPerLiter = 2.17;
-        double totalFuelCost = (distanceTraveling / 500.0) * fuelCostPerLiter;
+        double fuelCostPerLiter = 21.7;
+        double totalFuelCost = distanceTraveling * fuelCostPerLiter;
         totalCost += totalFuelCost; // total fuel cost
         double randomFactor = Math.random() * 0.3 + 1;
-        totalCost *= randomFactor * (randomFactor / 2); // random factor
+        totalCost *= (randomFactor / 500.0) * randomFactor; // random factor
 
         if (businessClass) {
             totalCost *= 1.7;
@@ -59,15 +59,30 @@ public class TravelSystem {
         return totalCost;
     }
 
-    static void createInvoice(Scanner scanner, double totalCost, boolean isFirstClass, String origin,
+    static void createInvoice(Scanner scanner, double totalCost, boolean businessClass, String origin,
             String destination, String trainCompany) {
+
         boolean willPrint = (OptionsSystem.showOption(scanner, "Would you like to print your invoice?", "Yes,No") == 1);
 
         if (!willPrint) {
             MenuSystem.startMenu(scanner);
             return;
         }
+
         int invoiceId = (int) (Math.random() * 900000) + 100000; // 100000 to 999999
+
+        // Reverse calculation (assuming conversionRate = 1 for simplicity, otherwise
+        // divide by it)
+        double costWithoutConversion = totalCost; // divide by conversionRate if needed
+        double costMinusBaseFare = costWithoutConversion - 2; // subtract base fare
+        double costMinusProfit = costMinusBaseFare / 1.20; // remove profit margin
+        double costMinusVAT = costMinusProfit / 1.09; // remove VAT
+        double travelPrice = costMinusVAT; // this is the fuel+random*class factor
+        double vat = costMinusProfit - costMinusVAT; // 9% VAT portion
+        double profitMargin = costMinusBaseFare - costMinusProfit; // 20% profit portion
+        double baseFare = 2.0;
+
+        DataSystem data = new DataSystem(Main.userID);
 
         System.out.println(ColorSystem.BRIGHT_CYAN + "====================================================");
         System.out.println(ColorSystem.BRIGHT_BLUE + ColorSystem.BOLD + trainCompany + " Transport - INVOICE #"
@@ -76,7 +91,6 @@ public class TravelSystem {
         System.out.println(ColorSystem.CYAN + "Thank you for using " + trainCompany + " Transport for your traveling!"
                 + ColorSystem.RESET);
         System.out.println(ColorSystem.BRIGHT_CYAN + "----------------------------------------------------");
-        DataSystem data = new DataSystem(Main.userID);
         System.out.println(ColorSystem.BRIGHT_CYAN + "Invoice to: " + ColorSystem.BRIGHT_CYAN + data.getUsername()
                 + ColorSystem.RESET);
         System.out.println(ColorSystem.BRIGHT_CYAN + "----------------------------------------------------");
@@ -84,25 +98,15 @@ public class TravelSystem {
                 + ColorSystem.BRIGHT_BLUE + "  To: " + ColorSystem.BRIGHT_CYAN + destination + ColorSystem.RESET);
         System.out.println(ColorSystem.BRIGHT_CYAN + "----------------------------------------------------");
 
-        // Base fare
-        double baseFare = 2.00;
         System.out.println(ColorSystem.BRIGHT_CYAN + "Base fare      : " + ColorSystem.BRIGHT_BLUE
                 + ColorSystem.withLargeIntegers(baseFare) + ColorSystem.RESET);
-
-        // Fixed VAT and profit
-        double vat = 0.03;
-        double profitMargin = 0.07;
         System.out.println(ColorSystem.BRIGHT_CYAN + "VAT (9%)       : " + ColorSystem.BRIGHT_BLUE
                 + ColorSystem.withLargeIntegers(vat) + ColorSystem.RESET);
         System.out.println(ColorSystem.BRIGHT_CYAN + "Profit Margin  : " + ColorSystem.BRIGHT_BLUE
                 + ColorSystem.withLargeIntegers(profitMargin) + ColorSystem.RESET);
-
-        // Travel price
-        double travelPrice = 0.37;
         System.out.println(ColorSystem.BRIGHT_CYAN + "Travel price   : " + ColorSystem.BRIGHT_BLUE
                 + ColorSystem.withLargeIntegers(travelPrice) + ColorSystem.RESET);
 
-        // Total cost
         totalCost = baseFare + vat + profitMargin + travelPrice;
         System.out.println(ColorSystem.BRIGHT_CYAN + "----------------------------------------------------");
         System.out.println(ColorSystem.BRIGHT_CYAN + ColorSystem.BOLD + "Total price    : " + ColorSystem.BRIGHT_CYAN
@@ -114,7 +118,7 @@ public class TravelSystem {
     static void travelMenu(Scanner scanner) {
         MenuSystem.clear();
 
-        int target = OptionsSystem.showOption(scanner, "Travel Menu", "To destination,Lines,Map");
+        int target = OptionsSystem.showOption(scanner, "Travel Menu", "To destination,Lines,Map,Main menu");
         switch (target) {
             case 1:
                 toDestinationMenu(scanner);
@@ -124,6 +128,8 @@ public class TravelSystem {
             case 3:
                 mapMenu(scanner);
                 break;
+            case 4:
+                MenuSystem.startMenu(scanner);
             default:
                 System.out.println(ColorSystem.RED + "That is not a valid option" + ColorSystem.RESET);
                 MenuSystem.startMenu(scanner);
@@ -138,13 +144,13 @@ public class TravelSystem {
 
         String[] testCities = { "Test1", "Test2", "Test3", "Test4", "Test5", "Test6", "Test7" };
 
-        int[] testCitiesYOffset = {0, 5, 7, -7, 8, -9, 15};
+        int[] testCitiesYOffset = { 0, 5, 7, -7, 8, -9, 15 };
 
         mapGenerator.generateLine(testCities, 10, testCitiesYOffset);
 
         // Display the map
         mapGenerator.displayMap(false);
-
+        System.out.println(ColorSystem.BRIGHT_PURPLE + "Press enter to continue...");
         scanner.nextLine();
 
         TravelSystem.travelMenu(scanner);
@@ -219,11 +225,21 @@ public class TravelSystem {
                 + "Km" + ColorSystem.RESET);
         System.out
                 .println(ColorSystem.BRIGHT_BLUE + "Line's: " + ColorSystem.BRIGHT_CYAN + lineStr + ColorSystem.RESET);
-
         createInvoice(scanner, calculateCost(data.isFirstClass(), route.distanceTraveld(), data.getConversionRate()),
                 data.isFirstClass(), data.getLocation(), destination, trainCompany);
 
-        // continue here with aditional ui elements
+        data.setLocation(destination);
+
+        data.setBalance(data.getBalance()-calculateCost(data.isFirstClass(), route.distanceTraveld(), data.getConversionRate()));
+
+        System.out.println(ColorSystem.BRIGHT_PURPLE + "Press enter to continue...");
+        scanner.nextLine();
+
+        TravelSystem.travelMenu(scanner);
+
+
+
+        // continue here with additional ui elements
     }
 
     static TravelSystem findRoute(String destination) {

@@ -67,7 +67,7 @@ public class MenuSystem {
         System.out.println(ColorSystem.CYAN + " GitHub Repo     : https://github.com/m3v64/ovOOP");
         System.out.println(ColorSystem.BLUE + "==========================================");
         System.out.println();
-        System.out.print(ColorSystem.BRIGHT_CYAN + "Press Enter to return to the menu...");
+        System.out.println(ColorSystem.BRIGHT_PURPLE + "Press enter to continue...");
         scanner.nextLine();
         startMenu(scanner);
     }
