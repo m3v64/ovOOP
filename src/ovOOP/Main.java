@@ -9,25 +9,32 @@ public class Main {
 
         Scanner initialScanner = new Scanner(System.in);
 
-        MenuSystem.clear();
+        // MenuSystem.clear();
 
-        MenuSystem.startMenu(initialScanner);
+        // MenuSystem.startMenu(initialScanner);
 
-        //Map generation
+        // Map generation
 
-        // MapGenerationSystem mapGenerator = new MapGenerationSystem();
+        MapGenerationSystem mapGenerator = new MapGenerationSystem();
 
-        // int[][] map = mapGenerator.createEmptyMap(35, 100, 0);
+        mapGenerator.initializeMap(100, 35, '.');
 
-        // DataSystem data = new DataSystem(userID);
+        // Paint the text "Test" at position (userID, userID)
 
-        // String[] cityList = data.CITIES;
+        // Load city data
+        DataSystem data = new DataSystem(userID);
+        String[] cityList = data.CITIES;
 
-        // mapGenerator.initializeCities(cityList, true);
+        mapGenerator.generateCity(13, 30, "Dryard", true);
 
-        // mapGenerator.displayMap(map, initialScanner, false);
+        mapGenerator.generateCity(25, 20, "Brittle", true);
 
-        //Data
+        mapGenerator.paintLineLayer(mapGenerator.getRoadLayer(), 13, 30, 25, 20, '#');
+
+        // Display the map
+        mapGenerator.displayMap(initialScanner, false);
+
+        // Data
 
         // DataSystem data = new DataSystem(userID);
         // for (String city : data.CITIES) {
