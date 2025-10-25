@@ -9,6 +9,12 @@ public class Main {
 
         Scanner initialScanner = new Scanner(System.in);
 
+        MenuSystem.clear();
+
+        MenuSystem.startMenu(initialScanner);
+
+        //Map generation
+
         // MapGenerationSystem mapGenerator = new MapGenerationSystem();
 
         // int[][] map = mapGenerator.createEmptyMap(35, 100, 0);
@@ -21,9 +27,7 @@ public class Main {
 
         // mapGenerator.displayMap(map, initialScanner, false);
 
-        MenuSystem.clear();
-
-        MenuSystem.startMenu(initialScanner);
+        //Data
 
         // DataSystem data = new DataSystem(userID);
         // for (String city : data.CITIES) {
