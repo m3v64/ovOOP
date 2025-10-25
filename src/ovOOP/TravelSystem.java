@@ -61,8 +61,7 @@ public class TravelSystem {
 
     static void createInvoice(Scanner scanner, double totalCost, boolean isFirstClass, String origin,
             String destination, String trainCompany) {
-        System.out.println(ColorSystem.BRIGHT_BLUE + "Would you like to print your invoice?" + ColorSystem.RESET);
-        boolean willPrint = (OptionsSystem.showOption(scanner, "Yes,No") == 1);
+        boolean willPrint = (OptionsSystem.showOption(scanner, "Would you like to print your invoice?", "Yes,No") == 1);
 
         if (!willPrint) {
             MenuSystem.startMenu(scanner);
@@ -115,7 +114,7 @@ public class TravelSystem {
     static void travelMenu(Scanner scanner) {
         MenuSystem.clear();
 
-        int target = OptionsSystem.showOption(scanner, "To destination,Lines,Map");
+        int target = OptionsSystem.showOption(scanner, "Travel Menu", "To destination,Lines,Map");
         switch (target) {
             case 1:
                 toDestinationMenu(scanner);
@@ -170,11 +169,9 @@ public class TravelSystem {
             cities.add(i);
         }
 
-        int target = OptionsSystem.showOption(scanner, String.join(",", cities)) - 1;
-
-        System.out.println("Select your prefered railway corporation");
+        int target = OptionsSystem.showOption(scanner, "Cities", String.join(",", cities)) - 1;
         String trainCompany;
-        int trainCompanyIndex = OptionsSystem.showOption(scanner,
+        int trainCompanyIndex = OptionsSystem.showOption(scanner, "Select your prefered railway corporation",
                 "MVU public transport corporation,Predia railway logistics");
         switch (trainCompanyIndex) {
             case 1:

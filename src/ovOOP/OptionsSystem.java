@@ -12,12 +12,13 @@ public class OptionsSystem {
         System.out.printf(ColorSystem.BRIGHT_BLUE + "  %2d. %s%n", index, option.trim());
     }
 
-    public static int showOption(Scanner scanner, String options) {
+    public static int showOption(Scanner scanner, String header, String options) {
         String regex = "[,]";
         String[] optionArray = options.split(regex);
         int i = 0;
         printDivider();
-        System.out.println(ColorSystem.CYAN + "         Please select an option:");
+        System.out.println(ColorSystem.CYAN + header);
+        System.out.println(ColorSystem.CYAN + "Please select an option:");
         printDivider();
         for (String option : optionArray) {
             i++;

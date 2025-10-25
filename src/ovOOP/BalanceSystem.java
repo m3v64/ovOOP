@@ -9,7 +9,7 @@ public class BalanceSystem {
         System.out.println(ColorSystem.BRIGHT_CYAN + "Please choose from the following options");
         System.out.println(ColorSystem.BRIGHT_CYAN + "the balance of the user " + data.getUsername() + " is "
                 + ColorSystem.CYAN + ColorSystem.withLargeIntegers(data.getBalance()));
-        int balanceMenu = OptionsSystem.showOption(scanner, "Deposit,Withdraw,Main Menu");
+        int balanceMenu = OptionsSystem.showOption(scanner, "Balance Menu", "Deposit,Withdraw,Main Menu");
 
         if (balanceMenu == 1) {
             // Deposit code here
