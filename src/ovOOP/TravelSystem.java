@@ -134,6 +134,19 @@ public class TravelSystem {
     static void mapMenu(Scanner scanner) {
         MapGenerationSystem initialMapGenerator = new MapGenerationSystem();
 
+                MapGenerationSystem mapGenerator = new MapGenerationSystem();
+
+        mapGenerator.initializeMap(100, 35, '.');
+
+        mapGenerator.generateCity(13, 30, "Dryard", true);
+
+        mapGenerator.generateCity(25, 20, "Brittle", true);
+
+        mapGenerator.paintLineLayer(mapGenerator.getRoadLayer(), 13, 30, 25, 20, '#');
+
+        // Display the map
+        mapGenerator.displayMap(false);
+
         scanner.nextLine();
 
         TravelSystem.travelMenu(scanner);

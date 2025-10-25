@@ -106,7 +106,7 @@ public class MapGenerationSystem {
     }
 
     // Display all layers merged
-    public void displayMap(Scanner scanner, boolean debugSendRawMap) {
+    public void displayMap(boolean debugSendRawMap) {
         for (int y = 0; y < mapHeight; y++) {
             for (int x = 0; x < mapWidth; x++) {
                 char c;
@@ -146,7 +146,6 @@ public class MapGenerationSystem {
             System.out.println();
         }
         System.out.println(ColorSystem.CYAN + "Press enter to continue");
-        scanner.nextLine();
     }
 
     // Access individual layers if needed
