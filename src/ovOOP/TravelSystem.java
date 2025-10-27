@@ -125,6 +125,7 @@ public class TravelSystem {
                 toDestinationMenu(scanner);
                 break;
             case 2:
+                showLines(scanner);
                 break;
             case 3:
                 MenuSystem.startMenu(scanner);
@@ -132,6 +133,31 @@ public class TravelSystem {
                 System.out.println(ColorSystem.RED + "That is not a valid option" + ColorSystem.RESET);
                 MenuSystem.startMenu(scanner);
         }
+    }
+
+    static void showLines(Scanner scanner) {
+        DataSystem data = new DataSystem(Main.userID);
+
+        List<Integer> possibleLines = DataSystem.listPossibleLines(data.getLocation());
+
+        int[] possibleLinesArray = possibleLines.stream().mapToInt(Integer::intValue).toArray();
+
+        List<String> lines = new ArrayList<>();
+
+        for (int i : possibleLinesArray) {
+            lines.addAll(Arrays.asList(data.getLine(i)));
+            for (String j : lines) {
+                System.out.print(j);
+                System.out.print(" -> ");
+            }
+            System.out.println(" | ");
+            lines.clear();
+            System.out.println();
+        }
+        System.out.println("Press enter to continue...");
+        scanner.nextLine();
+
+        TravelSystem.travelMenu(scanner);
     }
 
     static void travelMapGoTravel(int[] secondsTravelling, String[] cityNames, int mapWidth, int mapHeight) {
@@ -238,6 +264,8 @@ public class TravelSystem {
         }
 
         travelMapGoTravel(distance, passingCities, 120, 10);
+
+        scanner.nextLine();
 
         TravelSystem.travelMenu(scanner);
 

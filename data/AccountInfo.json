@@ -21,7 +21,7 @@
     "userID": 2,
     "username": "admin",
     "password": "Administrator",
-    "location": "Elektra",
+    "location": "Dryard",
     "balance": 1.7976931348623157E308,
     "defaultClass": 2,
     "defaultCurrencyConversionRate": 1.0
@@ -39,8 +39,8 @@
     "userID": 4,
     "username": "morris",
     "password": "JustCause",
-    "location": "Elektra",
-    "balance": 1.0000000000000882E16,
+    "location": "Dryard",
+    "balance": 866.63,
     "defaultClass": 2,
     "defaultCurrencyConversionRate": 1.0
   },
