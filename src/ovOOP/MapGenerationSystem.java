@@ -35,7 +35,7 @@ public class MapGenerationSystem {
 
     // Generate city and optionally add text above it
     public void generateCity(int x, int y, String cityName, boolean atCity) {
-        char cityChar = atCity ? 'C' : 'V';
+        char cityChar = atCity ? '@' : '!';
         paintSquareLayer(cityLayer, x, y, cityChar, 2, 2);
 
         // Center city name above city
@@ -44,23 +44,25 @@ public class MapGenerationSystem {
         paintTextLayer(textLayer, textX, textY, cityName);
     }
 
-    public void generateLine(String[] citiesInLine, int distanceBetweenCities, int[] yOffsets) {
-        if (yOffsets.length != citiesInLine.length) {
-            throw new IllegalArgumentException("yOffsets length must match citiesInLine length");
-        }
+    public void generateLine(String[] citiesInLine, int distanceBetweenCities) {
 
+        // Iterate over each city
         for (int i = 0; i < citiesInLine.length; i++) {
-            int x = 1 + distanceBetweenCities * i;
-            int y = (mapHeight / 2) + yOffsets[i]; // different Y per city
+            int x = 6 + distanceBetweenCities * i;
+            int y = (mapHeight / 2);
 
+            // Draw the city
             generateCity(x, y, citiesInLine[i], false);
 
+            // Draw the connecting line from previous city
             if (i > 0) {
-                int prevX = 1 + distanceBetweenCities * (i - 1);
-                int prevY = (mapHeight / 2) + yOffsets[i - 1];
+                int prevX = 6 + distanceBetweenCities * (i - 1);
+                int prevY = (mapHeight / 2);
                 paintLineLayer(backgroundLayer, prevX, prevY, x, y, '#');
             }
+
         }
+        displayMap(false);
     }
 
     // Paint text on a layer
@@ -146,17 +148,17 @@ public class MapGenerationSystem {
                     System.out.print(c);
                 else {
                     switch (c) {
-                        case 'C':
+                        case '!':
                             System.out.print(ColorSystem.GREEN_BG + " " + ColorSystem.RESET);
                             break;
-                        case 'V':
+                        case '@':
                             System.out.print(ColorSystem.YELLOW_BG + " " + ColorSystem.RESET);
                             break;
                         case '#':
                             System.out.print(ColorSystem.BRIGHT_BLACK_BG + " " + ColorSystem.RESET);
                             break;
-                        case ' ':
-                        case '.':
+                        case '$':
+                        case '%':
                             System.out.print(ColorSystem.BLUE_BG + " " + ColorSystem.RESET);
                             break;
                         default:

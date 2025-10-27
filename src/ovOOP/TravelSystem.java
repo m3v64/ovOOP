@@ -1,6 +1,7 @@
 package ovOOP;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Map;
@@ -118,7 +119,7 @@ public class TravelSystem {
     static void travelMenu(Scanner scanner) {
         MenuSystem.clear();
 
-        int target = OptionsSystem.showOption(scanner, "Travel Menu", "To destination,Lines,Map,Main menu");
+        int target = OptionsSystem.showOption(scanner, "Travel Menu", "To destination,Lines,Main menu");
         switch (target) {
             case 1:
                 toDestinationMenu(scanner);
@@ -126,9 +127,6 @@ public class TravelSystem {
             case 2:
                 break;
             case 3:
-                mapMenu(scanner);
-                break;
-            case 4:
                 MenuSystem.startMenu(scanner);
             default:
                 System.out.println(ColorSystem.RED + "That is not a valid option" + ColorSystem.RESET);
@@ -136,24 +134,16 @@ public class TravelSystem {
         }
     }
 
-    static void mapMenu(Scanner scanner) {
-
+    static void travelMapGoTravel(int[] secondsTravelling, String[] cityNames, int mapWidth, int mapHeight) {
         MapGenerationSystem mapGenerator = new MapGenerationSystem();
 
-        mapGenerator.initializeMap(100, 35, '.');
+        int[] timeArray = secondsTravelling;
 
-        String[] testCities = { "Test1", "Test2", "Test3", "Test4", "Test5", "Test6", "Test7" };
+        mapGenerator.initializeMap(mapWidth, mapHeight, '%');
 
-        int[] testCitiesYOffset = { 0, 5, 7, -7, 8, -9, 15 };
+        String[] cityArray = cityNames;
 
-        mapGenerator.generateLine(testCities, 10, testCitiesYOffset);
-
-        // Display the map
-        mapGenerator.displayMap(false);
-        System.out.println(ColorSystem.BRIGHT_PURPLE + "Press enter to continue...");
-        scanner.nextLine();
-
-        TravelSystem.travelMenu(scanner);
+        mapGenerator.generateLine(cityArray, 15);
     }
 
     static void toDestinationMenu(Scanner scanner) {
@@ -172,7 +162,11 @@ public class TravelSystem {
         List<String> cities = new ArrayList<>();
 
         for (String i : data.CITIES) {
-            cities.add(i);
+            if (!i.equalsIgnoreCase("portal")) {
+                if (!i.equalsIgnoreCase(data.getLocation())) {
+                    cities.add(i);
+                }
+            }
         }
 
         int target = OptionsSystem.showOption(scanner, "Cities", String.join(",", cities)) - 1;
@@ -230,14 +224,22 @@ public class TravelSystem {
 
         data.setLocation(destination);
 
-        data.setBalance(data.getBalance()-calculateCost(data.isFirstClass(), route.distanceTraveld(), data.getConversionRate()));
+        data.setBalance(data.getBalance()
+                - calculateCost(data.isFirstClass(), route.distanceTraveld(), data.getConversionRate()));
 
         System.out.println(ColorSystem.BRIGHT_PURPLE + "Press enter to continue...");
         scanner.nextLine();
 
+        String[] passingCities = route.passingCities;
+
+        int[] distance = new int[passingCities.length];
+        for (int i : distance) {
+            distance[i] = route.distanceTraveld / passingCities.length / 100;
+        }
+
+        travelMapGoTravel(distance, passingCities, 120, 10);
+
         TravelSystem.travelMenu(scanner);
-
-
 
         // continue here with additional ui elements
     }
