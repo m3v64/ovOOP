@@ -56,5 +56,12 @@ public class ColorSystem {
         return df.format(value);
     }
 
-    public static String[] colorPalette = { BLUE, CYAN, BRIGHT_BLUE, BRIGHT_CYAN };
+    public static String[] darkColorPaletteOptions = { ColorSystem.BLACK, ColorSystem.RED,
+            ColorSystem.GREEN, ColorSystem.YELLOW,
+            ColorSystem.BLUE, ColorSystem.PURPLE, ColorSystem.CYAN, ColorSystem.WHITE };
+    public static String[] lightColorPaletteOptions = { ColorSystem.BRIGHT_BLACK, ColorSystem.BRIGHT_RED,
+            ColorSystem.BRIGHT_GREEN, ColorSystem.BRIGHT_YELLOW,
+            ColorSystem.BRIGHT_BLUE, ColorSystem.BRIGHT_PURPLE, ColorSystem.BRIGHT_CYAN, ColorSystem.BRIGHT_WHITE };
+
+    public static String[] colorPalette = { BLUE, CYAN };
 }

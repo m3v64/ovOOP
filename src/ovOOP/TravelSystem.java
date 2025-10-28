@@ -85,35 +85,35 @@ public class TravelSystem {
 
         DataSystem data = new DataSystem(Main.userID);
 
-        System.out.println(ColorSystem.BRIGHT_CYAN + "====================================================");
-        System.out.println(ColorSystem.BRIGHT_BLUE + ColorSystem.BOLD + trainCompany + " Transport - INVOICE #"
+        System.out.println(ColorSystem.colorPalette[1] + "====================================================");
+        System.out.println(ColorSystem.colorPalette[0] + ColorSystem.BOLD + trainCompany + " Transport - INVOICE #"
                 + invoiceId + ColorSystem.RESET);
-        System.out.println(ColorSystem.BRIGHT_CYAN + "====================================================");
-        System.out.println(ColorSystem.CYAN + "Thank you for using " + trainCompany + " Transport for your traveling!"
+        System.out.println(ColorSystem.colorPalette[1] + "====================================================");
+        System.out.println(ColorSystem.colorPalette[1] + "Thank you for using " + trainCompany + " Transport for your traveling!"
                 + ColorSystem.RESET);
-        System.out.println(ColorSystem.BRIGHT_CYAN + "----------------------------------------------------");
-        System.out.println(ColorSystem.BRIGHT_CYAN + "Invoice to: " + ColorSystem.BRIGHT_CYAN + data.getUsername()
+        System.out.println(ColorSystem.colorPalette[1] + "----------------------------------------------------");
+        System.out.println(ColorSystem.colorPalette[1] + "Invoice to: " + ColorSystem.colorPalette[1] + data.getUsername()
                 + ColorSystem.RESET);
-        System.out.println(ColorSystem.BRIGHT_CYAN + "----------------------------------------------------");
-        System.out.println(ColorSystem.BRIGHT_BLUE + "From: " + ColorSystem.BRIGHT_CYAN + origin + ColorSystem.RESET
-                + ColorSystem.BRIGHT_BLUE + "  To: " + ColorSystem.BRIGHT_CYAN + destination + ColorSystem.RESET);
-        System.out.println(ColorSystem.BRIGHT_CYAN + "----------------------------------------------------");
+        System.out.println(ColorSystem.colorPalette[1] + "----------------------------------------------------");
+        System.out.println(ColorSystem.colorPalette[0] + "From: " + ColorSystem.colorPalette[1] + origin + ColorSystem.RESET
+                + ColorSystem.colorPalette[0] + "  To: " + ColorSystem.colorPalette[1] + destination + ColorSystem.RESET);
+        System.out.println(ColorSystem.colorPalette[1] + "----------------------------------------------------");
 
-        System.out.println(ColorSystem.BRIGHT_CYAN + "Base fare      : " + ColorSystem.BRIGHT_BLUE
+        System.out.println(ColorSystem.colorPalette[1] + "Base fare      : " + ColorSystem.colorPalette[0]
                 + ColorSystem.withLargeIntegers(baseFare) + ColorSystem.RESET);
-        System.out.println(ColorSystem.BRIGHT_CYAN + "VAT (9%)       : " + ColorSystem.BRIGHT_BLUE
+        System.out.println(ColorSystem.colorPalette[1] + "VAT (9%)       : " + ColorSystem.colorPalette[0]
                 + ColorSystem.withLargeIntegers(vat) + ColorSystem.RESET);
-        System.out.println(ColorSystem.BRIGHT_CYAN + "Profit Margin  : " + ColorSystem.BRIGHT_BLUE
+        System.out.println(ColorSystem.colorPalette[1] + "Profit Margin  : " + ColorSystem.colorPalette[0]
                 + ColorSystem.withLargeIntegers(profitMargin) + ColorSystem.RESET);
-        System.out.println(ColorSystem.BRIGHT_CYAN + "Travel price   : " + ColorSystem.BRIGHT_BLUE
+        System.out.println(ColorSystem.colorPalette[1] + "Travel price   : " + ColorSystem.colorPalette[0]
                 + ColorSystem.withLargeIntegers(travelPrice) + ColorSystem.RESET);
 
         totalCost = baseFare + vat + profitMargin + travelPrice;
-        System.out.println(ColorSystem.BRIGHT_CYAN + "----------------------------------------------------");
-        System.out.println(ColorSystem.BRIGHT_CYAN + ColorSystem.BOLD + "Total price    : " + ColorSystem.BRIGHT_CYAN
+        System.out.println(ColorSystem.colorPalette[1] + "----------------------------------------------------");
+        System.out.println(ColorSystem.colorPalette[1] + ColorSystem.BOLD + "Total price    : " + ColorSystem.colorPalette[1]
                 + ColorSystem.withLargeIntegers(totalCost) + ColorSystem.RESET);
         System.out.println(
-                ColorSystem.BRIGHT_CYAN + "====================================================" + ColorSystem.RESET);
+                ColorSystem.colorPalette[1] + "====================================================" + ColorSystem.RESET);
     }
 
     static void travelMenu(Scanner scanner) {
@@ -177,13 +177,13 @@ public class TravelSystem {
 
         DataSystem data = new DataSystem(Main.userID);
 
-        System.out.println(ColorSystem.BRIGHT_CYAN + "╔════════════════════════════════════════════════════╗");
+        System.out.println(ColorSystem.colorPalette[1] + "╔════════════════════════════════════════════════════╗");
         System.out.println(
-                ColorSystem.BRIGHT_BLUE + "  You are currently at: " + ColorSystem.BRIGHT_CYAN + data.getLocation());
+                ColorSystem.colorPalette[0] + "  You are currently at: " + ColorSystem.colorPalette[1] + data.getLocation());
         System.out.println(
-                ColorSystem.BRIGHT_CYAN + "╚════════════════════════════════════════════════════╝" + ColorSystem.RESET);
+                ColorSystem.colorPalette[1] + "╚════════════════════════════════════════════════════╝" + ColorSystem.RESET);
 
-        System.out.println(ColorSystem.CYAN + "Please select a country you want to go to:" + ColorSystem.RESET);
+        System.out.println(ColorSystem.colorPalette[1] + "Please select a country you want to go to:" + ColorSystem.RESET);
 
         List<String> cities = new ArrayList<>();
 
@@ -211,7 +211,7 @@ public class TravelSystem {
                 break;
         }
 
-        System.out.println(ColorSystem.BRIGHT_BLUE + "Selected destination: " + ColorSystem.BRIGHT_CYAN
+        System.out.println(ColorSystem.colorPalette[0] + "Selected destination: " + ColorSystem.colorPalette[1]
                 + cities.get(target) + ColorSystem.RESET);
 
         String destination = cities.get(target);
@@ -240,11 +240,11 @@ public class TravelSystem {
             lineStr = "No line transfers found";
         }
         System.out
-                .println(ColorSystem.BRIGHT_BLUE + "Route: " + ColorSystem.BRIGHT_CYAN + routeStr + ColorSystem.RESET);
-        System.out.println(ColorSystem.BRIGHT_BLUE + "Distance: " + ColorSystem.BRIGHT_CYAN + route.distanceTraveld()
+                .println(ColorSystem.colorPalette[0] + "Route: " + ColorSystem.colorPalette[1] + routeStr + ColorSystem.RESET);
+        System.out.println(ColorSystem.colorPalette[0] + "Distance: " + ColorSystem.colorPalette[1] + route.distanceTraveld()
                 + "Km" + ColorSystem.RESET);
         System.out
-                .println(ColorSystem.BRIGHT_BLUE + "Line's: " + ColorSystem.BRIGHT_CYAN + lineStr + ColorSystem.RESET);
+                .println(ColorSystem.colorPalette[0] + "Line's: " + ColorSystem.colorPalette[1] + lineStr + ColorSystem.RESET);
         createInvoice(scanner, calculateCost(data.isFirstClass(), route.distanceTraveld(), data.getConversionRate()),
                 data.isFirstClass(), data.getLocation(), destination, trainCompany);
 

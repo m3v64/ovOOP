@@ -2,64 +2,85 @@
   {
     "userID": 0,
     "username": "guest",
+    "mainPalette": "\u001b[36m",
+    "secondaryPalette": "\u001b[37m",
     "password": "guest",
     "location": "Giad",
     "balance": 0.0,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0
+    "defaultCurrencyConversionRate": 1.0,
+    "mode": 0
   },
   {
     "userID": 1,
     "username": "max",
+    "mainPalette": "\u001b[36m",
+    "secondaryPalette": "\u001b[37m",
     "password": "hollowKnightAddicted",
     "location": "Giad",
     "balance": 1.0000000000001E15,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0
+    "defaultCurrencyConversionRate": 1.0,
+    "mode": 0
   },
   {
     "userID": 2,
     "username": "admin",
+    "mainPalette": "\u001b[31m",
+    "secondaryPalette": "\u001b[33m",
     "password": "Administrator",
-    "location": "Ghostle",
+    "location": "Capella",
     "balance": 1.7976931348623157E308,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0
+    "defaultCurrencyConversionRate": 1.0,
+    "mode": 1
   },
   {
     "userID": 3,
     "username": "owen",
+    "mainPalette": "\u001b[36m",
+    "secondaryPalette": "\u001b[37m",
     "password": "companyOwner",
     "location": "Giad",
     "balance": -1.7976931348623157E308,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0
+    "defaultCurrencyConversionRate": 1.0,
+    "mode": 0
   },
   {
     "userID": 4,
     "username": "morris",
+    "mainPalette": "\u001b[32m",
+    "secondaryPalette": "\u001b[35m",
     "password": "JustCause",
-    "location": "Lighthgro",
-    "balance": 1314.3200000000004,
+    "location": "Dryard",
+    "balance": 1264.2200000000005,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0
+    "defaultCurrencyConversionRate": 1.0,
+    "mode": 0
   },
   {
     "userID": 5,
     "username": "daan",
+    "mainPalette": "\u001b[36m",
+    "secondaryPalette": "\u001b[37m",
     "password": "BananenGek",
     "location": "Giad",
     "balance": -1.0E131,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0
+    "defaultCurrencyConversionRate": 1.0,
+    "mode": 0
   },
   {
     "userID": 6,
     "username": "test",
+    "mainPalette": "\u001b[36m",
+    "secondaryPalette": "\u001b[37m",
     "password": "test",
     "location": "SwiftLec",
     "balance": 1000.0,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0
+    "defaultCurrencyConversionRate": 1.0,
+    "mode": 0
   }
 ]

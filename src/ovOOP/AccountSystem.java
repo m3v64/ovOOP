@@ -11,8 +11,8 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 
 public class AccountSystem {
-    private static final String PREFIX = ColorSystem.BRIGHT_CYAN + "[AccountSystem] " + ColorSystem.RESET;
-    private static final String SEPARATOR = ColorSystem.BRIGHT_BLUE + "----------------------------------------" + ColorSystem.RESET;
+    private static final String PREFIX = ColorSystem.colorPalette[1] + "[AccountSystem] " + ColorSystem.RESET;
+    private static final String SEPARATOR = ColorSystem.colorPalette[0] + "----------------------------------------" + ColorSystem.RESET;
 
     private static void prettyPrint(String message) {
         System.out.println(PREFIX + message);
@@ -24,7 +24,7 @@ public class AccountSystem {
 
     static void displayAccounts(Scanner scanner) {
         printSeparator();
-        prettyPrint(ColorSystem.BRIGHT_CYAN + "Please choose from the following list");
+        prettyPrint(ColorSystem.colorPalette[1] + "Please choose from the following list");
         printSeparator();
 
         int accounts = OptionsSystem.showOption(scanner, "Account Menu", "Login,Logout,Sign up,Main Menu,Debug");
@@ -49,9 +49,9 @@ public class AccountSystem {
 
     static void signupSystem(Scanner scanner) {
         printSeparator();
-        prettyPrint(ColorSystem.BRIGHT_CYAN + "Please enter the name of the account you want to create:");
+        prettyPrint(ColorSystem.colorPalette[1] + "Please enter the name of the account you want to create:");
         String username = scanner.next().toLowerCase();
-        prettyPrint(ColorSystem.BRIGHT_CYAN + "Please enter the password of the account you want to create");
+        prettyPrint(ColorSystem.colorPalette[1] + "Please enter the password of the account you want to create");
         String password = scanner.next();
 
         DataSystem.addAccount(username, password, scanner);
@@ -61,25 +61,25 @@ public class AccountSystem {
         Main.userID = 0;
         MenuSystem.clear();
         printSeparator();
-        prettyPrint(ColorSystem.CYAN + "You have been logged out successfully.");
+        prettyPrint(ColorSystem.colorPalette[1] + "You have been logged out successfully.");
         printSeparator();
         MenuSystem.startMenu(scanner);
     }
 
     static void loginSystem(Scanner scanner) {
         printSeparator();
-        prettyPrint(ColorSystem.BRIGHT_CYAN + "Username:");
+        prettyPrint(ColorSystem.colorPalette[1] + "Username:");
 
         String username = scanner.next();
 
         if (username.equalsIgnoreCase("guest")) {
-            prettyPrint(ColorSystem.BRIGHT_BLUE + "You cannot use Guest to log in");
+            prettyPrint(ColorSystem.colorPalette[0] + "You cannot use Guest to log in");
             printSeparator();
             MenuSystem.startMenu(scanner);
             return;
         }
 
-        prettyPrint(ColorSystem.BRIGHT_CYAN + "Password:");
+        prettyPrint(ColorSystem.colorPalette[1] + "Password:");
         String password = scanner.next();
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -95,13 +95,13 @@ public class AccountSystem {
             for (DataSystem d : dataList) {
                 if (d.getUsername().equalsIgnoreCase(username) && d.getPassword().equals(password)) {
                     Main.userID = d.getUserID();
-                    prettyPrint(ColorSystem.CYAN + "You have logged in!");
+                    prettyPrint(ColorSystem.colorPalette[1] + "You have logged in!");
                     break;
                 }
             }
 
             if (Main.userID == 0) {
-                prettyPrint(ColorSystem.BRIGHT_BLUE + "That account does not exist.");
+                prettyPrint(ColorSystem.colorPalette[0] + "That account does not exist.");
             }
 
         } catch (Exception e) {
