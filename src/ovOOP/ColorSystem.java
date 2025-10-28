@@ -55,4 +55,6 @@ public class ColorSystem {
         DecimalFormat df = new DecimalFormat("###,###,##0.00");
         return df.format(value);
     }
+
+    public static String[] colorPalette = { BLUE, CYAN, BRIGHT_BLUE, BRIGHT_CYAN };
 }
