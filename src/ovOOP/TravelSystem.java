@@ -117,7 +117,6 @@ public class TravelSystem {
     }
 
     static void travelMenu(Scanner scanner) {
-        MenuSystem.clear();
 
         int target = OptionsSystem.showOption(scanner, "Travel Menu", "To destination,Lines,Main menu");
         switch (target) {
@@ -173,7 +172,6 @@ public class TravelSystem {
     }
 
     static void toDestinationMenu(Scanner scanner) {
-        MenuSystem.clear();
 
         DataSystem data = new DataSystem(Main.userID);
 

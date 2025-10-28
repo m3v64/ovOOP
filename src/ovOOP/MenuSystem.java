@@ -7,6 +7,12 @@ public class MenuSystem {
     public static int mode = 1;
 
     static void startMenu(Scanner scanner) {
+        DataSystem data = new DataSystem(Main.userID);
+
+        ColorSystem.colorPalette[0] = data.getMainPalette();
+        ColorSystem.colorPalette[1] = data.getSecondaryPalette();
+        MenuSystem.mode = data.getMode();
+
         System.out.println(ColorSystem.colorPalette[0] + "+------------------------------------------------+");
         System.out.println(ColorSystem.colorPalette[0] + "|                                                |");
         System.out.println(ColorSystem.colorPalette[1] + "|   _______ ___    _________ _______ ________    |");
@@ -18,11 +24,6 @@ public class MenuSystem {
         System.out.println(ColorSystem.colorPalette[0] + "+------------------------------------------------+");
         System.out.println(ColorSystem.colorPalette[0] + "=======================================");
         int input = 0;
-        DataSystem data = new DataSystem(Main.userID);
-
-        ColorSystem.colorPalette[0] = data.getMainPalette();
-        ColorSystem.colorPalette[1] = data.getSecondaryPalette();
-        MenuSystem.mode = data.getMode();
 
         int currentUser = data.getUserID();
         if (currentUser != 0) {
@@ -30,6 +31,7 @@ public class MenuSystem {
                     ColorSystem.colorPalette[1] + String.format("Logged in as: %-20s", data.getUsername()) +
                             ColorSystem.colorPalette[1] + " | Balance: "
                             + ColorSystem.withLargeIntegers(data.getBalance()));
+            System.out.println(ColorSystem.colorPalette[0] + "You are at " + data.getLocation());
             System.out.println(ColorSystem.colorPalette[0] + "---------------------------------------");
             input = OptionsSystem.showOption(scanner, "Main Menu",
                     "Start traveling,Settings,Manage balance,Exit system,Credits");
@@ -65,7 +67,7 @@ public class MenuSystem {
     }
 
     static void changeColorPalette(Scanner scanner) {
-        int setPalette = OptionsSystem.showOption(scanner, "What color palette do you want?",
+        int setPalette = OptionsSystem.showOption(scanner, "What color palet do you want?",
                 "BLACK - WHITE,BLACK - RED,BLACK - GREEN,BLACK - YELLOW,BLACK - BLUE,BLACK - PURPLE,BLACK - CYAN,"
                         + "RED - WHITE,RED - YELLOW,RED - BLUE,RED - PURPLE,RED - CYAN,"
                         + "GREEN - WHITE,GREEN - YELLOW,GREEN - BLUE,GREEN - PURPLE,GREEN - CYAN,"
@@ -195,7 +197,7 @@ public class MenuSystem {
 
     static void showVisualSettingsScreen(Scanner scanner) {
         int target = OptionsSystem.showOption(scanner, "Please choose the setting you want to change",
-                "Mode,Color Palette");
+                "Mode,Color Palette,Back");
 
         switch (target) {
             case 1:
@@ -204,6 +206,10 @@ public class MenuSystem {
                 break;
             case 2:
                 changeColorPalette(scanner);
+                break;
+            case 3:
+                showSettingsScreen(scanner);
+                ;
                 break;
         }
     }
@@ -254,7 +260,8 @@ public class MenuSystem {
     }
 
     static void showSettingsScreen(Scanner scanner) {
-        int target = OptionsSystem.showOption(scanner, "Settings", "Account settings,Visual settings,Debug settings");
+        int target = OptionsSystem.showOption(scanner, "Settings",
+                "Account settings,Visual settings,Debug settings,Main Menu");
 
         switch (target) {
             case 1:
@@ -264,6 +271,9 @@ public class MenuSystem {
                 showVisualSettingsScreen(scanner);
                 break;
             case 3:
+                break;
+            case 4:
+                startMenu(scanner);
                 break;
         }
     }
