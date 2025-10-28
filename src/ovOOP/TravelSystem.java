@@ -165,7 +165,7 @@ public class TravelSystem {
 
         int[] timeArray = secondsTravelling;
 
-        mapGenerator.initializeMap(mapWidth, mapHeight, '%');
+        mapGenerator.initializeMap(mapWidth, mapHeight, '3');
 
         String[] cityArray = cityNames;
 

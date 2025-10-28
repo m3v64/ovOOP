@@ -3,6 +3,9 @@ package ovOOP;
 import java.util.Scanner;
 
 public class MenuSystem {
+
+    public static int mode = 1;
+
     static void startMenu(Scanner scanner) {
         System.out.println(ColorSystem.BLUE + "+------------------------------------------------+");
         System.out.println(ColorSystem.BLUE + "|                                                |");
@@ -19,40 +22,65 @@ public class MenuSystem {
         int currentUser = data.getUserID();
         if (currentUser != 0) {
             System.out.println(
-                ColorSystem.BRIGHT_CYAN + String.format("Logged in as: %-20s", data.getUsername()) +
-                ColorSystem.CYAN + " | Balance: " + ColorSystem.withLargeIntegers(data.getBalance())
-            );
-                System.out.println(ColorSystem.BLUE + "---------------------------------------");
-                input = OptionsSystem.showOption(scanner, "Main Menu",
-                        "Start traveling,Account Settings,Manage balance,Exit system,Credits");
-            } else {
-                System.out.println(ColorSystem.BRIGHT_CYAN + "You are not currently logged in.");
-                System.out.println(ColorSystem.BRIGHT_CYAN + "Please log in before using any traveling features.");
-                System.out.println(ColorSystem.BLUE + "---------------------------------------");
-                input = OptionsSystem.showOption(scanner, "Main Menu", "Account Settings,Credits");
+                    ColorSystem.BRIGHT_CYAN + String.format("Logged in as: %-20s", data.getUsername()) +
+                            ColorSystem.CYAN + " | Balance: " + ColorSystem.withLargeIntegers(data.getBalance()));
+            System.out.println(ColorSystem.BLUE + "---------------------------------------");
+            input = OptionsSystem.showOption(scanner, "Main Menu",
+                    "Start traveling,Settings,Manage balance,Exit system,Credits");
+        } else {
+            System.out.println(ColorSystem.BRIGHT_CYAN + "You are not currently logged in.");
+            System.out.println(ColorSystem.BRIGHT_CYAN + "Please log in before using any traveling features.");
+            System.out.println(ColorSystem.BLUE + "---------------------------------------");
+            input = OptionsSystem.showOption(scanner, "Main Menu", "Account Settings,Credits");
+        }
+        if (currentUser != 0) {
+            if (input == 5) {
+                // Credits go here
+                showCredits(scanner);
+            } else if (input == 1) {
+                // Travel Menu
+                TravelSystem.travelMenu(scanner);
+            } else if (input == 2) {
+                MenuSystem.showSettingsScreen(scanner);
+                // Accounts system goes here
+            } else if (input == 3) {
+                BalanceSystem.manageBalance(scanner);
+            } else if (input == 4) {
+                System.out.println(ColorSystem.RED + "Exiting System");
+                System.exit(0);
+                // Exits the system
             }
-            if (currentUser != 0) {
-                if (input == 5) {
-                    // Credits go here
-                    showCredits(scanner);
-                } else if (input == 1) {
-                    // Travel Menu
-                    TravelSystem.travelMenu(scanner);
-                } else if (input == 2) {
-                    AccountSystem.displayAccounts(scanner);
-                    // Accounts system goes here
-                } else if (input == 3) {
-                    BalanceSystem.manageBalance(scanner);
-                } else if (input == 4) {
-                    System.out.println(ColorSystem.RED + "Exiting System");
-                    System.exit(0);
-                    // Exits the system
-                }
-            } else {
-                switch (input) {
-                    case 1 -> AccountSystem.displayAccounts(scanner);
-                    case 2 -> showCredits(scanner);
+        } else {
+            switch (input) {
+                case 1 -> AccountSystem.displayAccounts(scanner);
+                case 2 -> showCredits(scanner);
             }
+        }
+    }
+
+    static void showVisualSettingsScreen(Scanner scanner) {
+        int target = OptionsSystem.showOption(scanner, "Please choose the setting you want to change",
+                "Mode,Color Palette");
+
+        switch (target) {
+            case 1:
+                mode = OptionsSystem.showOption(scanner, "Please choose the mode you want", "Dark mode, Light mode");
+                break;
+        }
+    }
+
+    static void showSettingsScreen(Scanner scanner) {
+        int target = OptionsSystem.showOption(scanner, "Settings", "Account settings,Visual settings,Debug settings");
+
+        switch (target) {
+            case 1:
+                AccountSystem.displayAccounts(scanner);
+                break;
+            case 2:
+                showVisualSettingsScreen(scanner);
+                break;
+            case 3:
+                break;
         }
     }
 

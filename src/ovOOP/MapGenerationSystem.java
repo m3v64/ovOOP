@@ -35,7 +35,8 @@ public class MapGenerationSystem {
 
     // Generate city and optionally add text above it
     public void generateCity(int x, int y, String cityName, boolean atCity) {
-        char cityChar = atCity ? '@' : '!';
+        char cityChar = atCity ? '2' : '1';
+        if (cityName.equalsIgnoreCase("portal")){ cityChar = '4';}
         paintSquareLayer(cityLayer, x, y, cityChar, 2, 2);
 
         // Center city name above city
@@ -52,13 +53,14 @@ public class MapGenerationSystem {
             int y = (mapHeight / 2);
 
             // Draw the city
-            generateCity(x, y, citiesInLine[i], false);
+            boolean atCity = i == 0 || i == citiesInLine.length - 1;
+            generateCity(x, y, citiesInLine[i], atCity);
 
             // Draw the connecting line from previous city
             if (i > 0) {
                 int prevX = 6 + distanceBetweenCities * (i - 1);
                 int prevY = (mapHeight / 2);
-                paintLineLayer(backgroundLayer, prevX, prevY, x, y, '#');
+                paintLineLayer(backgroundLayer, prevX, prevY, x, y, '5');
             }
 
         }
@@ -148,17 +150,19 @@ public class MapGenerationSystem {
                     System.out.print(c);
                 else {
                     switch (c) {
-                        case '!':
+                        case '1':
                             System.out.print(ColorSystem.GREEN_BG + " " + ColorSystem.RESET);
                             break;
-                        case '@':
+                        case '2':
                             System.out.print(ColorSystem.YELLOW_BG + " " + ColorSystem.RESET);
                             break;
-                        case '#':
+                        case '3':
                             System.out.print(ColorSystem.BRIGHT_BLACK_BG + " " + ColorSystem.RESET);
                             break;
-                        case '$':
-                        case '%':
+                        case '4':
+                            System.out.print(ColorSystem.BRIGHT_PURPLE_BG + " " + ColorSystem.RESET);
+                            break;
+                        case '5':
                             System.out.print(ColorSystem.BLUE_BG + " " + ColorSystem.RESET);
                             break;
                         default:
