@@ -8,8 +8,7 @@
     "location": "Giad",
     "balance": 0.0,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0,
-    "mode": 0
+    "defaultCurrencyConversionRate": 1.0
   },
   {
     "userID": 1,
@@ -20,20 +19,18 @@
     "location": "Giad",
     "balance": 1.0000000000001E15,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0,
-    "mode": 0
+    "defaultCurrencyConversionRate": 1.0
   },
   {
     "userID": 2,
     "username": "admin",
-    "mainPalette": "\u001b[31m",
-    "secondaryPalette": "\u001b[33m",
+    "mainPalette": "\u001b[91m",
+    "secondaryPalette": "\u001b[93m",
     "password": "Administrator",
     "location": "Capella",
     "balance": 1.7976931348623157E308,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0,
-    "mode": 1
+    "defaultCurrencyConversionRate": 1.0
   },
   {
     "userID": 3,
@@ -44,8 +41,7 @@
     "location": "Giad",
     "balance": -1.7976931348623157E308,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0,
-    "mode": 2
+    "defaultCurrencyConversionRate": 1.0
   },
   {
     "userID": 4,
@@ -53,23 +49,21 @@
     "mainPalette": "\u001b[34m",
     "secondaryPalette": "\u001b[30m",
     "password": "JustCause",
-    "location": "Elektra",
-    "balance": 1157.9800000000005,
+    "location": "Dryard",
+    "balance": 1026.0600000000004,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0,
-    "mode": 1
+    "defaultCurrencyConversionRate": 1.0
   },
   {
     "userID": 5,
     "username": "daan",
     "mainPalette": "\u001b[33m",
-    "secondaryPalette": "\u001b[33m",
+    "secondaryPalette": "\u001b[37m",
     "password": "BananenGek",
     "location": "Giad",
     "balance": -1.0E131,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0,
-    "mode": 0
+    "defaultCurrencyConversionRate": 1.0
   },
   {
     "userID": 6,
@@ -80,8 +74,7 @@
     "location": "SwiftLec",
     "balance": 1000.0,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0,
-    "mode": 0
+    "defaultCurrencyConversionRate": 1.0
   },
   {
     "CITIES": [
@@ -119,7 +112,6 @@
     "location": "Giad",
     "balance": 0.0,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0,
-    "mode": 2
+    "defaultCurrencyConversionRate": 1.0
   }
 ]

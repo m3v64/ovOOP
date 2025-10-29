@@ -31,7 +31,6 @@ public class DataSystem {
     private double balance;
     private int defaultClass;
     private double defaultCurrencyConversionRate;
-    private int mode; // 1 = dark, 2 = light
 
     // private Map<String, Map<String, Object>> connections;
     // private int line;
@@ -60,7 +59,6 @@ public class DataSystem {
                     this.defaultCurrencyConversionRate = d.defaultCurrencyConversionRate;
                     this.mainPalette = d.mainPalette;
                     this.secondaryPalette = d.secondaryPalette;
-                    this.mode = d.mode;
                     break;
                 }
             }
@@ -78,12 +76,7 @@ public class DataSystem {
             this.defaultCurrencyConversionRate = 1.0;
             this.mainPalette = ColorSystem.BLUE;
             this.secondaryPalette = ColorSystem.CYAN;
-            this.mode = 1;
         }
-    }
-
-    public int getMode() {
-        return mode;
     }
 
     public int getUserID() {
@@ -120,11 +113,6 @@ public class DataSystem {
 
     public double getConversionRate() {
         return defaultCurrencyConversionRate;
-    }
-
-    public void setMode(int mode) {
-        this.mode = mode;
-        updateJson();
     }
 
     public void setUserID(int userID) {
@@ -214,7 +202,6 @@ public class DataSystem {
         newUser.defaultCurrencyConversionRate = 1.0;
         newUser.mainPalette = ColorSystem.BLUE;
         newUser.secondaryPalette = ColorSystem.CYAN;
-        newUser.mode = 1;
 
         dataList.add(newUser);
 
@@ -232,12 +219,12 @@ public class DataSystem {
 
     private void updateJson() {
         updateJson(this.userID, this.username, this.password, this.location, this.balance, this.defaultClass,
-                this.defaultCurrencyConversionRate, this.mainPalette, this.secondaryPalette, this.mode);
+                this.defaultCurrencyConversionRate, this.mainPalette, this.secondaryPalette);
     }
 
     public static void updateJson(int userID, String newUsername, String newPassword, String newLocation,
             double newBalance, int newDefaultClass, double newConversionRate, String newMainPalette,
-            String newSecondaryPalette, int newMode) {
+            String newSecondaryPalette) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         try (FileReader reader = new FileReader("data/AccountInfo.json")) {
@@ -258,7 +245,6 @@ public class DataSystem {
                     d.defaultCurrencyConversionRate = newConversionRate;
                     d.mainPalette = newMainPalette;
                     d.secondaryPalette = newSecondaryPalette;
-                    d.mode = newMode;
                     break;
                 }
             }
