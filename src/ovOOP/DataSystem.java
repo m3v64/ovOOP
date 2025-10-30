@@ -10,6 +10,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.lang.reflect.Type;
@@ -31,6 +33,12 @@ public class DataSystem {
     private double balance;
     private int defaultClass;
     private double defaultCurrencyConversionRate;
+
+    private static int hour;
+    private static int minutes;
+
+    private static int month;
+    private static int day;
 
     // private Map<String, Map<String, Object>> connections;
     // private int line;
@@ -251,7 +259,7 @@ public class DataSystem {
 
             try (FileWriter writer = new FileWriter("data/AccountInfo.json")) {
                 gson.toJson(dataList, writer);
-                System.out.println("User " + userID + " updated successfully!");
+                // System.out.println("User " + userID + " updated successfully!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -659,5 +667,76 @@ public class DataSystem {
         }
 
         return totalDistance;
+    }
+
+    public static void updateTime() {
+        Calendar date = Calendar.getInstance();
+        hour = date.get(Calendar.HOUR_OF_DAY);
+        minutes = date.get(Calendar.MINUTE);
+
+        day = date.get(Calendar.DAY_OF_MONTH);
+        month = date.get(Calendar.MONTH);
+    }
+
+    public static int getHour() {
+        return hour;
+    }
+
+    public static int getMinute() {
+        return minutes;
+    }
+
+    public static int getDay() {
+        return day;
+    }
+
+    public static int getMonth() {
+        return month;
+    }
+
+    public static String getMonthName(int monthIndex) {
+        String monthName;
+        switch (monthIndex) {
+            case 0:
+                monthName = "January";
+                break;
+            case 1:
+                monthName = "February";
+                break;
+            case 2:
+                monthName = "March";
+                break;
+            case 3:
+                monthName = "April";
+                break;
+            case 4:
+                monthName = "May";
+                break;
+            case 5:
+                monthName = "June";
+                break;
+            case 6:
+                monthName = "July";
+                break;
+            case 7:
+                monthName = "August";
+                break;
+            case 8:
+                monthName = "September";
+                break;
+            case 9:
+                monthName = "October";
+                break;
+            case 10:
+                monthName = "November";
+                break;
+            case 11:
+                monthName = "December";
+                break;
+            default:
+                monthName = "";
+                break;
+        }
+        return monthName;
     }
 }

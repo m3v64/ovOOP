@@ -24,8 +24,8 @@
   {
     "userID": 2,
     "username": "admin",
-    "mainPalette": "\u001b[91m",
-    "secondaryPalette": "\u001b[93m",
+    "mainPalette": "\u001b[90m",
+    "secondaryPalette": "\u001b[91m",
     "password": "Administrator",
     "location": "Capella",
     "balance": 1.7976931348623157E308,
@@ -46,8 +46,8 @@
   {
     "userID": 4,
     "username": "morris",
-    "mainPalette": "\u001b[34m",
-    "secondaryPalette": "\u001b[30m",
+    "mainPalette": "\u001b[92m",
+    "secondaryPalette": "\u001b[35m",
     "password": "JustCause",
     "location": "Dryard",
     "balance": 1026.0600000000004,

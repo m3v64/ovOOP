@@ -1,5 +1,6 @@
 package ovOOP;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -31,6 +32,13 @@ public class MenuSystem {
                             ColorSystem.colorPalette[1] + " | Balance: "
                             + ColorSystem.withLargeIntegers(data.getBalance()));
             System.out.println(ColorSystem.colorPalette[0] + "You are at " + data.getLocation());
+            DataSystem.updateTime();
+            DecimalFormat df = new DecimalFormat("00");
+            System.out.println(
+                    ColorSystem.colorPalette[0] + "It is currently " + df.format(DataSystem.getHour()) + ":"
+                            + df.format(DataSystem.getMinute()));
+            System.out.println(ColorSystem.colorPalette[0] + "The " + DataSystem.getDay() + "th of "
+                    + DataSystem.getMonthName(DataSystem.getMonth()));
             System.out.println(ColorSystem.colorPalette[0] + "---------------------------------------");
             input = OptionsSystem.showOption(scanner, "Main Menu",
                     "Start traveling,Settings,Manage balance,Exit system,Credits");
