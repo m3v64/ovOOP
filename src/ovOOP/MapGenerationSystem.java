@@ -13,6 +13,8 @@ public class MapGenerationSystem {
     private int mapWidth;
     private int mapHeight;
 
+    public static boolean displayRawMap = false;
+
     // Initialize all layers
     public void initializeMap(int mapWidth, int mapHeight, char backgroundChar) {
         this.mapWidth = mapWidth;
@@ -64,7 +66,7 @@ public class MapGenerationSystem {
             }
 
         }
-        displayMap(false);
+        displayMap(displayRawMap);
     }
 
     // Paint text on a layer
