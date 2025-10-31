@@ -173,13 +173,11 @@ public class TravelSystem {
     static void travelMapGoTravel(int[] secondsTravelling, String[] cityNames, int mapWidth, int mapHeight) {
         MapGenerationSystem mapGenerator = new MapGenerationSystem();
 
-        int[] timeArray = secondsTravelling;
-
         mapGenerator.initializeMap(mapWidth, mapHeight, '3');
 
         String[] cityArray = cityNames;
 
-        mapGenerator.generateLine(cityArray, 12);
+        mapGenerator.generateLine(cityArray, 15);
     }
 
     static void toDestinationMenu(Scanner scanner) {
@@ -278,7 +276,7 @@ public class TravelSystem {
             distance[i] = route.distanceTraveld / passingCities.length / 100;
         }
 
-        travelMapGoTravel(distance, passingCities, 120, 10);
+        travelMapGoTravel(distance, passingCities, 125, 10);
 
         scanner.nextLine();
 
