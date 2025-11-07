@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.PriorityQueue;
-import java.util.Comparator;
 
 public class TravelSystem {
 
@@ -71,7 +67,7 @@ public class TravelSystem {
         boolean willPrint = (OptionsSystem.showOption(scanner, "Would you like to print your invoice?", "Yes,No") == 1);
 
         if (!willPrint) {
-            MenuSystem.startMenu(scanner);
+            MenuSystem.startMenu();
             return;
         }
 
@@ -138,10 +134,10 @@ public class TravelSystem {
                 showLines(scanner);
                 break;
             case 3:
-                MenuSystem.startMenu(scanner);
+                MenuSystem.startMenu();
             default:
                 System.out.println(ColorSystem.RED + "That is not a valid option" + ColorSystem.RESET);
-                MenuSystem.startMenu(scanner);
+                MenuSystem.startMenu();
         }
     }
 
@@ -155,7 +151,7 @@ public class TravelSystem {
         List<String> lines = new ArrayList<>();
 
         for (int i : possibleLinesArray) {
-            lines.addAll(Arrays.asList(data.getLine(i)));
+            lines.addAll(Arrays.asList(DataSystem.getLine(i)));
             for (String j : lines) {
                 System.out.print(j);
                 System.out.print(" -> ");
@@ -283,137 +279,5 @@ public class TravelSystem {
         TravelSystem.travelMenu(scanner);
 
         // continue here with additional ui elements
-    }
-
-    static TravelSystem findRoute(String destination) {
-        DataSystem data = new DataSystem(Main.userID);
-        String source = data.getLocation();
-        List<String> emptyResult = new ArrayList<>();
-        if (source == null)
-            return new TravelSystem(new int[0], new String[0], 0);
-        if (source.equalsIgnoreCase(destination)) {
-            emptyResult.add(source);
-            return new TravelSystem(new int[0], emptyResult.toArray(new String[0]), 0);
-        }
-
-        // Check if both cities are on the same line - if so, return sequential path
-        int commonLine = DataSystem.findLineBetween(source, destination);
-        if (commonLine != -1) {
-            List<String> sequentialPath = DataSystem.getSequentialPathOnLine(commonLine, source, destination);
-            int sequentialDistance = DataSystem.getSequentialDistanceOnLine(commonLine, source, destination);
-
-            if (!sequentialPath.isEmpty()) {
-                return new TravelSystem(new int[0], sequentialPath.toArray(new String[0]), sequentialDistance);
-            }
-        }
-
-        Map<String, Map<String, Integer>> graph = DataSystem.buildGraph();
-
-        if (!graph.containsKey(source) || !graph.containsKey(destination)) {
-            // Either source or destination not present in graph: return source only
-            List<String> path = new ArrayList<>();
-            path.add(source);
-            return new TravelSystem(new int[0], path.toArray(new String[0]), 0);
-        }
-
-        // Dijkstra's algorithm
-        Map<String, Integer> dist = new HashMap<>();
-        Map<String, String> prev = new HashMap<>();
-        for (String node : graph.keySet()) {
-            dist.put(node, Integer.MAX_VALUE);
-        }
-        dist.put(source, 0);
-
-        PriorityQueue<String> pq = new PriorityQueue<>(new Comparator<String>() {
-            public int compare(String a, String b) {
-                return Integer.compare(dist.get(a), dist.get(b));
-            }
-        });
-        pq.add(source);
-
-        while (!pq.isEmpty()) {
-            String u = pq.poll();
-            if (u.equalsIgnoreCase(destination))
-                break;
-            int du = dist.get(u);
-            Map<String, Integer> neighbors = graph.get(u);
-            if (neighbors == null)
-                continue;
-            for (Map.Entry<String, Integer> e : neighbors.entrySet()) {
-                String v = e.getKey();
-                int w = e.getValue();
-                int alt = du + w;
-                if (alt < dist.getOrDefault(v, Integer.MAX_VALUE)) {
-                    dist.put(v, alt);
-                    prev.put(v, u);
-                    // reinsert v into priority queue to update its priority
-                    pq.remove(v);
-                    pq.add(v);
-                }
-            }
-        }
-
-        // Reconstruct path
-        List<String> path = new ArrayList<>();
-        if (!prev.containsKey(destination)) {
-            // No path found
-            path.add(source);
-            // return object with only passingCities containing source and zero distance
-            return new TravelSystem(new int[0], path.toArray(new String[0]), 0);
-        }
-
-        String at = destination;
-        while (at != null) {
-            path.add(0, at);
-            at = prev.get(at);
-        }
-
-        // ensure source at start
-        if (!path.isEmpty() && !path.get(0).equalsIgnoreCase(source)) {
-            path.add(0, source);
-        }
-
-        // compute total distance and line sequence
-        int totalDistance = 0;
-        List<Integer> lineSeq = new ArrayList<>();
-        for (int i = 0; i < path.size() - 1; i++) {
-            String u = path.get(i);
-            String v = path.get(i + 1);
-            Integer d = null;
-            if (graph.containsKey(u)) {
-                d = graph.get(u).get(v);
-            }
-            if (d == null)
-                d = 0;
-            totalDistance += d;
-
-            int line = DataSystem.findLineBetween(u, v);
-            lineSeq.add(line);
-        }
-
-        // reduce contiguous same lines
-        List<Integer> reduced = new ArrayList<>();
-        for (int i = 0; i < lineSeq.size(); i++) {
-            int ln = lineSeq.get(i);
-            if (reduced.isEmpty() || reduced.get(reduced.size() - 1) != ln) {
-                reduced.add(ln);
-            }
-        }
-
-        // build transfer array as adjacent pairs [from,to,from,to]
-        List<Integer> transfers = new ArrayList<>();
-        for (int i = 0; i < reduced.size() - 1; i++) {
-            transfers.add(reduced.get(i));
-            transfers.add(reduced.get(i + 1));
-        }
-
-        int[] trainLineTransfers = new int[transfers.size()];
-        for (int i = 0; i < transfers.size(); i++)
-            trainLineTransfers[i] = transfers.get(i);
-
-        String[] passingCities = path.toArray(new String[0]);
-        int distanceTraveld = totalDistance;
-
-        return new TravelSystem(trainLineTransfers, passingCities, distanceTraveld);
     }
 }

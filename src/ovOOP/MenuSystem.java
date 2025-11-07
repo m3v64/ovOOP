@@ -4,8 +4,8 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class MenuSystem {
-
-    static void startMenu(Scanner scanner) {
+    static void startMenu() {
+        Scanner scanner = new Scanner(System.in);
         DataSystem data = new DataSystem(Main.userID);
 
         ColorSystem.colorPalette[0] = data.getMainPalette();
@@ -85,7 +85,7 @@ public class MenuSystem {
         data.setMainPalette(ColorSystem.colorPalette[0]);
         data.setSecondaryPalette(ColorSystem.colorPalette[1]);
 
-        startMenu(scanner);
+        startMenu();
     }
 
     static void showVisualSettingsScreen(Scanner scanner) {
@@ -118,7 +118,7 @@ public class MenuSystem {
                 showDebugSettingsScreen(scanner);
                 break;
             case 4:
-                startMenu(scanner);
+                startMenu();
                 break;
         }
     }
@@ -161,7 +161,7 @@ public class MenuSystem {
         System.out.println();
         System.out.println(ColorSystem.BRIGHT_PURPLE + "Press enter to continue...");
         scanner.nextLine();
-        startMenu(scanner);
+        startMenu();
     }
 
     public static void clear() {

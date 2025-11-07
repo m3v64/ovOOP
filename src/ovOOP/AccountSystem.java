@@ -36,14 +36,14 @@ public class AccountSystem {
             signupSystem(scanner);
         }
         if (accounts == 4) {
-            MenuSystem.startMenu(scanner);
+            MenuSystem.startMenu();
         }
         if (accounts == 2) {
             logoutSystem(scanner);
         }
         if (accounts == 5) {
             Main.userID = 2;
-            MenuSystem.startMenu(scanner);
+            MenuSystem.startMenu();
         }
     }
 
@@ -63,7 +63,7 @@ public class AccountSystem {
         printSeparator();
         prettyPrint(ColorSystem.colorPalette[1] + "You have been logged out successfully.");
         printSeparator();
-        MenuSystem.startMenu(scanner);
+        MenuSystem.startMenu();
     }
 
     static void loginSystem(Scanner scanner) {
@@ -75,7 +75,7 @@ public class AccountSystem {
         if (username.equalsIgnoreCase("guest")) {
             prettyPrint(ColorSystem.colorPalette[0] + "You cannot use Guest to log in");
             printSeparator();
-            MenuSystem.startMenu(scanner);
+            MenuSystem.startMenu();
             return;
         }
 
@@ -109,6 +109,6 @@ public class AccountSystem {
         }
 
         printSeparator();
-        MenuSystem.startMenu(scanner);
+        MenuSystem.startMenu();
     }
 }
