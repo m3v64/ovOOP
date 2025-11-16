@@ -7,11 +7,6 @@ import java.util.Scanner;
 
 public class TravelSystem {
 
-    public final static String CITIES[] = { "Dryard", "TimerGulch", "Brittle", "StaglenHold", "EldYard", "Trasin", "SwiftLec",
-            "LironGrale", "Ghostle", "Pearllows", "Irehole", "Lighthgro", "Stormwall", "Linere", "Giad", "Portal",
-            "Heete Birch", "Arcs Styrie", "Charité", "Liberté et Égalité", "Kreutzbeck", "Sankt Jeder", "Hesturn",
-            "Capella", "Elektra" };
-
     int[] trainLineTransfers; // structure [from, to, from, to]
     String[] passingCities; // structure ["giad", "etc..."]
     int distanceTraveld;
@@ -90,18 +85,14 @@ public class TravelSystem {
         System.out.println(ColorSystem.colorPalette[0] + ColorSystem.BOLD + trainCompany + " Transport - INVOICE #"
                 + invoiceId + ColorSystem.RESET);
         System.out.println(ColorSystem.colorPalette[1] + "====================================================");
-        System.out.println(
-                ColorSystem.colorPalette[1] + "Thank you for using " + trainCompany + " Transport for your traveling!"
-                        + ColorSystem.RESET);
+        System.out.println(ColorSystem.colorPalette[1] + "Thank you for using " + trainCompany + " Transport for your traveling!"
+                + ColorSystem.RESET);
         System.out.println(ColorSystem.colorPalette[1] + "----------------------------------------------------");
-        System.out
-                .println(ColorSystem.colorPalette[1] + "Invoice to: " + ColorSystem.colorPalette[1] + data.getUsername()
-                        + ColorSystem.RESET);
+        System.out.println(ColorSystem.colorPalette[1] + "Invoice to: " + ColorSystem.colorPalette[1] + data.getUsername()
+                + ColorSystem.RESET);
         System.out.println(ColorSystem.colorPalette[1] + "----------------------------------------------------");
-        System.out.println(
-                ColorSystem.colorPalette[0] + "From: " + ColorSystem.colorPalette[1] + origin + ColorSystem.RESET
-                        + ColorSystem.colorPalette[0] + "  To: " + ColorSystem.colorPalette[1] + destination
-                        + ColorSystem.RESET);
+        System.out.println(ColorSystem.colorPalette[0] + "From: " + ColorSystem.colorPalette[1] + origin + ColorSystem.RESET
+                + ColorSystem.colorPalette[0] + "  To: " + ColorSystem.colorPalette[1] + destination + ColorSystem.RESET);
         System.out.println(ColorSystem.colorPalette[1] + "----------------------------------------------------");
 
         System.out.println(ColorSystem.colorPalette[1] + "Base fare      : " + ColorSystem.colorPalette[0]
@@ -115,12 +106,10 @@ public class TravelSystem {
 
         totalCost = baseFare + vat + profitMargin + travelPrice;
         System.out.println(ColorSystem.colorPalette[1] + "----------------------------------------------------");
+        System.out.println(ColorSystem.colorPalette[1] + ColorSystem.BOLD + "Total price    : " + ColorSystem.colorPalette[1]
+                + ColorSystem.withLargeIntegers(totalCost) + ColorSystem.RESET);
         System.out.println(
-                ColorSystem.colorPalette[1] + ColorSystem.BOLD + "Total price    : " + ColorSystem.colorPalette[1]
-                        + ColorSystem.withLargeIntegers(totalCost) + ColorSystem.RESET);
-        System.out.println(
-                ColorSystem.colorPalette[1] + "===================================================="
-                        + ColorSystem.RESET);
+                ColorSystem.colorPalette[1] + "====================================================" + ColorSystem.RESET);
     }
 
     static void travelMenu(Scanner scanner) {
@@ -182,18 +171,15 @@ public class TravelSystem {
 
         System.out.println(ColorSystem.colorPalette[1] + "╔════════════════════════════════════════════════════╗");
         System.out.println(
-                ColorSystem.colorPalette[0] + "  You are currently at: " + ColorSystem.colorPalette[1]
-                        + data.getLocation());
+                ColorSystem.colorPalette[0] + "  You are currently at: " + ColorSystem.colorPalette[1] + data.getLocation());
         System.out.println(
-                ColorSystem.colorPalette[1] + "╚════════════════════════════════════════════════════╝"
-                        + ColorSystem.RESET);
+                ColorSystem.colorPalette[1] + "╚════════════════════════════════════════════════════╝" + ColorSystem.RESET);
 
-        System.out.println(
-                ColorSystem.colorPalette[1] + "Please select a country you want to go to:" + ColorSystem.RESET);
+        System.out.println(ColorSystem.colorPalette[1] + "Please select a country you want to go to:" + ColorSystem.RESET);
 
         List<String> cities = new ArrayList<>();
 
-        for (String i : TravelSystem.CITIES) {
+        for (String i : data.CITIES) {
             if (!i.equalsIgnoreCase("portal")) {
                 if (!i.equalsIgnoreCase(data.getLocation())) {
                     cities.add(i);
@@ -246,14 +232,11 @@ public class TravelSystem {
             lineStr = "No line transfers found";
         }
         System.out
-                .println(ColorSystem.colorPalette[0] + "Route: " + ColorSystem.colorPalette[1] + routeStr
-                        + ColorSystem.RESET);
-        System.out.println(
-                ColorSystem.colorPalette[0] + "Distance: " + ColorSystem.colorPalette[1] + route.distanceTraveld()
-                        + "Km" + ColorSystem.RESET);
+                .println(ColorSystem.colorPalette[0] + "Route: " + ColorSystem.colorPalette[1] + routeStr + ColorSystem.RESET);
+        System.out.println(ColorSystem.colorPalette[0] + "Distance: " + ColorSystem.colorPalette[1] + route.distanceTraveld()
+                + "Km" + ColorSystem.RESET);
         System.out
-                .println(ColorSystem.colorPalette[0] + "Line's: " + ColorSystem.colorPalette[1] + lineStr
-                        + ColorSystem.RESET);
+                .println(ColorSystem.colorPalette[0] + "Line's: " + ColorSystem.colorPalette[1] + lineStr + ColorSystem.RESET);
         createInvoice(scanner, calculateCost(data.isFirstClass(), route.distanceTraveld(), data.getConversionRate()),
                 data.isFirstClass(), data.getLocation(), destination, trainCompany);
 

@@ -1,7 +1,9 @@
 package ovOOP;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class MenuSystem {
     static void startMenu() {
@@ -115,35 +117,9 @@ public class MenuSystem {
                 showVisualSettingsScreen(scanner);
                 break;
             case 3:
-                showDebugSettingsScreen(scanner);
                 break;
             case 4:
                 startMenu();
-                break;
-        }
-    }
-
-    private static void showDebugSettingsScreen(Scanner scanner) {
-        int target = OptionsSystem.showOption(scanner, "Please choose the setting you want to change",
-                "Raw Map,Back");
-
-        switch (target) {
-            case 1:
-                target = OptionsSystem.showOption(scanner, "What do you want the raw map debug setting to be",
-                        "True,False");
-                switch (target) {
-                    case 1:
-                        MapGenerationSystem.displayRawMap = true;
-                        break;
-                    case 2:
-                        MapGenerationSystem.displayRawMap = false;
-                        break;
-                }
-
-                break;
-            case 2:
-                showSettingsScreen(scanner);
-                ;
                 break;
         }
     }
