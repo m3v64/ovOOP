@@ -1,5 +1,7 @@
 package ovOOP;
 
+import java.util.Scanner;
+
 public class MapGenerationSystem {
 
     // Layers

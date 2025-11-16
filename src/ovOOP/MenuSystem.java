@@ -6,8 +6,8 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class MenuSystem {
-    static void startMenu() {
-        Scanner scanner = new Scanner(System.in);
+
+    static void startMenu(Scanner scanner) {
         DataSystem data = new DataSystem(Main.userID);
 
         ColorSystem.colorPalette[0] = data.getMainPalette();
@@ -87,7 +87,7 @@ public class MenuSystem {
         data.setMainPalette(ColorSystem.colorPalette[0]);
         data.setSecondaryPalette(ColorSystem.colorPalette[1]);
 
-        startMenu();
+        startMenu(scanner);
     }
 
     static void showVisualSettingsScreen(Scanner scanner) {
@@ -119,7 +119,7 @@ public class MenuSystem {
             case 3:
                 break;
             case 4:
-                startMenu();
+                startMenu(scanner);
                 break;
         }
     }
@@ -137,7 +137,7 @@ public class MenuSystem {
         System.out.println();
         System.out.println(ColorSystem.BRIGHT_PURPLE + "Press enter to continue...");
         scanner.nextLine();
-        startMenu();
+        startMenu(scanner);
     }
 
     public static void clear() {

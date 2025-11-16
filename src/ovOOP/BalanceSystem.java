@@ -62,7 +62,7 @@ public class BalanceSystem {
                 manageBalance(scanner);
             }
         } else if (balanceMenu == 3) {
-            MenuSystem.startMenu();
+            MenuSystem.startMenu(scanner);
         }
     }
 }
