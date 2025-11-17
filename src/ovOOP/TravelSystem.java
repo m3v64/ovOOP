@@ -144,7 +144,7 @@ public class TravelSystem {
         List<String> lines = new ArrayList<>();
 
         for (int i : possibleLinesArray) {
-            lines.addAll(Arrays.asList(data.getLine(i)));
+            lines.addAll(Arrays.asList(DataSystem.getLine(i)));
             for (String j : lines) {
                 System.out.print(j);
                 System.out.print(" -> ");

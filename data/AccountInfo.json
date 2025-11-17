@@ -27,7 +27,7 @@
     "mainPalette": "\u001b[90m",
     "secondaryPalette": "\u001b[91m",
     "password": "Administrator",
-    "location": "Elektra",
+    "location": "Hesturn",
     "balance": 1.7976931348623157E308,
     "defaultClass": 2,
     "defaultCurrencyConversionRate": 1.0
@@ -39,7 +39,7 @@
     "secondaryPalette": "\u001b[94m",
     "password": "companyOwner",
     "location": "Giad",
-    "balance": 0,
+    "balance": 0.0,
     "defaultClass": 2,
     "defaultCurrencyConversionRate": 1.0
   },
@@ -61,7 +61,7 @@
     "secondaryPalette": "\u001b[37m",
     "password": "BananenGek",
     "location": "Giad",
-    "balance": 0,
+    "balance": 0.0,
     "defaultClass": 2,
     "defaultCurrencyConversionRate": 1.0
   },
