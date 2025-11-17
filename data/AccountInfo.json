@@ -39,7 +39,7 @@
     "secondaryPalette": "\u001b[94m",
     "password": "companyOwner",
     "location": "Giad",
-    "balance": -1.7976931348623157E308,
+    "balance": 0,
     "defaultClass": 2,
     "defaultCurrencyConversionRate": 1.0
   },
