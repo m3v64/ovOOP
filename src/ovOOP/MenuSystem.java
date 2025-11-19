@@ -1,9 +1,7 @@
 package ovOOP;
 
 import java.text.DecimalFormat;
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class MenuSystem {
 
