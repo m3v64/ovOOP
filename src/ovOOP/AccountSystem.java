@@ -8,6 +8,7 @@ import java.io.FileReader;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import ovOOP.model.Account;
 import java.lang.reflect.Type;
 
 public class AccountSystem {
@@ -85,16 +86,16 @@ public class AccountSystem {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         try (FileReader reader = new FileReader("data/AccountInfo.json")) {
-            Type dataListType = new TypeToken<List<DataSystem>>() {
+            Type accountListType = new TypeToken<List<Account>>() {
             }.getType();
-            List<DataSystem> dataList = gson.fromJson(reader, dataListType);
+            List<Account> accounts = gson.fromJson(reader, accountListType);
 
-            if (dataList == null)
-                dataList = new ArrayList<>();
+            if (accounts == null)
+                accounts = new ArrayList<>();
 
-            for (DataSystem d : dataList) {
-                if (d.getUsername().equalsIgnoreCase(username) && d.getPassword().equals(password)) {
-                    Main.userID = d.getUserID();
+            for (Account account : accounts) {
+                if (account.getUsername().equalsIgnoreCase(username) && account.getPassword().equals(password)) {
+                    Main.userID = account.getUserID();
                     prettyPrint(ColorSystem.colorPalette[1] + "You have logged in!");
                     break;
                 }
