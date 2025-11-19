@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
+
 import java.util.HashSet;
 
 public class TravelSystem {
@@ -42,6 +43,12 @@ public class TravelSystem {
         double randomFactor = Math.random() * 0.3 + 1;
         totalCost *= (randomFactor / 500.0) * randomFactor; // random factor
 
+        int hour = DataSystem.getHour();
+
+        int day = DataSystem.getDay();
+
+        int month = DataSystem.getMonth();
+
         if (businessClass) {
             totalCost *= 1.7;
         } else {
@@ -52,6 +59,171 @@ public class TravelSystem {
         totalCost *= 1.20; // margin
         totalCost += 2; // addition for minimal cost
         totalCost *= conversionRate; // conversion rate for different currentStationrencies
+
+        if (hour > 6 && hour < 9) {
+            totalCost *= 1.2;
+        }
+        if (hour > 16 && hour < 18) {
+            totalCost *= 1.2;
+        }
+
+        if (hour > 9 && hour < 16) {
+            totalCost *= 0.8;
+        }
+        if (hour > 18 && hour < 6) {
+            totalCost *= 0.8;
+        }
+
+        // Sinterklaas
+        if (day == 5 && month == 12) {
+            totalCost *= 0.5;
+            System.out.println("Pakjesavond savings! Your Sinterklaas discount has arrived!");
+        }
+
+        // Christmas
+        if (day == 25 && month == 12) {
+            totalCost *= 0.5;
+            System.out.println("Merry Christmas! Enjoy your festive holiday discount!");
+        }
+
+        // Boxing Day
+        if (day == 26 && month == 12) {
+            totalCost *= 0.7;
+            System.out.println("Boxing Day bonus! Unwrap your special discount!");
+        }
+
+        // New Year's Eve
+        if (day == 31 && month == 12) {
+            totalCost *= 0.5;
+            System.out.println("Cheers to the old year! Your countdown discount is applied!");
+        }
+
+        // New Year’s Day
+        if (day == 1 && month == 1) {
+            totalCost *= 0.5;
+            System.out.println("Happy New Year! Kick off the year with a sparkling discount!");
+        }
+
+        // Valentine’s Day
+        if (day == 14 && month == 2) {
+            totalCost *= 0.8;
+            System.out.println("Love is in the checkout! Valentine’s Day discount activated.");
+        }
+
+        // St. Patrick's Day
+        if (day == 17 && month == 3) {
+            totalCost *= 0.85;
+            System.out.println("Feeling lucky? Your St. Patrick’s Day discount is here!");
+        }
+
+        // April Fools'
+        if (day == 1 && month == 4) {
+            totalCost *= 1.0;
+            System.out.println("April Fools! No discount… or is there? (There isn't.)");
+        }
+
+        // King’s Day (Netherlands)
+        if (day == 27 && month == 4) {
+            totalCost *= 0.7;
+            System.out.println("Oranje boven! Celebrate King’s Day with a royal discount!");
+        }
+
+        // Liberation Day (Netherlands)
+        if (day == 5 && month == 5) {
+            totalCost *= 0.75;
+            System.out.println("Freedom feels good—and so does this Liberation Day discount!");
+        }
+
+        // Mother’s Day
+        if (day == 12 && month == 5) {
+            totalCost *= 0.8;
+            System.out.println("Treat mom right! Mother’s Day discount applied!");
+        }
+
+        // Father’s Day (3rd Sunday of June)
+        if (day == 16 && month == 6) {
+            System.out.println("Cheers to all dads! Your Father’s Day discount is active!");
+        }
+
+        // Summer Solstice
+        if (day == 21 && month == 6) {
+            totalCost *= 0.9;
+            System.out.println("Hello, sunshine! Enjoy this Summer Solstice discount.");
+        }
+
+        // Halloween
+        if (day == 31 && month == 10) {
+            totalCost *= 0.85;
+            System.out.println("Spooktacular savings! Your Halloween discount haunts the price!");
+        }
+
+        // Black Friday
+        if (day == 29 && month == 11) {
+            totalCost *= 0.4;
+            System.out.println("It’s Black Friday madness! Huge discount unleashed!");
+        }
+
+        // Cyber Monday
+        if (day == 2 && month == 12) {
+            totalCost *= 0.45;
+            System.out.println("Cyber Monday tech frenzy savings applied! Enjoy!");
+        }
+
+        // Earth Day
+        if (day == 22 && month == 4) {
+            totalCost *= 0.9;
+            System.out.println("Go green, save green! Earth Day discount applied.");
+        }
+
+        // Star Wars Day
+        if (day == 4 && month == 5) {
+            totalCost *= 0.85;
+            System.out.println("May the Fourth be with you! Galactic discount activated.");
+        }
+
+        // Pride Day (1 June)
+        if (day == 1 && month == 6) {
+            totalCost *= 0.9;
+            System.out.println("Celebrate love and diversity! Pride discount unlocked.");
+        }
+
+        // International Coffee Day
+        if (day == 1 && month == 10) {
+            totalCost *= 0.9;
+            System.out.println("Feeling energized? Coffee Day discount poured fresh!");
+        }
+
+        // International Cat Day
+        if (day == 8 && month == 8) {
+            totalCost *= 0.9;
+            System.out.println("Purrfect savings! Cat Day discount applied.");
+        }
+
+        // International Dog Day
+        if (day == 26 && month == 8) {
+            totalCost *= 0.9;
+            System.out.println("Woof! Dog Day discount unleashed!");
+        }
+
+        // Pi Day
+        if (day == 14 && month == 3) {
+            totalCost *= 0.86; // 0.86 ~ 1 / π
+            System.out.println("Happy Pi Day! A mathematically delicious discount!");
+        }
+
+        // Programmer’s Day (256th day of the year, example: September 13 on non-leap
+        // year)
+        if (day == 13 && month == 9) {
+            totalCost *= 0.75;
+            System.out.println("Happy Programmer’s Day! 256-level discount executed successfully.");
+        }
+
+        // International Taco Day
+        if (day == 4 && month == 10) {
+            totalCost *= 0.9;
+            System.out.println("Taco 'bout savings! Taco Day discount added.");
+        }
+
         totalCost = Math.round(totalCost * 100) / 100.0;
 
         return totalCost;
@@ -89,11 +261,14 @@ public class TravelSystem {
         System.out.println(ColorSystem.colorPalette[1] + "Thank you for using " + " Transport for your traveling!"
                 + ColorSystem.RESET);
         System.out.println(ColorSystem.colorPalette[1] + "----------------------------------------------------");
-        System.out.println(ColorSystem.colorPalette[1] + "Invoice to: " + ColorSystem.colorPalette[1] + data.getUsername()
-                + ColorSystem.RESET);
+        System.out
+                .println(ColorSystem.colorPalette[1] + "Invoice to: " + ColorSystem.colorPalette[1] + data.getUsername()
+                        + ColorSystem.RESET);
         System.out.println(ColorSystem.colorPalette[1] + "----------------------------------------------------");
-        System.out.println(ColorSystem.colorPalette[0] + "From: " + ColorSystem.colorPalette[1] + origin + ColorSystem.RESET
-                + ColorSystem.colorPalette[0] + "  To: " + ColorSystem.colorPalette[1] + destination + ColorSystem.RESET);
+        System.out.println(
+                ColorSystem.colorPalette[0] + "From: " + ColorSystem.colorPalette[1] + origin + ColorSystem.RESET
+                        + ColorSystem.colorPalette[0] + "  To: " + ColorSystem.colorPalette[1] + destination
+                        + ColorSystem.RESET);
         System.out.println(ColorSystem.colorPalette[1] + "----------------------------------------------------");
 
         System.out.println(ColorSystem.colorPalette[1] + "Base fare      : " + ColorSystem.colorPalette[0]
@@ -107,10 +282,12 @@ public class TravelSystem {
 
         totalCost = baseFare + vat + profitMargin + travelPrice;
         System.out.println(ColorSystem.colorPalette[1] + "----------------------------------------------------");
-        System.out.println(ColorSystem.colorPalette[1] + ColorSystem.BOLD + "Total price    : " + ColorSystem.colorPalette[1]
-                + ColorSystem.withLargeIntegers(totalCost) + ColorSystem.RESET);
         System.out.println(
-                ColorSystem.colorPalette[1] + "====================================================" + ColorSystem.RESET);
+                ColorSystem.colorPalette[1] + ColorSystem.BOLD + "Total price    : " + ColorSystem.colorPalette[1]
+                        + ColorSystem.withLargeIntegers(totalCost) + ColorSystem.RESET);
+        System.out.println(
+                ColorSystem.colorPalette[1] + "===================================================="
+                        + ColorSystem.RESET);
     }
 
     static void travelMenu(Scanner scanner) {
@@ -173,11 +350,14 @@ public class TravelSystem {
 
         System.out.println(ColorSystem.colorPalette[1] + "╔════════════════════════════════════════════════════╗");
         System.out.println(
-                ColorSystem.colorPalette[0] + "  You are currentStationly at: " + ColorSystem.colorPalette[1] + data.getLocation());
+                ColorSystem.colorPalette[0] + "  You are currentStationly at: " + ColorSystem.colorPalette[1]
+                        + data.getLocation());
         System.out.println(
-                ColorSystem.colorPalette[1] + "╚════════════════════════════════════════════════════╝" + ColorSystem.RESET);
+                ColorSystem.colorPalette[1] + "╚════════════════════════════════════════════════════╝"
+                        + ColorSystem.RESET);
 
-        System.out.println(ColorSystem.colorPalette[1] + "Please select a country you want to go to:" + ColorSystem.RESET);
+        System.out.println(
+                ColorSystem.colorPalette[1] + "Please select a country you want to go to:" + ColorSystem.RESET);
 
         List<String> availableStationsOnLine = new ArrayList<>();
 
@@ -218,18 +398,22 @@ public class TravelSystem {
             transferString = "No line transfers found";
         }
         System.out
-                .println(ColorSystem.colorPalette[0] + "Route: " + ColorSystem.colorPalette[1] + routeString + ColorSystem.RESET);
-        System.out.println(ColorSystem.colorPalette[0] + "Distance: " + ColorSystem.colorPalette[1] + route.getTotalDistanceTravelled()
+                .println(ColorSystem.colorPalette[0] + "Route: " + ColorSystem.colorPalette[1] + routeString
+                        + ColorSystem.RESET);
+        System.out.println(ColorSystem.colorPalette[0] + "Distance: " + ColorSystem.colorPalette[1]
+                + route.getTotalDistanceTravelled()
                 + "Km" + ColorSystem.RESET);
         System.out
-                .println(ColorSystem.colorPalette[0] + "Line's: " + ColorSystem.colorPalette[1] + transferString + ColorSystem.RESET);
-        createInvoice(scanner, calculateCost(data.isFirstClass(), route.getTotalDistanceTravelled(), data.getConversionRate()),
-            data.isFirstClass(), data.getLocation(), destination);
+                .println(ColorSystem.colorPalette[0] + "Line's: " + ColorSystem.colorPalette[1] + transferString
+                        + ColorSystem.RESET);
+        createInvoice(scanner,
+                calculateCost(data.isFirstClass(), route.getTotalDistanceTravelled(), data.getConversionRate()),
+                data.isFirstClass(), data.getLocation(), destination);
 
         data.setLocation(destination);
 
         data.setBalance(data.getBalance()
-            - calculateCost(data.isFirstClass(), route.getTotalDistanceTravelled(), data.getConversionRate()));
+                - calculateCost(data.isFirstClass(), route.getTotalDistanceTravelled(), data.getConversionRate()));
 
         System.out.println(ColorSystem.BRIGHT_PURPLE + "Press enter to continue...");
         scanner.nextLine();
@@ -241,7 +425,7 @@ public class TravelSystem {
             segmentDurations[idx] = route.getTotalDistanceTravelled() / stationsOnLineOnRoute.length / 100;
         }
 
-        travelMapGoTravel(segmentDurations, stationsOnLineOnRoute, 125, 10);
+        travelMapGoTravel(segmentDurations, stationsOnLineOnRoute, 100, 10);
 
         scanner.nextLine();
 
@@ -249,7 +433,7 @@ public class TravelSystem {
 
         // continue here with additional ui elements
     }
-    
+
     static TravelSystem findRoute(String destination) {
         DataSystem data = new DataSystem(Main.userID);
         String start = data.getLocation();
@@ -267,6 +451,7 @@ public class TravelSystem {
             int accumulatedDistance;
             Station previousStation;
             int arrivalLineId;
+
             Station(String stationName, int accumulatedDistance, Station previousStation, int arrivalLineId) {
                 this.stationName = stationName;
                 this.accumulatedDistance = accumulatedDistance;
@@ -318,7 +503,16 @@ public class TravelSystem {
                 if (stationOnLineIndex == -1)
                     continue;
 
-                int[] neighbouringStationsIndices = new int[] { stationOnLineIndex - 1, stationOnLineIndex + 1 }; // can change this to only make the program look forwards
+                int[] neighbouringStationsIndices = new int[] { stationOnLineIndex - 1, stationOnLineIndex + 1 }; // can
+                                                                                                                  // change
+                                                                                                                  // this
+                                                                                                                  // to
+                                                                                                                  // only
+                                                                                                                  // make
+                                                                                                                  // the
+                                                                                                                  // program
+                                                                                                                  // look
+                                                                                                                  // forwards
                 for (int neighbouringStationIndex : neighbouringStationsIndices) {
                     if (neighbouringStationIndex < 0 || neighbouringStationIndex >= stationsOnLine.length)
                         continue;
@@ -327,7 +521,8 @@ public class TravelSystem {
                     if (checked.contains(neighbouringStationName.toLowerCase()))
                         continue;
 
-                    int stationDistance = DataSystem.getSequentialDistanceOnLine(line, currentStation.stationName, neighbouringStationName);
+                    int stationDistance = DataSystem.getSequentialDistanceOnLine(line, currentStation.stationName,
+                            neighbouringStationName);
                     if (stationDistance <= 0)
                         continue;
 
