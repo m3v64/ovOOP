@@ -182,7 +182,4 @@ Required for routing to function properly.
 * **Website:** Coming soon
 * **GitHub:** [https://github.com/m3v64/ovOOP](https://github.com/m3v64/ovOOP)
 
----
-
-## 📄 License
 
