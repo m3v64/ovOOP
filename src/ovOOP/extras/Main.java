@@ -7,9 +7,11 @@ public class Main {
     public static void mainExtras(String[] args) {
         Scanner initialScanner = new Scanner(System.in);
 
-        MenuSystem.clear();
+        System.out.println("Earned " + GameSystem.playGame(11) +" By playing the minigame!");
 
-        MenuSystem.startMenu(initialScanner);
+        // MenuSystem.clear();
+
+        // MenuSystem.startMenu(initialScanner);
     }
 
 
