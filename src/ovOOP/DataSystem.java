@@ -17,7 +17,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class DataSystem {
@@ -362,8 +361,7 @@ public class DataSystem {
 
                 if (!foundMatch && lineObj.has("connections") && lineObj.get("connections").isJsonObject()) {
                     JsonObject connections = lineObj.getAsJsonObject("connections");
-                    for (Map.Entry<String, JsonElement> entry : connections.entrySet()) {
-                        String placeName = entry.getKey();
+                    for (String placeName : connections.keySet()) {
                         if (placeName != null && placeName.equalsIgnoreCase(currentLocation)) {
                             foundMatch = true;
                             break;
@@ -446,8 +444,7 @@ public class DataSystem {
 
                 if (lineObj.has("connections") && lineObj.get("connections").isJsonObject()) {
                     JsonObject connections = lineObj.getAsJsonObject("connections");
-                    for (Map.Entry<String, JsonElement> entry : connections.entrySet()) {
-                        String cityName = entry.getKey();
+                    for (String cityName : connections.keySet()) {
                         lineStations.add(cityName);
                     }
                 }
@@ -490,8 +487,7 @@ public class DataSystem {
 
                 if (lineData.has("connections") && lineData.get("connections").isJsonObject()) {
                     JsonObject connections = lineData.getAsJsonObject("connections");
-                    for (Map.Entry<String, JsonElement> entry : connections.entrySet()) {
-                        String placeName = entry.getKey();
+                    for (String placeName : connections.keySet()) {
                         if (placeName != null && placeName.equalsIgnoreCase(a))
                             hasA = true;
                         if (placeName != null && placeName.equalsIgnoreCase(b))
@@ -543,8 +539,8 @@ public class DataSystem {
                 // Build ordered list of all stations on this line
                 List<String> allStations = new ArrayList<>();
                 allStations.add(lineStart);
-                for (Map.Entry<String, JsonElement> entry : connections.entrySet()) {
-                    allStations.add(entry.getKey());
+                for (String stationName : connections.keySet()) {
+                    allStations.add(stationName);
                 }
 
                 // Find indices of start and destination
@@ -615,9 +611,9 @@ public class DataSystem {
                 List<Integer> distances = new ArrayList<>();
                 allStations.add(lineStart);
 
-                for (Map.Entry<String, JsonElement> entry : connections.entrySet()) {
-                    allStations.add(entry.getKey());
-                    distances.add(entry.getValue().getAsJsonObject().get("distance").getAsInt());
+                for (String stationName : connections.keySet()) {
+                    allStations.add(stationName);
+                    distances.add(connections.get(stationName).getAsJsonObject().get("distance").getAsInt());
                 }
 
                 // Find indices - take first occurrence only
