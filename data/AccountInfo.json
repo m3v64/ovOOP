@@ -13,10 +13,10 @@
   {
     "userID": 1,
     "username": "max",
-    "mainPalette": "\u001b[36m",
-    "secondaryPalette": "\u001b[30m",
+    "mainPalette": "\u001b[34m",
+    "secondaryPalette": "\u001b[36m",
     "password": "hollowKnightAddicted",
-    "location": "Giad",
+    "location": "Hesturn",
     "balance": 1.0000000000001E15,
     "defaultClass": 2,
     "defaultCurrencyConversionRate": 1.0
@@ -27,7 +27,7 @@
     "mainPalette": "\u001b[90m",
     "secondaryPalette": "\u001b[91m",
     "password": "Administrator",
-    "location": "Hesturn",
+    "location": "Charite",
     "balance": 1.7976931348623157E308,
     "defaultClass": 2,
     "defaultCurrencyConversionRate": 1.0

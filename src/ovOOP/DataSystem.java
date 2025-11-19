@@ -18,9 +18,9 @@ import java.util.Scanner;
 
 public class DataSystem {
     public final String CITIES[] = { "Dryard", "TimerGulch", "Brittle", "StaglenHold", "EldYard", "Trasin", "SwiftLec",
-            "LironGrale", "Ghostle", "Pearllows", "Irehole", "Lighthgro", "Stormwall", "Linere", "Giad", "Portal",
-            "Heete Birch", "Arcs Styrie", "Charité", "Liberté et Égalité", "Kreutzbeck", "Sankt Jeder", "Hesturn",
-            "Capella", "Elektra" };
+        "LironGrale", "Ghostle", "Pearllows", "Irehole", "Lighthgro", "Stormwall", "Linere", "Giad", "Portal",
+        "Heete Birch", "Arcs Styrie", "Charite", "Liberte et Egalite", "Kreutzbeck", "Sankt Jeder", "Hesturn",
+        "Capella", "Elektra" };
 
     private int userID;
     private String username;
@@ -38,7 +38,6 @@ public class DataSystem {
     private static int month;
     private static int day;
 
-    // private Map<String, Map<String, Object>> connections;
     // private int line;
     // private String start;
 
