@@ -1,8 +1,8 @@
-package ovOOP;
+package ovOOP.extras;
 
 import java.text.DecimalFormat;
 import java.util.Scanner;
-import ovOOP.extras.*;
+import ovOOP.*;;
 
 public class MenuSystem {
 
@@ -128,12 +128,10 @@ public class MenuSystem {
 
         switch (target) {
             case 1:
-                ovOOP.extras.Main.mainExtras(null);
-                break;
-            case 2:
                 MenuSystem.startMenu(scanner);
                 break;
-            default:
+            case 2:
+                ovOOP.Main.main(null);
                 break;
         }
     }
