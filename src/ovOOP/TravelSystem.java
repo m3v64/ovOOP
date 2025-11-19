@@ -503,16 +503,7 @@ public class TravelSystem {
                 if (stationOnLineIndex == -1)
                     continue;
 
-                int[] neighbouringStationsIndices = new int[] { stationOnLineIndex - 1, stationOnLineIndex + 1 }; // can
-                                                                                                                  // change
-                                                                                                                  // this
-                                                                                                                  // to
-                                                                                                                  // only
-                                                                                                                  // make
-                                                                                                                  // the
-                                                                                                                  // program
-                                                                                                                  // look
-                                                                                                                  // forwards
+                int[] neighbouringStationsIndices = new int[] { stationOnLineIndex - 1, stationOnLineIndex + 1 }; // can change this to only make the program look forwards
                 for (int neighbouringStationIndex : neighbouringStationsIndices) {
                     if (neighbouringStationIndex < 0 || neighbouringStationIndex >= stationsOnLine.length)
                         continue;

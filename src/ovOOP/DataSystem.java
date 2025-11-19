@@ -41,10 +41,6 @@ public class DataSystem {
     private static int month;
     private static int day;
 
-    // private int line;
-    // private String start;
-
-    // Cache for JSON data to avoid repeated file loading
     private static List<DataSystem> accountInfoCache = null;
     private static JsonArray trainLinesCache = null;
     private static long accountInfoLastModified = 0;
@@ -81,21 +77,15 @@ public class DataSystem {
         }
     }
 
-    /**
-     * Centralized method to load AccountInfo.json with caching.
-     * Reloads only if file has been modified since last load.
-     */
     public static List<DataSystem> loadAccountInfo() {
         try {
             java.io.File file = new java.io.File("data/AccountInfo.json");
             long currentModified = file.lastModified();
             
-            // Return cached data if file hasn't changed
             if (accountInfoCache != null && currentModified == accountInfoLastModified) {
                 return accountInfoCache;
             }
             
-            // Load fresh data
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             try (FileReader reader = new FileReader(file)) {
                 Type dataListType = new TypeToken<List<DataSystem>>() {}.getType();
@@ -105,7 +95,6 @@ public class DataSystem {
                     dataList = new ArrayList<>();
                 }
                 
-                // Update cache
                 accountInfoCache = dataList;
                 accountInfoLastModified = currentModified;
                 
@@ -117,25 +106,18 @@ public class DataSystem {
         }
     }
 
-    /**
-     * Centralized method to load TrainLines.json with caching.
-     * Reloads only if file has been modified since last load.
-     */
     public static JsonArray loadTrainLines() {
         try {
             java.io.File file = new java.io.File("data/TrainLines.json");
             long currentModified = file.lastModified();
             
-            // Return cached data if file hasn't changed
             if (trainLinesCache != null && currentModified == trainLinesLastModified) {
                 return trainLinesCache;
             }
-            
-            // Load fresh data
+
             try (Reader reader = new FileReader(file)) {
                 JsonArray companies = JsonParser.parseReader(reader).getAsJsonArray();
                 
-                // Update cache
                 trainLinesCache = companies;
                 trainLinesLastModified = currentModified;
                 
@@ -152,19 +134,11 @@ public class DataSystem {
         }
     }
 
-    /**
-     * Invalidates the AccountInfo cache to force reload on next access.
-     * Should be called after modifying AccountInfo.json.
-     */
     private static void invalidateAccountInfoCache() {
         accountInfoCache = null;
         accountInfoLastModified = 0;
     }
 
-    /**
-     * Preloads all JSON data at application startup.
-     * Call this method once from Main.main() to load all data upfront.
-     */
     public static void preloadAllData() {
         loadAccountInfo();
         loadTrainLines();
@@ -289,7 +263,7 @@ public class DataSystem {
         try (FileWriter writer = new FileWriter("data/AccountInfo.json")) {
             gson.toJson(dataList, writer);
             System.out.println("New user added successfully!");
-            invalidateAccountInfoCache(); // Invalidate cache after write
+            invalidateAccountInfoCache();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -327,7 +301,7 @@ public class DataSystem {
 
         try (FileWriter writer = new FileWriter("data/AccountInfo.json")) {
             gson.toJson(dataList, writer);
-            invalidateAccountInfoCache(); // Invalidate cache after write
+            invalidateAccountInfoCache();
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("imagine giving an error...");
@@ -375,7 +349,6 @@ public class DataSystem {
                     try {
                         foundLines.add(lineObj.get("line").getAsInt());
                     } catch (Exception ex) {
-                        // ignore malformed line id
                         ex.printStackTrace();
                     }
                 }
@@ -503,7 +476,6 @@ public class DataSystem {
                     try {
                         return lineData.get("line").getAsInt();
                     } catch (Exception ex) {
-                        // malformed
                         ex.printStackTrace();
                     }
                 }
@@ -542,37 +514,33 @@ public class DataSystem {
                 String lineStart = lineData.get("start").getAsString();
                 JsonObject connections = lineData.get("connections").getAsJsonObject();
 
-                // Build ordered list of all stations on this line
                 List<String> allStations = new ArrayList<>();
                 allStations.add(lineStart);
                 for (String stationName : connections.keySet()) {
                     allStations.add(stationName);
                 }
 
-                // Find indices of start and destination
                 int startIdx = -1;
                 int destIdx = -1;
                 for (int j = 0; j < allStations.size(); j++) {
                     if (allStations.get(j).equalsIgnoreCase(start)) {
                         if (startIdx == -1)
-                            startIdx = j; // Take first occurrence
+                            startIdx = j;
                     }
                     if (allStations.get(j).equalsIgnoreCase(destination)) {
                         if (destIdx == -1)
-                            destIdx = j; // Take first occurrence
+                            destIdx = j;
                     }
                 }
 
                 if (startIdx == -1 || destIdx == -1)
                     return path;
 
-                // Extract sequential path
                 if (startIdx <= destIdx) {
                     for (int j = startIdx; j <= destIdx; j++) {
                         path.add(allStations.get(j));
                     }
                 } else {
-                    // going backwards on the line
                     for (int j = startIdx; j >= destIdx; j--) {
                         path.add(allStations.get(j));
                     }
@@ -613,7 +581,6 @@ public class DataSystem {
                 String lineStart = lineData.get("start").getAsString();
                 JsonObject connections = lineData.get("connections").getAsJsonObject();
 
-                // Build ordered list of all stations with distances
                 List<String> allStations = new ArrayList<>();
                 List<Integer> distances = new ArrayList<>();
                 allStations.add(lineStart);
@@ -623,24 +590,22 @@ public class DataSystem {
                     distances.add(connections.get(stationName).getAsJsonObject().get("distance").getAsInt());
                 }
 
-                // Find indices - take first occurrence only
                 int startIdx = -1;
                 int destIdx = -1;
                 for (int j = 0; j < allStations.size(); j++) {
                     if (allStations.get(j).equalsIgnoreCase(start)) {
                         if (startIdx == -1)
-                            startIdx = j; // Take first occurrence
+                            startIdx = j;
                     }
                     if (allStations.get(j).equalsIgnoreCase(destination)) {
                         if (destIdx == -1)
-                            destIdx = j; // Take first occurrence
+                            destIdx = j;
                     }
                 }
 
                 if (startIdx == -1 || destIdx == -1)
                     return 0;
 
-                // Sum distances along the sequential path
                 if (startIdx <= destIdx) {
                     for (int j = startIdx; j < destIdx; j++) {
                         totalDistance += distances.get(j);
