@@ -2,14 +2,12 @@ package ovOOP;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import ovOOP.model.Account;
 import ovOOP.model.TrainCompany;
 
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -142,6 +140,26 @@ public class DataSystem {
         }
     }
 
+    /**
+     * Find a specific train line by line number.
+     * Helper method to reduce code duplication.
+     */
+    private static ovOOP.model.TrainLine findTrainLine(int lineNumber) {
+        List<TrainCompany> companies = loadTrainLines();
+        
+        for (TrainCompany company : companies) {
+            if (company.getLines() == null) continue;
+            
+            for (ovOOP.model.TrainLine trainLine : company.getLines()) {
+                if (trainLine.getLine() == lineNumber) {
+                    return trainLine;
+                }
+            }
+        }
+        
+        return null;
+    }
+
     public int getUserID() {
         return userID;
     }
@@ -224,11 +242,7 @@ public class DataSystem {
     }
 
     public boolean isFirstClass() {
-        boolean isFirstClass = false;
-        if (this.defaultClass == 1) {
-            isFirstClass = true;
-        }
-        return isFirstClass;
+        return this.defaultClass == 1;
     }
 
     public static void addAccount(String username, String password, Scanner scanner) {
@@ -323,40 +337,21 @@ public class DataSystem {
     }
 
     public static String getStart(int line) {
-        List<TrainCompany> companies = loadTrainLines();
-
-        for (TrainCompany company : companies) {
-            if (company.getLines() == null) continue;
-
-            for (ovOOP.model.TrainLine trainLine : company.getLines()) {
-                if (trainLine.getLine() == line) {
-                    return trainLine.getStart();
-                }
-            }
-        }
-
-        return null;
+        ovOOP.model.TrainLine trainLine = findTrainLine(line);
+        return trainLine != null ? trainLine.getStart() : null;
     }
 
     public static String[] getLine(int line) {
         List<String> lineStations = new ArrayList<>();
-        List<TrainCompany> companies = loadTrainLines();
+        ovOOP.model.TrainLine trainLine = findTrainLine(line);
 
-        for (TrainCompany company : companies) {
-            if (company.getLines() == null) continue;
+        if (trainLine != null) {
+            if (trainLine.getStart() != null) {
+                lineStations.add(trainLine.getStart());
+            }
 
-            for (ovOOP.model.TrainLine trainLine : company.getLines()) {
-                if (trainLine.getLine() == line) {
-                    if (trainLine.getStart() != null) {
-                        lineStations.add(trainLine.getStart());
-                    }
-
-                    if (trainLine.getConnections() != null) {
-                        lineStations.addAll(trainLine.getConnections().keySet());
-                    }
-
-                    return lineStations.toArray(new String[0]);
-                }
+            if (trainLine.getConnections() != null) {
+                lineStations.addAll(trainLine.getConnections().keySet());
             }
         }
 
@@ -398,100 +393,88 @@ public class DataSystem {
 
     public static List<String> getSequentialPathOnLine(int lineNum, String start, String destination) {
         List<String> path = new ArrayList<>();
-        List<TrainCompany> companies = loadTrainLines();
+        ovOOP.model.TrainLine trainLine = findTrainLine(lineNum);
 
-        for (TrainCompany company : companies) {
-            if (company.getLines() == null) continue;
+        if (trainLine == null || trainLine.getStart() == null || trainLine.getConnections() == null) {
+            return path;
+        }
 
-            for (ovOOP.model.TrainLine trainLine : company.getLines()) {
-                if (trainLine.getLine() != lineNum) continue;
-                if (trainLine.getStart() == null || trainLine.getConnections() == null) continue;
+        // Build ordered list of all stations on this line
+        List<String> allStations = new ArrayList<>();
+        allStations.add(trainLine.getStart());
+        allStations.addAll(trainLine.getConnections().keySet());
 
-                // Build ordered list of all stations on this line
-                List<String> allStations = new ArrayList<>();
-                allStations.add(trainLine.getStart());
-                allStations.addAll(trainLine.getConnections().keySet());
-
-                // Find indices of start and destination
-                int startIdx = -1;
-                int destIdx = -1;
-                for (int j = 0; j < allStations.size(); j++) {
-                    if (allStations.get(j).equalsIgnoreCase(start) && startIdx == -1) {
-                        startIdx = j;
-                    }
-                    if (allStations.get(j).equalsIgnoreCase(destination) && destIdx == -1) {
-                        destIdx = j;
-                    }
-                }
-
-                if (startIdx == -1 || destIdx == -1) return path;
-
-                // Extract sequential path
-                if (startIdx <= destIdx) {
-                    for (int j = startIdx; j <= destIdx; j++) {
-                        path.add(allStations.get(j));
-                    }
-                } else {
-                    for (int j = startIdx; j >= destIdx; j--) {
-                        path.add(allStations.get(j));
-                    }
-                }
-                return path;
+        // Find indices of start and destination
+        int startIdx = -1;
+        int destIdx = -1;
+        for (int j = 0; j < allStations.size(); j++) {
+            if (allStations.get(j).equalsIgnoreCase(start) && startIdx == -1) {
+                startIdx = j;
+            }
+            if (allStations.get(j).equalsIgnoreCase(destination) && destIdx == -1) {
+                destIdx = j;
             }
         }
 
+        if (startIdx == -1 || destIdx == -1) return path;
+
+        // Extract sequential path
+        if (startIdx <= destIdx) {
+            for (int j = startIdx; j <= destIdx; j++) {
+                path.add(allStations.get(j));
+            }
+        } else {
+            for (int j = startIdx; j >= destIdx; j--) {
+                path.add(allStations.get(j));
+            }
+        }
+        
         return path;
     }
 
     public static int getSequentialDistanceOnLine(int lineNum, String start, String destination) {
         int totalDistance = 0;
-        List<TrainCompany> companies = loadTrainLines();
+        ovOOP.model.TrainLine trainLine = findTrainLine(lineNum);
 
-        for (TrainCompany company : companies) {
-            if (company.getLines() == null) continue;
+        if (trainLine == null || trainLine.getStart() == null || trainLine.getConnections() == null) {
+            return 0;
+        }
 
-            for (ovOOP.model.TrainLine trainLine : company.getLines()) {
-                if (trainLine.getLine() != lineNum) continue;
-                if (trainLine.getStart() == null || trainLine.getConnections() == null) continue;
+        // Build ordered list of all stations with distances
+        List<String> allStations = new ArrayList<>();
+        List<Integer> distances = new ArrayList<>();
+        allStations.add(trainLine.getStart());
 
-                // Build ordered list of all stations with distances
-                List<String> allStations = new ArrayList<>();
-                List<Integer> distances = new ArrayList<>();
-                allStations.add(trainLine.getStart());
+        for (java.util.Map.Entry<String, ovOOP.model.StationConnection> entry : trainLine.getConnections().entrySet()) {
+            allStations.add(entry.getKey());
+            distances.add(entry.getValue().getDistance());
+        }
 
-                for (java.util.Map.Entry<String, ovOOP.model.StationConnection> entry : trainLine.getConnections().entrySet()) {
-                    allStations.add(entry.getKey());
-                    distances.add(entry.getValue().getDistance());
-                }
-
-                // Find indices - take first occurrence only
-                int startIdx = -1;
-                int destIdx = -1;
-                for (int j = 0; j < allStations.size(); j++) {
-                    if (allStations.get(j).equalsIgnoreCase(start) && startIdx == -1) {
-                        startIdx = j;
-                    }
-                    if (allStations.get(j).equalsIgnoreCase(destination) && destIdx == -1) {
-                        destIdx = j;
-                    }
-                }
-
-                if (startIdx == -1 || destIdx == -1) return 0;
-
-                // Sum distances along the sequential path
-                if (startIdx <= destIdx) {
-                    for (int j = startIdx; j < destIdx; j++) {
-                        totalDistance += distances.get(j);
-                    }
-                } else {
-                    for (int j = startIdx - 1; j >= destIdx; j--) {
-                        totalDistance += distances.get(j);
-                    }
-                }
-                return totalDistance;
+        // Find indices - take first occurrence only
+        int startIdx = -1;
+        int destIdx = -1;
+        for (int j = 0; j < allStations.size(); j++) {
+            if (allStations.get(j).equalsIgnoreCase(start) && startIdx == -1) {
+                startIdx = j;
+            }
+            if (allStations.get(j).equalsIgnoreCase(destination) && destIdx == -1) {
+                destIdx = j;
             }
         }
 
+        if (startIdx == -1 || destIdx == -1) return 0;
+
+        // Sum distances along the sequential path
+        if (startIdx <= destIdx) {
+            for (int j = startIdx; j < destIdx; j++) {
+                totalDistance += distances.get(j);
+            }
+        } else {
+            for (int j = startIdx - 1; j >= destIdx; j--) {
+                totalDistance += distances.get(j);
+            }
+        }
+        
         return totalDistance;
     }
 
