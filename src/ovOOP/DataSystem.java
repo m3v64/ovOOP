@@ -82,7 +82,7 @@ public class DataSystem {
      * Centralized method to load AccountInfo.json with caching.
      * Reloads only if file has been modified since last load.
      */
-    private static List<DataSystem> loadAccountInfo() {
+    public static List<DataSystem> loadAccountInfo() {
         try {
             java.io.File file = new java.io.File("data/AccountInfo.json");
             long currentModified = file.lastModified();
@@ -118,7 +118,7 @@ public class DataSystem {
      * Centralized method to load TrainLines.json with caching.
      * Reloads only if file has been modified since last load.
      */
-    private static com.google.gson.JsonArray loadTrainLines() {
+    public static com.google.gson.JsonArray loadTrainLines() {
         try {
             java.io.File file = new java.io.File("data/TrainLines.json");
             long currentModified = file.lastModified();
@@ -154,6 +154,15 @@ public class DataSystem {
     private static void invalidateAccountInfoCache() {
         accountInfoCache = null;
         accountInfoLastModified = 0;
+    }
+
+    /**
+     * Preloads all JSON data at application startup.
+     * Call this method once from Main.main() to load all data upfront.
+     */
+    public static void preloadAllData() {
+        loadAccountInfo();
+        loadTrainLines();
     }
 
     public int getUserID() {
