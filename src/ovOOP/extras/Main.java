@@ -8,7 +8,7 @@ public class Main {
     public static void mainExtras(String[] args) {
         Scanner initialScanner = new Scanner(System.in);
 
-        System.out.println("Earned " + GameSystem.playGame(3) + " By playing the minigame!");
+        System.out.println("Earned " + GameSystem.playGame(2) + " By playing the minigame!");
 
         // MenuSystem.clear();
 

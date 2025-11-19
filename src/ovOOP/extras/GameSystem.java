@@ -68,7 +68,99 @@ public class GameSystem {
     static boolean playTicTacToe(Scanner scanner) {
         boolean wonGame = false;
 
+        char[][] ticTacToeBoard = { { '#', '#', '#' }, { '#', '#', '#' }, { '#', '#', '#' } };
+
+        while (!wonGame) {
+            System.out.println();
+            for (char[] i : ticTacToeBoard) {
+                System.out.println(i);
+            }
+            System.out.println();
+
+            boolean spotChosen = false;
+
+            while (!spotChosen) {
+
+                int target = OptionsSystem.showOption(scanner, "Which spot do you want to choose?",
+                        "1,2,3,4,5,6,7,8,9");
+
+                int pos = target - 1;
+                int xCoord = pos % 3;
+                int yCoord = pos / 3;
+
+                if (ticTacToeBoard[yCoord][xCoord] != '#') {
+                    System.out.println("That spot is already taken!");
+                } else {
+                    spotChosen = true;
+                    ticTacToeBoard[yCoord][xCoord] = 'X';
+                }
+            }
+
+            if (checkWinner(ticTacToeBoard) == 'X') {
+                wonGame = true;
+                continue;
+            }
+
+            if (checkWinner(ticTacToeBoard) == 'O') {
+                wonGame = false;
+                break;
+            }
+
+            spotChosen = false;
+            while (!spotChosen) {
+                int xCoord = (int) (Math.random() * 3);
+                int yCoord = (int) (Math.random() * 3);
+
+                if (ticTacToeBoard[yCoord][xCoord] == '#') {
+                    spotChosen = true;
+                    ticTacToeBoard[yCoord][xCoord] = 'O';
+                }
+            }
+            if (checkWinner(ticTacToeBoard) == 'X') {
+                wonGame = true;
+                continue;
+            }
+
+            if (checkWinner(ticTacToeBoard) == 'O') {
+                wonGame = false;
+                break;
+            }
+
+        }
+        System.out.println();
+        for (char i[] : ticTacToeBoard) {
+            System.out.println(i);
+        }
+        System.out.println();
+        winMoney = 20;
         return wonGame;
+    }
+
+    public static char checkWinner(char[][] b) {
+        // Check rows
+        for (int i = 0; i < 3; i++) {
+            if (b[i][0] != ' ' && b[i][0] == b[i][1] && b[i][1] == b[i][2]) {
+                return b[i][0]; // X or O
+            }
+        }
+
+        // Check columns
+        for (int j = 0; j < 3; j++) {
+            if (b[0][j] != ' ' && b[0][j] == b[1][j] && b[1][j] == b[2][j]) {
+                return b[0][j];
+            }
+        }
+
+        // Check diagonals
+        if (b[0][0] != ' ' && b[0][0] == b[1][1] && b[1][1] == b[2][2]) {
+            return b[0][0];
+        }
+
+        if (b[0][2] != ' ' && b[0][2] == b[1][1] && b[1][1] == b[2][0]) {
+            return b[0][2];
+        }
+
+        return ' '; // No winner yet
     }
 
     static String translateUnoCardToReadable(String cardCode) {
