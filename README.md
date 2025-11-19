@@ -1,111 +1,188 @@
 
-# ovOOP public transportation System 🚆
+# **ovOOP – Train Travel Simulation System**
 
-[![Java](https://img.shields.io/badge/Java-21-blue)](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
-
-A **console-based public transportation system** in Java using Object-Oriented Programming.
-Book tickets, calculate travel costs dynamically, save trip history and so much more.
+A fully terminal-based Java project featuring **account management**, **train routing**, **dynamic pricing**, **ASCII travel maps**, **color-themed UI**, and persistent **JSON-based data storage**.
 
 ---
 
-## **Features**
+## 🚆 **Overview**
 
-* 🎟 Book tickets with seat class and quantity.
-* 🛤 Calculate costs based on distance, seat class, time, peak hours, and discounts.
-* 💾 Save user data per passenger for future trips.
-* 📋 Simple console menu for user interaction.
+**ovOOP** is an object-oriented travel simulation system that allows users to:
+
+* Create and manage accounts
+* Log in and log out
+* Travel between fictional cities
+* Automatically calculate routes and distances
+* Receive dynamic fare prices based on:
+
+  * Time of day
+  * Holidays
+  * Class type
+  * Currency conversion
+* Visualize routes using ASCII-generated maps
+* Manage personal balance (deposit/withdrawal)
+* Customize UI color themes
+
+All data—including accounts, balances, and travel lines—is stored in external JSON files.
 
 ---
 
-## **Installation**
+## 🗂 **Project Structure**
 
-1, Clone the repo:
+```
+ovOOP/
+│
+├── AccountSystem.java
+├── BalanceSystem.java
+├── ColorSystem.java
+├── DataSystem.java
+├── Main.java
+├── MapGenerationSystem.java
+├── MenuSystem.java
+├── OptionsSystem.java
+└── TravelSystem.java
+```
+
+### **Key Directories**
+
+```
+data/
+│
+├── AccountInfo.json      # User accounts + preferences
+└── TrainLines.json       # Station graph + distances
+```
+
+---
+
+## 🔑 **Features**
+
+### **🧍 Account System**
+
+* Create accounts with unique usernames
+* Login/logout
+* User preferences saved to JSON:
+
+  * Color palette
+  * Current location
+  * Balance
+  * Travel class
+  * Currency conversion
+
+### **💸 Balance Management**
+
+* Deposit or withdraw funds
+* Prevents negative balances
+* Live balance formatting
+
+### **🗺 Travel & Routing**
+
+* Implementation of a Dijkstra-style shortest path algorithm
+* Each city belongs to one or more train lines
+* Distance calculated using sequential JSON data
+* Displays:
+
+  * Route path
+  * Line transfers
+  * Total distance
+
+### **💵 Dynamic Price Calculation**
+
+Price depends on:
+
+| Factor                 | Influence                                        |
+| ---------------------- | ------------------------------------------------ |
+| Distance               | Base fuel cost                                   |
+| Random factor          | ±30% variation                                   |
+| Business/Economy class | 1.7× or 0.9×                                     |
+| VAT (9%)               | Included                                         |
+| Margin (20%)           | Included                                         |
+| Holidays               | Special discounts (Christmas, Sinterklaas, etc.) |
+| Time of day            | Peak/off-peak                                    |
+
+### **🖼 Terminal Map Renderer**
+
+* ASCII-based visual map
+* Colored cities
+* Colored roads
+* Shows sequential movement along route
+
+### **🎨 Custom UI Colors**
+
+Users can select between 16 terminal colors for primary & secondary themes.
+
+---
+
+## 🚀 **How to Run**
+
+### **Requirements**
+
+* Java 17+
+* Gson (included via import, add to your classpath if needed)
+
+### **Running**
 
 ```bash
-git clone https://github.com/m3v64/ovOOP.git
-```
-
-2. Build with Maven (recommended)
-
-Install a Java 21 JDK (Adoptium/Temurin or Oracle) and Maven. On Windows you can download Temurin from https://adoptium.net/ or use your package manager.
-
-Then from the project root run:
-
-```powershell
-mvn -v; mvn clean package
-```
-
-Run the program with:
-
-```powershell
-mvn exec:java -Dexec.mainClass="ovOOP.Main"
+javac ovOOP/*.java
+java ovOOP.Main
 ```
 
 ---
 
-## **Usage Example (outdated)**
+## 📁 **JSON Data Files**
 
-```txt
-----------------------------------------
-Welcome to the MVU train company!
-1. Book a Ticket
-2. Add to saldo
-3. Manage your OV account
-4. Login / Change account
-5. Exit
-----------------------------------------
-Please select an option: 1
+### **AccountInfo.json**
 
-You are at Dryard
-Enter destination city: Trasin
-Distance from Dryard to Trasin is 200 km.
-Total cost: €XX.XX
-Coupon saved to coupon.json
-```
+Stores all user data.
+Created automatically if missing.
+
+### **TrainLines.json**
+
+Defines:
+
+* Train lines
+* Stations
+* Distances between them
+
+Required for routing to function properly.
 
 ---
 
-## **File Structure**
+## 📌 **Controls / Usage**
 
-```txt
-ovOOP/
-├─ src/ovOOP/
-|     ├─ Main.java
-|     ├─ Menu.java
-|     ├─ AskDestination.java
-|     ├─ TravelTo.java
-|     ├─ CalculateTravelCost.java
-|     ├─ OvTime.java
-|     ├─ Coupon.java
-|     └─ SaveOrigin.java
-└─ data/
-   ├─ Cities.json
-   ├─ TrainLines.json
-   └─ AccountInfo.json
-```
+1. Launch application
+2. Log in or sign up
+3. Access the main menu:
+
+   * Travel
+   * Settings
+   * Balance
+   * Credits
+4. Select destination
+5. View route, distance, and fare
+6. Optionally print invoice
+7. Visual travel map is generated
 
 ---
 
-## **JSON Storage**
+## 🧩 **Technologies Used**
 
-* **Cities.json** – Stores a list of all cities with available connections.
-* **TrainLines.json** – Stores all currentl active train lines.
-* **AccountInfo.json** – Stores all user information such as, username and booking history.
-
----
-
-## **Notes**
-
-* Only **direct routes** between cities are supported.
-* Ticket prices may vary due to random conditions.
-* This proram has permission to create JSON files automatically if they don’t exist.
+* **Java OOP**
+* **Gson** for JSON parsing
+* **ANSI escape color codes** for UI
+* **Custom pathfinding logic**
+* **ASCII graphics rendering**
 
 ---
 
-## **Future Improvements**
+## 👥 **Credits**
 
-* Add indirect routes and route suggestions.
-* Improve error handling and input validation.
+* **Developers:** Morris van Uden, Max Viehöfer
+* **Teacher:** Erik Seldenthuis
+* **Class:** TIA4V1B
+* **Website:** Coming soon
+* **GitHub:** [https://github.com/m3v64/ovOOP](https://github.com/m3v64/ovOOP)
 
 ---
+
+## 📄 License
+
