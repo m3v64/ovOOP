@@ -11,9 +11,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.lang.reflect.Type;
 
 import java.util.Scanner;
@@ -231,8 +229,8 @@ public class DataSystem {
     }
 
     public static void updateJson(int userID, String newUsername, String newPassword, String newLocation,
-            double newBalance, int newDefaultClass, double newConversionRate, String newMainPalette,
-            String newSecondaryPalette) {
+        double newBalance, int newDefaultClass, double newConversionRate, String newMainPalette,
+        String newSecondaryPalette) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         try (FileReader reader = new FileReader("data/AccountInfo.json")) {
@@ -259,7 +257,6 @@ public class DataSystem {
 
             try (FileWriter writer = new FileWriter("data/AccountInfo.json")) {
                 gson.toJson(dataList, writer);
-                // System.out.println("User " + userID + " updated successfully!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -347,8 +344,8 @@ public class DataSystem {
                                 start = lineObj.get("start").getAsString();
                             return start;
                         }
-                    } catch (Exception ex) {
-                        // skip malformed
+                    } catch (Exception e) {
+                        // do something?
                     }
                 }
             }
@@ -406,61 +403,6 @@ public class DataSystem {
         }
 
         return lineStations.toArray(new String[0]);
-    }
-
-    public static java.util.Map<String, java.util.Map<String, Integer>> buildGraph() {
-        java.util.Map<String, java.util.Map<String, Integer>> graph = new java.util.HashMap<>();
-
-        try (java.io.Reader reader = new java.io.FileReader("data/TrainLines.json")) {
-            com.google.gson.JsonArray companies = com.google.gson.JsonParser.parseReader(reader).getAsJsonArray();
-
-            for (com.google.gson.JsonElement companyEl : companies) {
-                if (!companyEl.isJsonObject())
-                    continue;
-                com.google.gson.JsonObject companyObj = companyEl.getAsJsonObject();
-                if (!companyObj.has("lines") || !companyObj.get("lines").isJsonArray())
-                    continue;
-
-                for (com.google.gson.JsonElement lineEl : companyObj.getAsJsonArray("lines")) {
-                    if (!lineEl.isJsonObject())
-                        continue;
-                    com.google.gson.JsonObject lineData = lineEl.getAsJsonObject();
-
-                    if (!lineData.has("start") || !lineData.has("connections"))
-                        continue;
-
-                    String start = lineData.get("start").getAsString();
-                    com.google.gson.JsonObject connections = lineData.get("connections").getAsJsonObject();
-
-                    String prev = start;
-
-                    // Iterate through connections in order (JsonObject maintains insertion order in
-                    // newer Gson)
-                    for (java.util.Map.Entry<String, com.google.gson.JsonElement> entry : connections.entrySet()) {
-                        String city = entry.getKey();
-                        com.google.gson.JsonObject destData = entry.getValue().getAsJsonObject();
-                        int distance = destData.get("distance").getAsInt();
-
-                        // add edge between prev and city (sequential stations along the line)
-                        if (!graph.containsKey(prev)) {
-                            graph.put(prev, new java.util.HashMap<String, Integer>());
-                        }
-                        graph.get(prev).put(city, distance);
-
-                        if (!graph.containsKey(city)) {
-                            graph.put(city, new java.util.HashMap<String, Integer>());
-                        }
-                        graph.get(city).put(prev, distance);
-
-                        prev = city;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return graph;
     }
 
     public static int findLineBetween(String a, String b) {
@@ -734,7 +676,7 @@ public class DataSystem {
                 monthName = "December";
                 break;
             default:
-                monthName = "";
+                monthName = null;
                 break;
         }
         return monthName;

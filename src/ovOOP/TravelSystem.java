@@ -4,33 +4,30 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.PriorityQueue;
-import java.util.Comparator;
+import java.util.Set;
+import java.util.HashSet;
 
 public class TravelSystem {
+    int[] trainLineTransferPairs;
+    String[] stationsOnLineAlongRoute;
+    int totalDistanceTravelled;
 
-    int[] trainLineTransfers; // structure [from, to, from, to]
-    String[] passingCities; // structure ["giad", "etc..."]
-    int distanceTraveld;
-
-    public TravelSystem(int[] trainLineTransfers, String[] passingCities, int distanceTraveld) {
-        this.trainLineTransfers = trainLineTransfers;
-        this.passingCities = passingCities;
-        this.distanceTraveld = distanceTraveld;
+    public TravelSystem(int[] trainLineTransferPairs, String[] stationsOnLineAlongRoute, int totalDistanceTravelled) {
+        this.trainLineTransferPairs = trainLineTransferPairs;
+        this.stationsOnLineAlongRoute = stationsOnLineAlongRoute;
+        this.totalDistanceTravelled = totalDistanceTravelled;
     }
 
-    public int[] trainLineTransfers() {
-        return trainLineTransfers;
+    public int[] getTrainLineTransferPairs() {
+        return trainLineTransferPairs;
     }
 
-    public String[] passingCities() {
-        return passingCities;
+    public String[] getStationsOnLineAlongRoute() {
+        return stationsOnLineAlongRoute;
     }
 
-    public int distanceTraveld() {
-        return distanceTraveld;
+    public int getTotalDistanceTravelled() {
+        return totalDistanceTravelled;
     }
 
     static double calculateCost(boolean businessClass, int distanceTraveling, double conversionRate) {
@@ -54,14 +51,14 @@ public class TravelSystem {
         totalCost *= 1.09; // taxes
         totalCost *= 1.20; // margin
         totalCost += 2; // addition for minimal cost
-        totalCost *= conversionRate; // conversion rate for different currencies
+        totalCost *= conversionRate; // conversion rate for different currentStationrencies
         totalCost = Math.round(totalCost * 100) / 100.0;
 
         return totalCost;
     }
 
     static void createInvoice(Scanner scanner, double totalCost, boolean businessClass, String origin,
-            String destination, String trainCompany) {
+            String destination) {
 
         boolean willPrint = (OptionsSystem.showOption(scanner, "Would you like to print your invoice?", "Yes,No") == 1);
 
@@ -86,10 +83,10 @@ public class TravelSystem {
         DataSystem data = new DataSystem(Main.userID);
 
         System.out.println(ColorSystem.colorPalette[1] + "====================================================");
-        System.out.println(ColorSystem.colorPalette[0] + ColorSystem.BOLD + trainCompany + " Transport - INVOICE #"
+        System.out.println(ColorSystem.colorPalette[0] + ColorSystem.BOLD + " Transport - INVOICE #"
                 + invoiceId + ColorSystem.RESET);
         System.out.println(ColorSystem.colorPalette[1] + "====================================================");
-        System.out.println(ColorSystem.colorPalette[1] + "Thank you for using " + trainCompany + " Transport for your traveling!"
+        System.out.println(ColorSystem.colorPalette[1] + "Thank you for using " + " Transport for your traveling!"
                 + ColorSystem.RESET);
         System.out.println(ColorSystem.colorPalette[1] + "----------------------------------------------------");
         System.out.println(ColorSystem.colorPalette[1] + "Invoice to: " + ColorSystem.colorPalette[1] + data.getUsername()
@@ -144,7 +141,7 @@ public class TravelSystem {
         List<String> lines = new ArrayList<>();
 
         for (int i : possibleLinesArray) {
-            lines.addAll(Arrays.asList(data.getLine(i)));
+            lines.addAll(Arrays.asList(DataSystem.getLine(i)));
             for (String j : lines) {
                 System.out.print(j);
                 System.out.print(" -> ");
@@ -175,91 +172,75 @@ public class TravelSystem {
 
         System.out.println(ColorSystem.colorPalette[1] + "╔════════════════════════════════════════════════════╗");
         System.out.println(
-                ColorSystem.colorPalette[0] + "  You are currently at: " + ColorSystem.colorPalette[1] + data.getLocation());
+                ColorSystem.colorPalette[0] + "  You are currentStationly at: " + ColorSystem.colorPalette[1] + data.getLocation());
         System.out.println(
                 ColorSystem.colorPalette[1] + "╚════════════════════════════════════════════════════╝" + ColorSystem.RESET);
 
         System.out.println(ColorSystem.colorPalette[1] + "Please select a country you want to go to:" + ColorSystem.RESET);
 
-        List<String> cities = new ArrayList<>();
+        List<String> availableStationsOnLine = new ArrayList<>();
 
-        for (String i : data.CITIES) {
-            if (!i.equalsIgnoreCase("portal")) {
-                if (!i.equalsIgnoreCase(data.getLocation())) {
-                    cities.add(i);
-                }
+        for (String cityName : data.CITIES) {
+            if (!cityName.equalsIgnoreCase("portal") && !cityName.equalsIgnoreCase(data.getLocation())) {
+                availableStationsOnLine.add(cityName);
             }
         }
 
-        int target = OptionsSystem.showOption(scanner, "Cities", String.join(",", cities)) - 1;
-        String trainCompany;
-        int trainCompanyIndex = OptionsSystem.showOption(scanner, "Select your prefered railway corporation",
-                "MVU public transport corporation,Predia railway logistics");
-        switch (trainCompanyIndex) {
-            case 1:
-                trainCompany = "MVU";
-                break;
-            case 2:
-                trainCompany = "Predia";
-                break;
-            default:
-                trainCompany = "MVU";
-                break;
-        }
+        int target = OptionsSystem.showOption(scanner, "StationsOnLine", String.join(",", availableStationsOnLine)) - 1;
 
         System.out.println(ColorSystem.colorPalette[0] + "Selected destination: " + ColorSystem.colorPalette[1]
-                + cities.get(target) + ColorSystem.RESET);
+                + availableStationsOnLine.get(target) + ColorSystem.RESET);
 
-        String destination = cities.get(target);
+        String destination = availableStationsOnLine.get(target);
         TravelSystem route = findRoute(destination);
 
-        String routeStr;
-        if (route.passingCities() != null && route.passingCities().length > 0) {
-            routeStr = String.join(" -> ", route.passingCities());
+        String routeString;
+        if (route.getStationsOnLineAlongRoute() != null && route.getStationsOnLineAlongRoute().length > 0) {
+            routeString = String.join(" -> ", route.getStationsOnLineAlongRoute());
         } else {
-            routeStr = "No route found";
+            routeString = "No route found";
         }
 
-        String lineStr;
-        if (route.trainLineTransfers() != null && route.trainLineTransfers().length > 0) {
+        String transferString;
+        if (route.getTrainLineTransferPairs() != null && route.getTrainLineTransferPairs().length > 0) {
             // Build formatted string like "from 6 -> 7 and from 7 -> 10"
             StringBuilder lineBuilder = new StringBuilder();
-            int[] transfers = route.trainLineTransfers();
+            int[] transfers = route.getTrainLineTransferPairs();
             for (int i = 0; i < transfers.length; i += 2) {
                 if (i > 0) {
                     lineBuilder.append(" and ");
                 }
                 lineBuilder.append("from ").append(transfers[i]).append(" -> ").append(transfers[i + 1]);
             }
-            lineStr = lineBuilder.toString();
+            transferString = lineBuilder.toString();
         } else {
-            lineStr = "No line transfers found";
+            transferString = "No line transfers found";
         }
         System.out
-                .println(ColorSystem.colorPalette[0] + "Route: " + ColorSystem.colorPalette[1] + routeStr + ColorSystem.RESET);
-        System.out.println(ColorSystem.colorPalette[0] + "Distance: " + ColorSystem.colorPalette[1] + route.distanceTraveld()
+                .println(ColorSystem.colorPalette[0] + "Route: " + ColorSystem.colorPalette[1] + routeString + ColorSystem.RESET);
+        System.out.println(ColorSystem.colorPalette[0] + "Distance: " + ColorSystem.colorPalette[1] + route.getTotalDistanceTravelled()
                 + "Km" + ColorSystem.RESET);
         System.out
-                .println(ColorSystem.colorPalette[0] + "Line's: " + ColorSystem.colorPalette[1] + lineStr + ColorSystem.RESET);
-        createInvoice(scanner, calculateCost(data.isFirstClass(), route.distanceTraveld(), data.getConversionRate()),
-                data.isFirstClass(), data.getLocation(), destination, trainCompany);
+                .println(ColorSystem.colorPalette[0] + "Line's: " + ColorSystem.colorPalette[1] + transferString + ColorSystem.RESET);
+        createInvoice(scanner, calculateCost(data.isFirstClass(), route.getTotalDistanceTravelled(), data.getConversionRate()),
+            data.isFirstClass(), data.getLocation(), destination);
 
         data.setLocation(destination);
 
         data.setBalance(data.getBalance()
-                - calculateCost(data.isFirstClass(), route.distanceTraveld(), data.getConversionRate()));
+            - calculateCost(data.isFirstClass(), route.getTotalDistanceTravelled(), data.getConversionRate()));
 
         System.out.println(ColorSystem.BRIGHT_PURPLE + "Press enter to continue...");
         scanner.nextLine();
 
-        String[] passingCities = route.passingCities;
+        String[] stationsOnLineOnRoute = route.getStationsOnLineAlongRoute();
 
-        int[] distance = new int[passingCities.length];
-        for (int i : distance) {
-            distance[i] = route.distanceTraveld / passingCities.length / 100;
+        int[] segmentDurations = new int[stationsOnLineOnRoute.length];
+        for (int idx = 0; idx < segmentDurations.length; idx++) {
+            segmentDurations[idx] = route.getTotalDistanceTravelled() / stationsOnLineOnRoute.length / 100;
         }
 
-        travelMapGoTravel(distance, passingCities, 125, 10);
+        travelMapGoTravel(segmentDurations, stationsOnLineOnRoute, 125, 10);
 
         scanner.nextLine();
 
@@ -267,136 +248,143 @@ public class TravelSystem {
 
         // continue here with additional ui elements
     }
-
+    
     static TravelSystem findRoute(String destination) {
         DataSystem data = new DataSystem(Main.userID);
-        String source = data.getLocation();
-        List<String> emptyResult = new ArrayList<>();
-        if (source == null)
+        String start = data.getLocation();
+
+        if (start == null || destination == null) {
             return new TravelSystem(new int[0], new String[0], 0);
-        if (source.equalsIgnoreCase(destination)) {
-            emptyResult.add(source);
-            return new TravelSystem(new int[0], emptyResult.toArray(new String[0]), 0);
         }
 
-        // Check if both cities are on the same line - if so, return sequential path
-        int commonLine = DataSystem.findLineBetween(source, destination);
-        if (commonLine != -1) {
-            List<String> sequentialPath = DataSystem.getSequentialPathOnLine(commonLine, source, destination);
-            int sequentialDistance = DataSystem.getSequentialDistanceOnLine(commonLine, source, destination);
+        if (start.equalsIgnoreCase(destination)) {
+            return new TravelSystem(new int[0], new String[] { start }, 0);
+        }
 
-            if (!sequentialPath.isEmpty()) {
-                return new TravelSystem(new int[0], sequentialPath.toArray(new String[0]), sequentialDistance);
+        class Station {
+            String stationName;
+            int accumulatedDistance;
+            Station previousStation;
+            int arrivalLineId;
+            Station(String stationName, int accumulatedDistance, Station previousStation, int arrivalLineId) {
+                this.stationName = stationName;
+                this.accumulatedDistance = accumulatedDistance;
+                this.previousStation = previousStation;
+                this.arrivalLineId = arrivalLineId;
             }
         }
 
-        Map<String, Map<String, Integer>> graph = DataSystem.buildGraph();
+        List<Station> toCheck = new ArrayList<>();
+        Set<String> checked = new HashSet<>();
 
-        if (!graph.containsKey(source) || !graph.containsKey(destination)) {
-            // Either source or destination not present in graph: return source only
-            List<String> path = new ArrayList<>();
-            path.add(source);
-            return new TravelSystem(new int[0], path.toArray(new String[0]), 0);
-        }
+        toCheck.add(new Station(start, 0, null, -1));
 
-        // Dijkstra's algorithm
-        Map<String, Integer> dist = new HashMap<>();
-        Map<String, String> prev = new HashMap<>();
-        for (String node : graph.keySet()) {
-            dist.put(node, Integer.MAX_VALUE);
-        }
-        dist.put(source, 0);
+        Station destinationStation = null;
 
-        PriorityQueue<String> pq = new PriorityQueue<>(new Comparator<String>() {
-            public int compare(String a, String b) {
-                return Integer.compare(dist.get(a), dist.get(b));
+        while (!toCheck.isEmpty()) {
+            int closestStationIndex = 0;
+            for (int i = 1; i < toCheck.size(); i++) {
+                if (toCheck.get(i).accumulatedDistance < toCheck.get(closestStationIndex).accumulatedDistance) {
+                    closestStationIndex = i;
+                }
             }
-        });
-        pq.add(source);
 
-        while (!pq.isEmpty()) {
-            String u = pq.poll();
-            if (u.equalsIgnoreCase(destination))
-                break;
-            int du = dist.get(u);
-            Map<String, Integer> neighbors = graph.get(u);
-            if (neighbors == null)
+            Station currentStation = toCheck.remove(closestStationIndex);
+
+            if (checked.contains(currentStation.stationName.toLowerCase()))
                 continue;
-            for (Map.Entry<String, Integer> e : neighbors.entrySet()) {
-                String v = e.getKey();
-                int w = e.getValue();
-                int alt = du + w;
-                if (alt < dist.getOrDefault(v, Integer.MAX_VALUE)) {
-                    dist.put(v, alt);
-                    prev.put(v, u);
-                    // reinsert v into priority queue to update its priority
-                    pq.remove(v);
-                    pq.add(v);
+
+            checked.add(currentStation.stationName.toLowerCase());
+
+            if (currentStation.stationName.equalsIgnoreCase(destination)) {
+                destinationStation = currentStation;
+                break;
+            }
+
+            List<Integer> linesContainingStation = DataSystem.listPossibleLines(currentStation.stationName);
+            for (int line : linesContainingStation) {
+                String[] stationsOnLine = DataSystem.getLine(line);
+                if (stationsOnLine == null || stationsOnLine.length == 0)
+                    continue;
+
+                int stationOnLineIndex = -1;
+                for (int i = 0; i < stationsOnLine.length; i++) {
+                    if (stationsOnLine[i].equalsIgnoreCase(currentStation.stationName)) {
+                        stationOnLineIndex = i;
+                        break;
+                    }
+                }
+                if (stationOnLineIndex == -1)
+                    continue;
+
+                int[] neighbouringStationsIndices = new int[] { stationOnLineIndex - 1, stationOnLineIndex + 1 }; // can change this to only make the program look forwards
+                for (int neighbouringStationIndex : neighbouringStationsIndices) {
+                    if (neighbouringStationIndex < 0 || neighbouringStationIndex >= stationsOnLine.length)
+                        continue;
+                    String neighbouringStationName = stationsOnLine[neighbouringStationIndex];
+
+                    if (checked.contains(neighbouringStationName.toLowerCase()))
+                        continue;
+
+                    int stationDistance = DataSystem.getSequentialDistanceOnLine(line, currentStation.stationName, neighbouringStationName);
+                    if (stationDistance <= 0)
+                        continue;
+
+                    int newAccumulatedDistance = currentStation.accumulatedDistance + stationDistance;
+
+                    boolean updated = false;
+                    for (int d = 0; d < toCheck.size(); d++) {
+                        Station s = toCheck.get(d);
+                        if (s.stationName.equalsIgnoreCase(neighbouringStationName)) {
+                            if (newAccumulatedDistance < s.accumulatedDistance) {
+                                s.accumulatedDistance = newAccumulatedDistance;
+                                s.previousStation = currentStation;
+                                s.arrivalLineId = line;
+                            }
+                            updated = true;
+                            break;
+                        }
+                    }
+
+                    if (!updated) {
+                        toCheck.add(new Station(neighbouringStationName, newAccumulatedDistance, currentStation, line));
+                    }
+                }
+            }
+        }
+        if (destinationStation == null) {
+            return new TravelSystem(new int[0], new String[0], 0);
+        }
+
+        List<String> pathStationNames = new ArrayList<>();
+        List<Integer> connectionLineIds = new ArrayList<>();
+
+        Station station = destinationStation;
+        while (station != null) {
+            pathStationNames.add(0, station.stationName);
+            if (station.arrivalLineId != -1) {
+                connectionLineIds.add(0, station.arrivalLineId);
+            }
+            station = station.previousStation;
+        }
+
+        List<Integer> lineTransferPairs = new ArrayList<>();
+        if (!connectionLineIds.isEmpty()) {
+            int prevLine = connectionLineIds.get(0);
+            for (int i = 1; i < connectionLineIds.size(); i++) {
+                int lineId = connectionLineIds.get(i);
+                if (lineId != prevLine) {
+                    lineTransferPairs.add(prevLine);
+                    lineTransferPairs.add(lineId);
+                    prevLine = lineId;
                 }
             }
         }
 
-        // Reconstruct path
-        List<String> path = new ArrayList<>();
-        if (!prev.containsKey(destination)) {
-            // No path found
-            path.add(source);
-            // return object with only passingCities containing source and zero distance
-            return new TravelSystem(new int[0], path.toArray(new String[0]), 0);
-        }
+        int[] transfersArr = lineTransferPairs.stream().mapToInt(Integer::intValue).toArray();
+        String[] stationsOnLineArr = pathStationNames.toArray(new String[0]);
+        int totalDistance = destinationStation.accumulatedDistance;
 
-        String at = destination;
-        while (at != null) {
-            path.add(0, at);
-            at = prev.get(at);
-        }
-
-        // ensure source at start
-        if (!path.isEmpty() && !path.get(0).equalsIgnoreCase(source)) {
-            path.add(0, source);
-        }
-
-        // compute total distance and line sequence
-        int totalDistance = 0;
-        List<Integer> lineSeq = new ArrayList<>();
-        for (int i = 0; i < path.size() - 1; i++) {
-            String u = path.get(i);
-            String v = path.get(i + 1);
-            Integer d = null;
-            if (graph.containsKey(u)) {
-                d = graph.get(u).get(v);
-            }
-            if (d == null)
-                d = 0;
-            totalDistance += d;
-
-            int line = DataSystem.findLineBetween(u, v);
-            lineSeq.add(line);
-        }
-
-        // reduce contiguous same lines
-        List<Integer> reduced = new ArrayList<>();
-        for (int i = 0; i < lineSeq.size(); i++) {
-            int ln = lineSeq.get(i);
-            if (reduced.isEmpty() || reduced.get(reduced.size() - 1) != ln) {
-                reduced.add(ln);
-            }
-        }
-
-        // build transfer array as adjacent pairs [from,to,from,to]
-        List<Integer> transfers = new ArrayList<>();
-        for (int i = 0; i < reduced.size() - 1; i++) {
-            transfers.add(reduced.get(i));
-            transfers.add(reduced.get(i + 1));
-        }
-
-        int[] trainLineTransfers = new int[transfers.size()];
-        for (int i = 0; i < transfers.size(); i++)
-            trainLineTransfers[i] = transfers.get(i);
-
-        String[] passingCities = path.toArray(new String[0]);
-        int distanceTraveld = totalDistance;
-
-        return new TravelSystem(trainLineTransfers, passingCities, distanceTraveld);
+        return new TravelSystem(transfersArr, stationsOnLineArr, totalDistance);
     }
 }
