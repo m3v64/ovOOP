@@ -174,7 +174,7 @@ public class GameSystem {
             System.out.println(translateUnoCardToReadable(i));
         }
         String topCard = "w";
-        while (topCard.toCharArray()[0] == 'w' || topCard.toCharArray()[1] == 'x' || topCard.toCharArray()[1] == 'r') {
+        while (topCard.toCharArray()[0] == 'w' || topCard.toCharArray()[1] == 'x' || topCard.toCharArray()[1] == '+') {
             int randomCardIndex = r.nextInt(cardsInDeck.size());
             topCard = cardsInDeck.get(randomCardIndex);
             cardsInDeck.remove(randomCardIndex);
@@ -273,7 +273,7 @@ public class GameSystem {
                 gameOver = true;
                 continue;
             }
-            System.out.println("Top card: Blue 2");
+            System.out.println("Top card: " + topCard);
             System.out.println("Cards left: " + playerCards.size());
             System.out.println("Cards left in deck: " + cardsInDeck.size());
             System.out.println();
