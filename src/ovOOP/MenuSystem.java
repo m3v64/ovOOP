@@ -105,7 +105,7 @@ public class MenuSystem {
 
     static void showSettingsScreen(Scanner scanner) {
         int target = OptionsSystem.showOption(scanner, "Settings",
-                "Account settings,Visual settings,Debug settings,Main Menu");
+                "Account settings,Visual settings,Main Menu");
 
         switch (target) {
             case 1:
@@ -115,8 +115,6 @@ public class MenuSystem {
                 showVisualSettingsScreen(scanner);
                 break;
             case 3:
-                break;
-            case 4:
                 startMenu(scanner);
                 break;
         }

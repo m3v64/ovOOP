@@ -27,7 +27,7 @@
     "mainPalette": "\u001b[90m",
     "secondaryPalette": "\u001b[91m",
     "password": "Administrator",
-    "location": "Capella",
+    "location": "Dryard",
     "balance": 1.7976931348623157E308,
     "defaultClass": 2,
     "defaultCurrencyConversionRate": 1.0
@@ -46,11 +46,11 @@
   {
     "userID": 4,
     "username": "morris",
-    "mainPalette": "\u001b[92m",
-    "secondaryPalette": "\u001b[35m",
+    "mainPalette": "\u001b[30m",
+    "secondaryPalette": "\u001b[31m",
     "password": "JustCause",
-    "location": "Dryard",
-    "balance": 1026.0600000000004,
+    "location": "Linere",
+    "balance": 986.2400000000004,
     "defaultClass": 2,
     "defaultCurrencyConversionRate": 1.0
   },
