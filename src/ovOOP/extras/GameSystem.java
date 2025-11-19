@@ -105,7 +105,10 @@ public class GameSystem {
                 type = "Turn block";
                 break;
             case '+':
-                type = "Pull cards";
+                type = "Pull 2 cards";
+                if (untranslatedCode[0] == 'w') {
+                    type = "Pull 4 cards";
+                }
                 break;
             case 'c':
                 type = "Choose color";
@@ -123,12 +126,10 @@ public class GameSystem {
     static boolean playUno(Scanner scanner) {
 
         boolean wonGame = false;
+        boolean gameOver = false;
 
-        int playerCardAmount = 7;
-
-        int botCardAmount = 7;
-
-        int turn = 1;
+        boolean playerBlockedTurn = false;
+        boolean botBlockedTurn = false;
 
         ArrayList<String> playerCards = new ArrayList<>();
 
@@ -136,18 +137,18 @@ public class GameSystem {
 
         ArrayList<String> cardsInDeck = new ArrayList<>();
 
-        String[] possibleCards = { "b01", "b12", "b22", "b32", "b42", "b52", "b62", "b72", "b82", "b92", "bx2", "br2",
+        String[] possibleCards = { "b01", "b12", "b22", "b32", "b42", "b52", "b62", "b72", "b82", "b92", "bx2",
                 "b+2",
-                "y01", "y12", "y22", "y32", "y42", "y52", "y62", "y72", "y82", "y92", "yx2", "yr2", "y+2",
-                "r01", "r12", "r22", "r32", "r42", "r52", "r62", "r72", "r82", "r92", "rx2", "rr2", "r+2",
-                "g01", "g12", "g22", "g32", "g42", "g52", "g62", "g72", "g82", "g92", "gx2", "gr2", "g+2",
+                "y01", "y12", "y22", "y32", "y42", "y52", "y62", "y72", "y82", "y92", "yx2", "y+2",
+                "r01", "r12", "r22", "r32", "r42", "r52", "r62", "r72", "r82", "r92", "rx2", "r+2",
+                "g01", "g12", "g22", "g32", "g42", "g52", "g62", "g72", "g82", "g92", "gx2", "g+2",
                 "wc4", "w+4"
         };
         for (String i : possibleCards) {
             char[] charArray = i.toCharArray();
 
             int count = 0;
-            if (charArray.length > 2 && Character.isDigit(charArray[2])) {
+            if (Character.isDigit(charArray[2])) {
                 count = Character.getNumericValue(charArray[2]);
             }
             for (int j = 0; j < count; j++) {
@@ -157,22 +158,163 @@ public class GameSystem {
 
         Random r = new Random();
 
-        for (int i = 0; i < playerCardAmount; i++) {
+        for (int i = 0; i < 7; i++) {
             int randomCardIndex = r.nextInt(cardsInDeck.size());
             playerCards.add(cardsInDeck.get(randomCardIndex));
             cardsInDeck.remove(randomCardIndex);
         }
-        for (int i = 0; i < botCardAmount; i++) {
+        for (int i = 0; i < 7; i++) {
             int randomCardIndex = r.nextInt(cardsInDeck.size());
             botCards.add(cardsInDeck.get(randomCardIndex));
             cardsInDeck.remove(randomCardIndex);
         }
 
         System.out.println("You have the following cards:");
-        int index = 1;
         for (String i : playerCards) {
             System.out.println(translateUnoCardToReadable(i));
-            index++;
+        }
+        String topCard = "w";
+        while (topCard.toCharArray()[0] == 'w' || topCard.toCharArray()[1] == 'x' || topCard.toCharArray()[1] == 'r') {
+            int randomCardIndex = r.nextInt(cardsInDeck.size());
+            topCard = cardsInDeck.get(randomCardIndex);
+            cardsInDeck.remove(randomCardIndex);
+        }
+
+        System.out.println();
+        System.out.println("Top card: " + translateUnoCardToReadable(topCard));
+
+        while (!gameOver) {
+            boolean cardPlayed = false;
+            while (!cardPlayed) {
+                String cardsInOptionsFormat = "";
+                for (String i : playerCards) {
+                    cardsInOptionsFormat = cardsInOptionsFormat + translateUnoCardToReadable(i) + ",";
+                }
+
+                if (!playerBlockedTurn) {
+                    int input = OptionsSystem.showOption(scanner,
+                            "What card would you like to play? Top card: " + translateUnoCardToReadable(topCard)
+                                    + "\nCards left in deck: " + cardsInDeck.size(),
+                            cardsInOptionsFormat + "Pull Card");
+                    if (input <= playerCards.size()) {
+                        String inputSelected = playerCards.get(input - 1);
+                        char[] inputSelectedCharArray = inputSelected.toCharArray();
+
+                        char[] topCardCharArray = topCard.toCharArray();
+
+                        if (inputSelectedCharArray[0] == topCardCharArray[0]
+                                || inputSelectedCharArray[1] == topCardCharArray[1]
+                                || inputSelectedCharArray[0] == 'w') {
+                            cardPlayed = true;
+                            topCard = inputSelected;
+                            playerCards.remove(inputSelected);
+                            System.out.println("Player played card " + translateUnoCardToReadable(inputSelected));
+
+                            if (inputSelected.toCharArray()[1] == 'x') {
+                                botBlockedTurn = true;
+                            }
+
+                            if (inputSelectedCharArray[0] == 'w') {
+                                input = OptionsSystem.showOption(scanner, "What color do you want to make it?",
+                                        "Blue,Red,Green,Yellow");
+
+                                switch (input) {
+                                    case 1:
+                                        topCard = "b01";
+                                        break;
+                                    case 2:
+                                        topCard = "r01";
+                                        break;
+                                    case 3:
+                                        topCard = "g01";
+                                        break;
+                                    case 4:
+                                        topCard = "y01";
+                                        break;
+
+                                }
+                            }
+                        }
+                    } else {
+                        cardPlayed = true;
+                        int randomCardIndex = r.nextInt(cardsInDeck.size());
+                        String drawnCard = cardsInDeck.get(randomCardIndex);
+                        playerCards.add(drawnCard);
+                        System.out.println("Player pulled card " + translateUnoCardToReadable(drawnCard));
+                        cardsInDeck.remove(randomCardIndex);
+                    }
+                } else{
+                    cardPlayed = true;
+                }
+            }
+            playerBlockedTurn = false;
+            if (playerCards.size() == 0) {
+                wonGame = true;
+                gameOver = true;
+                continue;
+            }
+            if (cardsInDeck.size() == 0) {
+                wonGame = false;
+                gameOver = true;
+                continue;
+            }
+
+            if (!botBlockedTurn) {
+
+                ArrayList<String> options = new ArrayList<>();
+                for (String i : botCards) {
+                    char[] botCardCharArray = i.toCharArray();
+
+                    char[] topCardCharArray = topCard.toCharArray();
+
+                    if (botCardCharArray[0] == topCardCharArray[0] || botCardCharArray[1] == topCardCharArray[1]
+                            || botCardCharArray[0] == 'w') {
+                        options.add(i);
+                    }
+
+                }
+
+                if (options.size() != 0) {
+                    int randomCardIndex = r.nextInt(options.size());
+                    String inputSelected = options.get(randomCardIndex);
+                    topCard = inputSelected;
+                    botCards.remove(inputSelected);
+                    System.out.println("Bot played " + translateUnoCardToReadable(inputSelected) + " (" + botCards.size() + " cards left)");
+
+                    if (inputSelected.toCharArray()[1] == 'x') {
+                        playerBlockedTurn = true;
+                    }
+                    if (inputSelected.toCharArray()[0] == 'w') {
+                        int color = (int) (Math.random() * 4) + 1;
+
+                        switch (color) {
+                            case 1:
+                                topCard = "b01";
+                                break;
+                            case 2:
+                                topCard = "g01";
+                                break;
+                            case 3:
+                                topCard = "y01";
+                                break;
+                            case 4:
+                                topCard = "r01";
+                                break;
+                        }
+                    }
+                } else {
+                    int randomCardIndex = r.nextInt(cardsInDeck.size());
+                    botCards.add(cardsInDeck.get(randomCardIndex));
+                    cardsInDeck.remove(randomCardIndex);
+                    System.out.println("Bot pulled a card" + " (" + botCards.size() + " cards left)");
+                }
+            }
+            botBlockedTurn = false;
+            if (botCards.size() == 0) {
+                wonGame = false;
+                gameOver = true;
+                continue;
+            }
         }
 
         return wonGame;
