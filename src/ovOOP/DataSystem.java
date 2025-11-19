@@ -143,9 +143,11 @@ public class DataSystem {
             }
         } catch (IOException e) {
             System.err.println("Error reading TrainLines.json: " + e.getMessage());
+            e.printStackTrace();
             return trainLinesCache != null ? trainLinesCache : new JsonArray();
         } catch (JsonSyntaxException e) {
             System.err.println("Malformed JSON in TrainLines.json: " + e.getMessage());
+            e.printStackTrace();
             return trainLinesCache != null ? trainLinesCache : new JsonArray();
         }
     }
@@ -374,6 +376,7 @@ public class DataSystem {
                         foundLines.add(lineObj.get("line").getAsInt());
                     } catch (Exception ex) {
                         // ignore malformed line id
+                        ex.printStackTrace();
                     }
                 }
             }
@@ -406,7 +409,7 @@ public class DataSystem {
                         return start;
                     }
                 } catch (Exception e) {
-                    // do something?
+                    e.printStackTrace();
                 }
             }
         }
@@ -435,6 +438,7 @@ public class DataSystem {
                     if (lineObj.get("line").getAsInt() != line)
                         continue;
                 } catch (Exception ex) {
+                    ex.printStackTrace();
                     continue;
                 }
 
@@ -500,6 +504,7 @@ public class DataSystem {
                         return lineData.get("line").getAsInt();
                     } catch (Exception ex) {
                         // malformed
+                        ex.printStackTrace();
                     }
                 }
             }
@@ -530,6 +535,7 @@ public class DataSystem {
                     if (lineData.get("line").getAsInt() != lineNum)
                         continue;
                 } catch (Exception ex) {
+                    ex.printStackTrace();
                     continue;
                 }
 
@@ -600,6 +606,7 @@ public class DataSystem {
                     if (lineData.get("line").getAsInt() != lineNum)
                         continue;
                 } catch (Exception ex) {
+                    ex.printStackTrace();
                     continue;
                 }
 
