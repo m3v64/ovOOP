@@ -105,9 +105,9 @@ public class GameSystem {
                 type = "Turn block";
                 break;
             case '+':
-                type = "Pull 2 cards";
+                type = "draw 2 cards";
                 if (untranslatedCode[0] == 'w') {
-                    type = "Pull 4 cards";
+                    type = "draw 4 cards";
                 }
                 break;
             case 'c':
@@ -195,7 +195,7 @@ public class GameSystem {
                     int input = OptionsSystem.showOption(scanner,
                             "What card would you like to play? Top card: " + translateUnoCardToReadable(topCard)
                                     + "\nCards left in deck: " + cardsInDeck.size(),
-                            cardsInOptionsFormat + "Pull Card");
+                            cardsInOptionsFormat + "Draw Card");
                     if (input <= playerCards.size()) {
                         String inputSelected = playerCards.get(input - 1);
                         char[] inputSelectedCharArray = inputSelected.toCharArray();
@@ -212,6 +212,21 @@ public class GameSystem {
 
                             if (inputSelected.toCharArray()[1] == 'x') {
                                 botBlockedTurn = true;
+                            }
+
+                            if (inputSelected.toCharArray()[1] == '+') {
+                                botBlockedTurn = true;
+                                int count = 2;
+
+                                if (inputSelected.toCharArray()[0] == 'w') {
+                                    count = 4;
+                                }
+
+                                for (int i = 0; i < count; i++) {
+                                    int randomCardIndex = r.nextInt(cardsInDeck.size());
+                                    botCards.add(cardsInDeck.get(randomCardIndex));
+                                    cardsInDeck.remove(randomCardIndex);
+                                }
                             }
 
                             if (inputSelectedCharArray[0] == 'w') {
@@ -240,7 +255,7 @@ public class GameSystem {
                         int randomCardIndex = r.nextInt(cardsInDeck.size());
                         String drawnCard = cardsInDeck.get(randomCardIndex);
                         playerCards.add(drawnCard);
-                        System.out.println("Player pulled card " + translateUnoCardToReadable(drawnCard));
+                        System.out.println("Player drew card " + translateUnoCardToReadable(drawnCard));
                         cardsInDeck.remove(randomCardIndex);
                     }
                 } else {
@@ -258,6 +273,12 @@ public class GameSystem {
                 gameOver = true;
                 continue;
             }
+            System.out.println("Top card: Blue 2");
+            System.out.println("Cards left: " + playerCards.size());
+            System.out.println("Cards left in deck: " + cardsInDeck.size());
+            System.out.println();
+            System.out.println("Press enter to continue");
+            scanner.nextLine();
 
             if (!botBlockedTurn) {
 
@@ -285,6 +306,21 @@ public class GameSystem {
                     if (inputSelected.toCharArray()[1] == 'x') {
                         playerBlockedTurn = true;
                     }
+
+                    if (inputSelected.toCharArray()[1] == '+') {
+                        playerBlockedTurn = true;
+                        int count = 2;
+
+                        if (inputSelected.toCharArray()[0] == 'w') {
+                            count = 4;
+                        }
+
+                        for (int i = 0; i < count; i++) {
+                            randomCardIndex = r.nextInt(cardsInDeck.size());
+                            playerCards.add(cardsInDeck.get(randomCardIndex));
+                            cardsInDeck.remove(randomCardIndex);
+                        }
+                    }
                     if (inputSelected.toCharArray()[0] == 'w') {
                         int color = (int) (Math.random() * 4) + 1;
 
@@ -307,7 +343,7 @@ public class GameSystem {
                     int randomCardIndex = r.nextInt(cardsInDeck.size());
                     botCards.add(cardsInDeck.get(randomCardIndex));
                     cardsInDeck.remove(randomCardIndex);
-                    System.out.println("Bot pulled a card" + " (" + botCards.size() + " cards left)");
+                    System.out.println("Bot drew a card" + " (" + botCards.size() + " cards left)");
                 }
             }
             botBlockedTurn = false;
@@ -316,6 +352,8 @@ public class GameSystem {
                 gameOver = true;
                 continue;
             }
+            System.out.println("Press enter to continue");
+            scanner.nextLine();
         }
 
         winMoney = 50;
