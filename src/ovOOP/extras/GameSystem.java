@@ -243,7 +243,7 @@ public class GameSystem {
                         System.out.println("Player pulled card " + translateUnoCardToReadable(drawnCard));
                         cardsInDeck.remove(randomCardIndex);
                     }
-                } else{
+                } else {
                     cardPlayed = true;
                 }
             }
@@ -279,7 +279,8 @@ public class GameSystem {
                     String inputSelected = options.get(randomCardIndex);
                     topCard = inputSelected;
                     botCards.remove(inputSelected);
-                    System.out.println("Bot played " + translateUnoCardToReadable(inputSelected) + " (" + botCards.size() + " cards left)");
+                    System.out.println("Bot played " + translateUnoCardToReadable(inputSelected) + " ("
+                            + botCards.size() + " cards left)");
 
                     if (inputSelected.toCharArray()[1] == 'x') {
                         playerBlockedTurn = true;
@@ -316,6 +317,8 @@ public class GameSystem {
                 continue;
             }
         }
+
+        winMoney = 50;
 
         return wonGame;
     }
