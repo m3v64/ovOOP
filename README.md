@@ -364,7 +364,37 @@ mkdir -p bin
 
 ## 🚀 **How to Run**
 
-### **Method 1: Compile and Run (Recommended)**
+### **Method 1: Using Build Scripts (Easiest)**
+
+The project includes build scripts that automatically detect the GSON library and compile the project:
+
+**Linux/Mac:**
+```bash
+# Build the project
+./build.sh
+
+# Run the application
+./run.sh
+```
+
+**Windows:**
+```cmd
+REM Build the project
+build.bat
+
+REM Run the application
+run.bat
+```
+
+The build scripts will:
+- ✅ Check if the GSON library is present
+- ✅ Create the bin directory automatically
+- ✅ Compile all source files with proper classpath
+- ✅ Provide helpful error messages if anything is missing
+
+### **Method 2: Manual Compilation**
+
+If you prefer to compile manually:
 
 ```bash
 # Compile all Java files
@@ -381,7 +411,7 @@ javac -cp "lib/*;src" src/ovOOP/*.java -d bin/
 java -cp "bin;lib/*" ovOOP.Main
 ```
 
-### **Method 2: Using Source Directory**
+### **Method 3: Using Source Directory**
 
 ```bash
 # Compile directly in source directory
@@ -389,24 +419,6 @@ javac -cp "lib/*" src/ovOOP/*.java
 
 # Run from source
 java -cp "src:lib/*" ovOOP.Main
-```
-
-### **Quick Start Script (Linux/Mac)**
-
-Create a `run.sh` file:
-
-```bash
-#!/bin/bash
-mkdir -p bin
-javac -cp "lib/*:src" src/ovOOP/*.java -d bin/
-java -cp "bin:lib/*" ovOOP.Main
-```
-
-Make it executable and run:
-
-```bash
-chmod +x run.sh
-./run.sh
 ```
 
 ---
@@ -1058,12 +1070,20 @@ time javac -cp "lib/*:src" src/ovOOP/*.java -d bin/
 
 ### **Setting Up Development Environment**
 
+The project includes IDE configuration files to automatically detect the GSON library:
+- `.classpath` and `.project` for Eclipse
+- `.vscode/settings.json` for VS Code
+- `.idea/` and `ovOOP.iml` for IntelliJ IDEA
+
 #### **Recommended IDEs**
 
 1. **IntelliJ IDEA** (Recommended)
    ```bash
    # Open project
    File → Open → Select ovOOP directory
+   ```
+   The GSON library should be automatically detected through the included `.idea/` configuration and `ovOOP.iml` module file. If not:
+   ```bash
    # Configure SDK: File → Project Structure → SDK → Java 17+
    # Add Gson library: File → Project Structure → Libraries → Add lib/gson-2.13.2.jar
    ```
@@ -1072,6 +1092,9 @@ time javac -cp "lib/*:src" src/ovOOP/*.java -d bin/
    ```bash
    # Import project
    File → Import → Existing Projects into Workspace
+   ```
+   The GSON library should be automatically detected through the included `.classpath` file. If not:
+   ```bash
    # Add Gson to build path: Right-click project → Build Path → Add External JARs
    ```
 
@@ -1080,6 +1103,10 @@ time javac -cp "lib/*:src" src/ovOOP/*.java -d bin/
    # Install Extension Pack for Java
    # Open folder
    code /path/to/ovOOP
+   ```
+   The GSON library should be automatically detected through `.vscode/settings.json`. If not:
+   ```bash
+   # Manually add to settings: Java: Project: Referenced Libraries → lib/**/*.jar
    ```
 
 #### **Command Line Development**
@@ -1617,12 +1644,52 @@ python -m json.tool data/AccountInfo.json
 
 ### **Problem: "Gson not found" error**
 
-**Solution:**
-- Verify `lib/gson-2.13.2.jar` exists
-- Download Gson if missing:
+**Symptoms:**
+- Compilation errors about missing `com.google.gson` packages
+- Runtime errors: `ClassNotFoundException: com.google.gson.Gson`
+- IDE shows red underlines on GSON imports
+
+**Solution 1: Use the build script**
+The easiest way to ensure GSON is detected:
 ```bash
+# Linux/Mac
+./build.sh
+
+# Windows
+build.bat
+```
+
+**Solution 2: Verify GSON library exists**
+```bash
+# Check if GSON jar file is present
+ls -l lib/gson-2.13.2.jar
+
+# If missing, download it
 cd lib
 wget https://repo1.maven.org/maven2/com/google/code/gson/gson/2.13.2/gson-2.13.2.jar
+```
+
+**Solution 3: Fix IDE configuration**
+
+For **IntelliJ IDEA**:
+- The project includes `.idea/` configuration - reopen the project
+- Or manually: File → Project Structure → Libraries → Add → lib/gson-2.13.2.jar
+
+For **Eclipse**:
+- The project includes `.classpath` file - refresh the project
+- Or manually: Right-click project → Build Path → Add External JARs → lib/gson-2.13.2.jar
+
+For **VS Code**:
+- The project includes `.vscode/settings.json` - reload the window
+- Or manually: Java: Configure Java Runtime → Referenced Libraries → Add lib/**/*.jar
+
+**Solution 4: Manual compilation with correct classpath**
+```bash
+# Linux/Mac
+javac -cp "lib/*:src" src/ovOOP/*.java -d bin/
+
+# Windows
+javac -cp "lib/*;src" src/ovOOP/*.java -d bin/
 ```
 
 ### **Problem: Cannot compile on Windows**
