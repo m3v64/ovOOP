@@ -1,8 +1,11 @@
-package ovOOP;
+package ovOOP.extras;
 
 import java.text.DecimalFormat;
 import java.util.Scanner;
-import ovOOP.extras.*;
+
+import javax.xml.crypto.Data;
+
+import ovOOP.*;;
 
 public class MenuSystem {
 
@@ -40,7 +43,7 @@ public class MenuSystem {
                     + DataSystem.getMonthName(DataSystem.getMonth()));
             System.out.println(ColorSystem.colorPalette[0] + "---------------------------------------");
             input = OptionsSystem.showOption(scanner, "Main Menu",
-                    "Start traveling,Settings,Manage balance,Exit system,Credits");
+                    "Start traveling,Settings,Earn money,Exit system,Credits");
         } else {
             System.out.println(ColorSystem.colorPalette[1] + "You are not currently logged in.");
             System.out.println(ColorSystem.colorPalette[1] + "Please log in before using any traveling features.");
@@ -58,7 +61,14 @@ public class MenuSystem {
                 MenuSystem.showSettingsScreen(scanner);
                 // Accounts system goes here
             } else if (input == 3) {
-                BalanceSystem.manageBalance(scanner);
+                int randomInt = (int) (Math.random() * 11) + 1;
+
+                int winMoney = GameSystem.playGame(randomInt);
+
+                data.setBalance(data.getBalance() + winMoney);
+
+                MenuSystem.startMenu(scanner);
+
             } else if (input == 4) {
                 System.out.println(ColorSystem.RED + "Exiting System");
                 System.exit(0);
@@ -128,12 +138,10 @@ public class MenuSystem {
 
         switch (target) {
             case 1:
-                ovOOP.extras.Main.mainExtras(null, Main.userID);
-                break;
-            case 2:
                 MenuSystem.startMenu(scanner);
                 break;
-            default:
+            case 2:
+                ovOOP.Main.main(null);
                 break;
         }
     }
