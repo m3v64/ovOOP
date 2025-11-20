@@ -121,7 +121,8 @@ ovOOP/
 │       ├── MapGenerationSystem.java    # ASCII map rendering engine
 │       ├── MenuSystem.java             # UI navigation and menu displays
 │       ├── OptionsSystem.java          # User preferences and settings
-│       └── TravelSystem.java           # Route calculation and travel logic
+│       ├── TravelSystem.java           # Route calculation and travel logic
+│       └── extras/                     # Experimental/additional features
 │
 ├── data/
 │   ├── AccountInfo.json                # User accounts and preferences
@@ -131,6 +132,8 @@ ovOOP/
 ├── lib/
 │   └── gson-2.13.2.jar                 # JSON parsing library
 │
+├── build.sh / build.bat                # Build scripts with GSON detection
+├── run.sh / run.bat                    # Run scripts
 ├── LICENSE                             # License file
 └── README.md                           # This file
 ```
@@ -1707,6 +1710,39 @@ java -cp "bin;lib/*" ovOOP.Main
 - Verify both cities exist in `TrainLines.json`
 - Check that there's a connected path between cities
 - Ensure train line connections are properly defined
+
+### **Problem: Cannot compile files in src/ovOOP/extras/ directory**
+
+**Symptoms:**
+- Trying to compile directly from the extras directory: `javac MenuSystem.java`
+- Error: `package ovOOP does not exist`
+- Error: `cannot find symbol: class DataSystem`
+
+**Solution:**
+The extras directory contains additional/experimental code that depends on the main `ovOOP` package. You cannot compile files directly from within the extras directory.
+
+**Option 1: Use the build script (Recommended)**
+```bash
+# Linux/Mac
+./build.sh
+
+# Windows
+build.bat
+```
+The build scripts automatically compile both main and extras directories with the correct classpath.
+
+**Option 2: Manual compilation from project root**
+```bash
+# Linux/Mac - Compile from project root
+javac -cp "lib/*:src" src/ovOOP/*.java -d bin/
+javac -cp "lib/*:src:bin" src/ovOOP/extras/*.java -d bin/
+
+# Windows
+javac -cp "lib/*;src" src\ovOOP\*.java -d bin\
+javac -cp "lib/*;src;bin" src\ovOOP\extras\*.java -d bin\
+```
+
+**Important:** Always compile from the project root directory, not from within subdirectories.
 
 ---
 
