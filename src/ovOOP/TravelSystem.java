@@ -333,7 +333,7 @@ public class TravelSystem {
                 System.out.print(" -> ");
             }
             System.out.println(" | ");
-            
+
             spacing.add(userLocationIndicatorLocation);
             userLocationIndicatorLocation = 0;
             for (int space : spacing) {
