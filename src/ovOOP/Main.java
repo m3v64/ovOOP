@@ -5,13 +5,16 @@ import java.util.Scanner;
 public class Main {
     public static int userID = 0;
     public static void main(String[] args) {
-        // Preload all JSON data at startup
-        DataSystem.preloadAllData();
+        try {
+            DataSystem.preloadAllData();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         Scanner initialScanner = new Scanner(System.in);
 
         MenuSystem.clear();
-
+        
         MenuSystem.startMenu(initialScanner);
     }
 }

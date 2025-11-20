@@ -27,7 +27,7 @@
     "mainPalette": "\u001b[90m",
     "secondaryPalette": "\u001b[91m",
     "password": "Administrator",
-    "location": "Dryard",
+    "location": "Charite",
     "balance": 1.7976931348623157E308,
     "defaultClass": 2,
     "defaultCurrencyConversionRate": 1.0
@@ -72,7 +72,7 @@
     "secondaryPalette": "\u001b[37m",
     "password": "test",
     "location": "SwiftLec",
-    "balance": 1000.0,
+    "balance": 5754.44,
     "defaultClass": 2,
     "defaultCurrencyConversionRate": 1.0
   },
