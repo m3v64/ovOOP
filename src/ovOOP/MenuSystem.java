@@ -2,7 +2,6 @@ package ovOOP;
 
 import java.text.DecimalFormat;
 import java.util.Scanner;
-import ovOOP.extras.*;
 
 public class MenuSystem {
 
@@ -24,6 +23,26 @@ public class MenuSystem {
         System.out.println(ColorSystem.colorPalette[0] + "=======================================");
         int input = 0;
 
+        if (Main.gameActive) {
+            String challengeCity = Main.challengeCity;
+
+            if (challengeCity.equals("null") || challengeCity.equals(data.getLocation())) {
+                if (challengeCity.equals(data.getLocation())) {
+                    data.setGameXP(data.getGameXP() + 1);
+                }
+                String[] cities = data.CITIES;
+                while (challengeCity.equals(data.getLocation()) || challengeCity.equals("null")) {
+
+                    int randomCityIndex = (int) (Math.random() * cities.length);
+
+                    Main.challengeCity = cities[randomCityIndex];
+                    challengeCity = Main.challengeCity;
+                }
+            }
+
+            System.out.println("Challenge: Go to " + challengeCity + " (" + data.getGameXP() + " xp)");
+        }
+
         int currentUser = data.getUserID();
         if (currentUser != 0) {
             System.out.println(
@@ -39,8 +58,14 @@ public class MenuSystem {
             System.out.println(ColorSystem.colorPalette[0] + "The " + DataSystem.getDay() + "th of "
                     + DataSystem.getMonthName(DataSystem.getMonth()));
             System.out.println(ColorSystem.colorPalette[0] + "---------------------------------------");
-            input = OptionsSystem.showOption(scanner, "Main Menu",
-                    "Start traveling,Settings,Manage balance,Exit system,Credits");
+            if (!Main.gameActive) {
+                input = OptionsSystem.showOption(scanner, "Main Menu",
+                        "Start traveling,Settings,Manage balance,Exit system,Credits");
+            } else {
+                input = OptionsSystem.showOption(scanner, "Main Menu",
+                        "Start traveling,Settings,Earn money,Exit system,Credits");
+            }
+
         } else {
             System.out.println(ColorSystem.colorPalette[1] + "You are not currently logged in.");
             System.out.println(ColorSystem.colorPalette[1] + "Please log in before using any traveling features.");
@@ -58,7 +83,12 @@ public class MenuSystem {
                 MenuSystem.showSettingsScreen(scanner);
                 // Accounts system goes here
             } else if (input == 3) {
-                BalanceSystem.manageBalance(scanner);
+                if (!Main.gameActive) {
+                    BalanceSystem.manageBalance(scanner);
+                } else {
+                    data.setBalance(data.getBalance() + GameSystem.playGame((int) (Math.random() * 11) + 1));
+                    MenuSystem.startMenu(scanner);
+                }
             } else if (input == 4) {
                 System.out.println(ColorSystem.RED + "Exiting System");
                 System.exit(0);
@@ -124,18 +154,22 @@ public class MenuSystem {
     }
 
     static void showExperimentsSettingsScreen(Scanner scanner) {
-        int target = OptionsSystem.showOption(scanner, "Do you want to turn on the experimental mode?", "Yes,No");
+        int targetSetting = OptionsSystem.showOption(scanner, "What experiment do you want to toggle?", "Game,Discord");
 
-        switch (target) {
+        switch (targetSetting) {
             case 1:
-                ovOOP.extras.Main.mainExtras(null, Main.userID);
+                int target = OptionsSystem.showOption(scanner, "Do you want to turn on the game mode?", "True,False");
+
+                Main.gameActive = (target == 1);
                 break;
             case 2:
-                MenuSystem.startMenu(scanner);
                 break;
+
             default:
                 break;
         }
+        MenuSystem.startMenu(scanner);
+
     }
 
     static void showCredits(Scanner scanner) {

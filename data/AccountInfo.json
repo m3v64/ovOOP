@@ -8,7 +8,8 @@
     "location": "Giad",
     "balance": 0.0,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0
+    "defaultCurrencyConversionRate": 1.0,
+    "gameXP": 0
   },
   {
     "userID": 1,
@@ -19,7 +20,8 @@
     "location": "Hesturn",
     "balance": 1.0000000000001E15,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0
+    "defaultCurrencyConversionRate": 1.0,
+    "gameXP": 0
   },
   {
     "userID": 2,
@@ -30,7 +32,8 @@
     "location": "TimerGulch",
     "balance": 1.7976931348623157E308,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0
+    "defaultCurrencyConversionRate": 1.0,
+    "gameXP": 0
   },
   {
     "userID": 3,
@@ -41,7 +44,8 @@
     "location": "Giad",
     "balance": 0.0,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0
+    "defaultCurrencyConversionRate": 1.0,
+    "gameXP": 0
   },
   {
     "userID": 4,
@@ -49,10 +53,11 @@
     "mainPalette": "\u001b[30m",
     "secondaryPalette": "\u001b[31m",
     "password": "JustCause",
-    "location": "Linere",
-    "balance": 986.2400000000004,
+    "location": "Liberte et Egalite",
+    "balance": 29.300000000000338,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0
+    "defaultCurrencyConversionRate": 1.0,
+    "gameXP": 4
   },
   {
     "userID": 5,
@@ -63,7 +68,8 @@
     "location": "Giad",
     "balance": 0.0,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0
+    "defaultCurrencyConversionRate": 1.0,
+    "gameXP": 0
   },
   {
     "userID": 6,
@@ -74,7 +80,8 @@
     "location": "SwiftLec",
     "balance": 5754.44,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0
+    "defaultCurrencyConversionRate": 1.0,
+    "gameXP": 0
   },
   {
     "userID": 7,
@@ -85,7 +92,8 @@
     "location": "Giad",
     "balance": 0.0,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0
+    "defaultCurrencyConversionRate": 1.0,
+    "gameXP": 0
   },
   {
     "CITIES": [
@@ -123,6 +131,7 @@
     "location": "Dryard",
     "balance": 231.48000000000002,
     "defaultClass": 2,
-    "defaultCurrencyConversionRate": 1.0
+    "defaultCurrencyConversionRate": 1.0,
+    "gameXP": 0
   }
 ]

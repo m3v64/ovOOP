@@ -21,9 +21,9 @@ import java.util.Scanner;
 
 public class DataSystem {
     public final String CITIES[] = { "Dryard", "TimerGulch", "Brittle", "StaglenHold", "EldYard", "Trasin", "SwiftLec",
-        "LironGrale", "Ghostle", "Pearllows", "Irehole", "Lighthgro", "Stormwall", "Linere", "Giad", "Portal",
-        "Heete Birch", "Arcs Styrie", "Charite", "Liberte et Egalite", "Kreutzbeck", "Sankt Jeder", "Hesturn",
-        "Capella", "Elektra" };
+            "LironGrale", "Ghostle", "Pearllows", "Irehole", "Lighthgro", "Stormwall", "Linere", "Giad", "Portal",
+            "Heete Birch", "Arcs Styrie", "Charite", "Liberte et Egalite", "Kreutzbeck", "Sankt Jeder", "Hesturn",
+            "Capella", "Elektra" };
 
     private int userID;
     private String username;
@@ -34,6 +34,7 @@ public class DataSystem {
     private double balance;
     private int defaultClass;
     private double defaultCurrencyConversionRate;
+    private int gameXP;
 
     private static int hour;
     private static int minutes;
@@ -61,6 +62,7 @@ public class DataSystem {
                 this.defaultCurrencyConversionRate = d.defaultCurrencyConversionRate;
                 this.mainPalette = d.mainPalette;
                 this.secondaryPalette = d.secondaryPalette;
+                this.gameXP = d.gameXP;
                 break;
             }
         }
@@ -74,6 +76,7 @@ public class DataSystem {
             this.defaultCurrencyConversionRate = 1.0;
             this.mainPalette = ColorSystem.BLUE;
             this.secondaryPalette = ColorSystem.CYAN;
+            this.gameXP = 0;
         }
     }
 
@@ -81,23 +84,24 @@ public class DataSystem {
         try {
             java.io.File file = new java.io.File("data/AccountInfo.json");
             long currentModified = file.lastModified();
-            
+
             if (accountInfoCache != null && currentModified == accountInfoLastModified) {
                 return accountInfoCache;
             }
-            
+
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             try (FileReader reader = new FileReader(file)) {
-                Type dataListType = new TypeToken<List<DataSystem>>() {}.getType();
+                Type dataListType = new TypeToken<List<DataSystem>>() {
+                }.getType();
                 List<DataSystem> dataList = gson.fromJson(reader, dataListType);
-                
+
                 if (dataList == null) {
                     dataList = new ArrayList<>();
                 }
-                
+
                 accountInfoCache = dataList;
                 accountInfoLastModified = currentModified;
-                
+
                 return dataList;
             }
         } catch (Exception e) {
@@ -110,17 +114,17 @@ public class DataSystem {
         try {
             java.io.File file = new java.io.File("data/TrainLines.json");
             long currentModified = file.lastModified();
-            
+
             if (trainLinesCache != null && currentModified == trainLinesLastModified) {
                 return trainLinesCache;
             }
 
             try (Reader reader = new FileReader(file)) {
                 JsonArray companies = JsonParser.parseReader(reader).getAsJsonArray();
-                
+
                 trainLinesCache = companies;
                 trainLinesLastModified = currentModified;
-                
+
                 return companies;
             }
         } catch (IOException e) {
@@ -178,6 +182,15 @@ public class DataSystem {
 
     public double getConversionRate() {
         return defaultCurrencyConversionRate;
+    }
+
+    public int getGameXP() {
+        return gameXP;
+    }
+
+    public void setGameXP(int gameXP) {
+        this.gameXP = gameXP;
+        updateJson();
     }
 
     public void setUserID(int userID) {
@@ -275,12 +288,12 @@ public class DataSystem {
 
     private void updateJson() {
         updateJson(this.userID, this.username, this.password, this.location, this.balance, this.defaultClass,
-                this.defaultCurrencyConversionRate, this.mainPalette, this.secondaryPalette);
+                this.defaultCurrencyConversionRate, this.mainPalette, this.secondaryPalette, this.gameXP);
     }
 
     public static void updateJson(int userID, String newUsername, String newPassword, String newLocation,
-        double newBalance, int newDefaultClass, double newConversionRate, String newMainPalette,
-        String newSecondaryPalette) {
+            double newBalance, int newDefaultClass, double newConversionRate, String newMainPalette,
+            String newSecondaryPalette, int newGameXP) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         List<DataSystem> dataList = loadAccountInfo();
@@ -295,6 +308,7 @@ public class DataSystem {
                 d.defaultCurrencyConversionRate = newConversionRate;
                 d.mainPalette = newMainPalette;
                 d.secondaryPalette = newSecondaryPalette;
+                d.gameXP = newGameXP;
                 break;
             }
         }
@@ -436,7 +450,7 @@ public class DataSystem {
     public static int findLineBetween(String a, String b) {
         if (a == null || b == null)
             return -1;
-        
+
         JsonArray companies = loadTrainLines();
 
         for (JsonElement companyEl : companies) {

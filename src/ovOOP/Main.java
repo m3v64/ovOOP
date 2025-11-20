@@ -4,6 +4,10 @@ import java.util.Scanner;
 
 public class Main {
     public static int userID = 0;
+
+    public static boolean gameActive = false;
+
+    public static String challengeCity = "null";
     public static void main(String[] args) {
         try {
             DataSystem.preloadAllData();
