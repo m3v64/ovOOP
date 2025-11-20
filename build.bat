@@ -22,10 +22,23 @@ echo Creating bin directory...
 if not exist bin mkdir bin
 
 REM Compile the project
-echo Compiling Java source files...
+echo Compiling main Java source files...
 javac -cp "lib/*;src" src\ovOOP\*.java -d bin\
 
 if %ERRORLEVEL% EQU 0 (
+    echo [OK] Main source files compiled successfully
+    
+    REM Compile extras directory if it exists
+    if exist "src\ovOOP\extras" (
+        echo Compiling extras directory...
+        javac -cp "lib/*;src;bin" src\ovOOP\extras\*.java -d bin\
+        if %ERRORLEVEL% EQU 0 (
+            echo [OK] Extras compiled successfully
+        ) else (
+            echo [WARNING] Extras compilation failed (non-critical^)
+        )
+    )
+    
     echo.
     echo ====================================
     echo   Build successful!

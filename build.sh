@@ -24,10 +24,23 @@ echo "Creating bin directory..."
 mkdir -p bin
 
 # Compile the project
-echo "Compiling Java source files..."
+echo "Compiling main Java source files..."
 javac -cp "lib/*:src" src/ovOOP/*.java -d bin/
 
 if [ $? -eq 0 ]; then
+    echo "✓ Main source files compiled successfully"
+    
+    # Compile extras directory if it exists
+    if [ -d "src/ovOOP/extras" ]; then
+        echo "Compiling extras directory..."
+        javac -cp "lib/*:src:bin" src/ovOOP/extras/*.java -d bin/
+        if [ $? -eq 0 ]; then
+            echo "✓ Extras compiled successfully"
+        else
+            echo "⚠ Warning: Extras compilation failed (non-critical)"
+        fi
+    fi
+    
     echo ""
     echo "===================================="
     echo "  Build successful!"
