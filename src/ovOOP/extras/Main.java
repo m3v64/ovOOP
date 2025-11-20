@@ -11,11 +11,11 @@ public class Main {
 
         Scanner initialScanner = new Scanner(System.in);
 
-        System.out.println("Earned " + GameSystem.playGame(1) + " By playing the minigame!");
+        //System.out.println("Earned " + GameSystem.playGame(1) + " By playing the minigame!");
 
-        // MenuSystem.clear();
+        MenuSystem.clear();
 
-        // MenuSystem.startMenu(initialScanner);
+        MenuSystem.startMenu(initialScanner);
     }
 
 }

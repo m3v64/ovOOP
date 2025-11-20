@@ -406,32 +406,40 @@ public class TravelSystem {
         System.out
                 .println(ColorSystem.colorPalette[0] + "Line's: " + ColorSystem.colorPalette[1] + transferString
                         + ColorSystem.RESET);
+        double totalCost = calculateCost(data.isFirstClass(), route.getTotalDistanceTravelled(),
+                data.getConversionRate());
         createInvoice(scanner,
-                calculateCost(data.isFirstClass(), route.getTotalDistanceTravelled(), data.getConversionRate()),
+                totalCost,
                 data.isFirstClass(), data.getLocation(), destination);
 
-        data.setLocation(destination);
+        if (totalCost > data
+                .getBalance()) {
+            System.out.println("Card cancelled! Not enough balance!");
 
-        data.setBalance(data.getBalance()
-                - calculateCost(data.isFirstClass(), route.getTotalDistanceTravelled(), data.getConversionRate()));
+            MenuSystem.startMenu(scanner);
 
-        System.out.println(ColorSystem.BRIGHT_PURPLE + "Press enter to continue...");
-        scanner.nextLine();
+        } else {
 
-        String[] stationsOnLineOnRoute = route.getStationsOnLineAlongRoute();
+            data.setLocation(destination);
 
-        int[] segmentDurations = new int[stationsOnLineOnRoute.length];
-        for (int idx = 0; idx < segmentDurations.length; idx++) {
-            segmentDurations[idx] = route.getTotalDistanceTravelled() / stationsOnLineOnRoute.length / 100;
+            data.setBalance(data.getBalance() - totalCost);
+
+            System.out.println(ColorSystem.BRIGHT_PURPLE + "Press enter to continue...");
+            scanner.nextLine();
+
+            String[] stationsOnLineOnRoute = route.getStationsOnLineAlongRoute();
+
+            int[] segmentDurations = new int[stationsOnLineOnRoute.length];
+            for (int idx = 0; idx < segmentDurations.length; idx++) {
+                segmentDurations[idx] = route.getTotalDistanceTravelled() /
+                        stationsOnLineOnRoute.length / 100;
+            }
+
+            travelMapGoTravel(segmentDurations, stationsOnLineOnRoute, 100, 10);
         }
-
-        travelMapGoTravel(segmentDurations, stationsOnLineOnRoute, 100, 10);
-
         scanner.nextLine();
 
         TravelSystem.travelMenu(scanner);
-
-        // continue here with additional ui elements
     }
 
     static TravelSystem findRoute(String destination) {

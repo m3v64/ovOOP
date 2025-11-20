@@ -86,5 +86,43 @@
     "balance": 0.0,
     "defaultClass": 2,
     "defaultCurrencyConversionRate": 1.0
+  },
+  {
+    "CITIES": [
+      "Dryard",
+      "TimerGulch",
+      "Brittle",
+      "StaglenHold",
+      "EldYard",
+      "Trasin",
+      "SwiftLec",
+      "LironGrale",
+      "Ghostle",
+      "Pearllows",
+      "Irehole",
+      "Lighthgro",
+      "Stormwall",
+      "Linere",
+      "Giad",
+      "Portal",
+      "Heete Birch",
+      "Arcs Styrie",
+      "Charite",
+      "Liberte et Egalite",
+      "Kreutzbeck",
+      "Sankt Jeder",
+      "Hesturn",
+      "Capella",
+      "Elektra"
+    ],
+    "userID": 8,
+    "username": "experiment",
+    "mainPalette": "\u001b[34m",
+    "secondaryPalette": "\u001b[36m",
+    "password": "Test",
+    "location": "Brittle",
+    "balance": 0.5900000000000025,
+    "defaultClass": 2,
+    "defaultCurrencyConversionRate": 1.0
   }
 ]

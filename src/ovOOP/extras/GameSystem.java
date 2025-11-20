@@ -74,6 +74,7 @@ public class GameSystem {
                 int guessCode = scanner.nextInt();
             } catch (Exception e) {
                 System.out.println("Please input a valid code! (1111-6666)");
+                scanner.nextLine();
             }
         }
 
@@ -504,9 +505,6 @@ public class GameSystem {
         Random r = new Random();
         String randomWord = words.get(r.nextInt(words.size())).toLowerCase();
         int wordLength = randomWord.length();
-
-        // For testing: remove in real gameplay
-        System.out.println("DEBUG: The word is " + randomWord);
 
         // Player has 6 attempts
         for (int attempt = 0; attempt < 6; attempt++) {
