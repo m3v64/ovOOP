@@ -664,7 +664,7 @@ public class GameSystem {
         for (int i = 0; i < 5; i++) {
             System.out.println("Guess " + ColorSystem.colorPalette[1] + (i + 1) + ColorSystem.colorPalette[0] + "/5");
 
-            System.out.println("Please input the number you want to guess:");
+            System.out.println("Please input the number you want to guess (1-10):");
             int guess;
             try {
                 guess = scanner.nextInt();
