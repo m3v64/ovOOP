@@ -671,6 +671,7 @@ public class GameSystem {
             } catch (Exception e) {
                 i--;
                 System.out.println("That is an invalid input! Please choose a number between 1 and 10");
+                scanner.nextLine();
                 continue;
             }
             if (guess == guessNumber) {

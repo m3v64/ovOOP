@@ -312,22 +312,43 @@ public class TravelSystem {
         DataSystem data = new DataSystem(Main.userID);
 
         List<Integer> possibleLines = DataSystem.listPossibleLines(data.getLocation());
-
         int[] possibleLinesArray = possibleLines.stream().mapToInt(Integer::intValue).toArray();
-
         List<String> lines = new ArrayList<>();
+        Set<String> usedStations = new HashSet<>();
 
         for (int i : possibleLinesArray) {
+            List<Integer> spacing = new ArrayList<>();
+            int userLocationIndicatorLocation = 0;
+            String userLocationSpacing = "";
+
             lines.addAll(Arrays.asList(DataSystem.getLine(i)));
-            lines.addAll(Arrays.asList(DataSystem.getLine(i)));
+            System.out.println("line " + i + ":");
             for (String j : lines) {
+                if (j.equals(data.getLocation())) {
+                    userLocationIndicatorLocation = (j.length()/2);
+                }
+                if (userLocationIndicatorLocation == 0) spacing.add(j.length()+4);
+                if (!usedStations.add(j)) continue;
                 System.out.print(j);
                 System.out.print(" -> ");
             }
             System.out.println(" | ");
+            
+            spacing.add(userLocationIndicatorLocation);
+            userLocationIndicatorLocation = 0;
+            for (int space : spacing) {
+                userLocationIndicatorLocation += space;
+            }
+            for (int k = 0; k<=userLocationIndicatorLocation; k++) {
+                userLocationSpacing += " ";
+            }
+            System.out.println(userLocationSpacing + "^");
+            System.out.println(userLocationSpacing + "|__ you are here");
+
             lines.clear();
-            System.out.println();
+            usedStations.clear();
         }
+        System.out.println();
         System.out.println("Press enter to continue...");
         scanner.nextLine();
 
@@ -511,16 +532,7 @@ public class TravelSystem {
                 if (stationOnLineIndex == -1)
                     continue;
 
-                int[] neighbouringStationsIndices = new int[] { stationOnLineIndex - 1, stationOnLineIndex + 1 }; // can
-                                                                                                                  // change
-                                                                                                                  // this
-                                                                                                                  // to
-                                                                                                                  // only
-                                                                                                                  // make
-                                                                                                                  // the
-                                                                                                                  // program
-                                                                                                                  // look
-                                                                                                                  // forwards
+                int[] neighbouringStationsIndices = new int[] { stationOnLineIndex - 1, stationOnLineIndex + 1 }; // can change this to only make the program look forwards
                 for (int neighbouringStationIndex : neighbouringStationsIndices) {
                     if (neighbouringStationIndex < 0 || neighbouringStationIndex >= stationsOnLine.length)
                         continue;

@@ -117,11 +117,11 @@
     ],
     "userID": 8,
     "username": "experiment",
-    "mainPalette": "\u001b[34m",
-    "secondaryPalette": "\u001b[36m",
+    "mainPalette": "\u001b[33m",
+    "secondaryPalette": "\u001b[32m",
     "password": "Test",
-    "location": "Brittle",
-    "balance": 0.5900000000000025,
+    "location": "Dryard",
+    "balance": 231.48000000000002,
     "defaultClass": 2,
     "defaultCurrencyConversionRate": 1.0
   }
