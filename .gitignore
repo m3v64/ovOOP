@@ -1,3 +1,4 @@
 /bin/*
 /.vscode/*
 data/Accounts.json
+*.class
