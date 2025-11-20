@@ -128,7 +128,7 @@ public class MenuSystem {
 
         switch (target) {
             case 1:
-                ovOOP.extras.Main.mainExtras(null);
+                ovOOP.extras.Main.mainExtras(null, Main.userID);
                 break;
             case 2:
                 MenuSystem.startMenu(scanner);

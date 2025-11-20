@@ -62,6 +62,21 @@ public class GameSystem {
     static boolean playMastermind(Scanner scanner) {
         boolean wonGame = false;
 
+        int[] secretCode = new int[4];
+
+        for (int i = 0; i < 4; i++) {
+            secretCode[i] = (int) (Math.random() * 6) + 1;
+        }
+        boolean validCode = false;
+        while (!validCode) {
+            try {
+                System.out.println("Please choose the code you want to guess: ");
+                int guessCode = scanner.nextInt();
+            } catch (Exception e) {
+                System.out.println("Please input a valid code! (1111-6666)");
+            }
+        }
+
         return wonGame;
     }
 
@@ -365,7 +380,7 @@ public class GameSystem {
                 gameOver = true;
                 continue;
             }
-            System.out.println("Top card: " + topCard);
+            System.out.println("Top card: " + translateUnoCardToReadable(topCard));
             System.out.println("Cards left: " + playerCards.size());
             System.out.println("Cards left in deck: " + cardsInDeck.size());
             System.out.println();
@@ -448,7 +463,7 @@ public class GameSystem {
             scanner.nextLine();
         }
 
-        winMoney = 50;
+        winMoney = 100;
 
         return wonGame;
     }

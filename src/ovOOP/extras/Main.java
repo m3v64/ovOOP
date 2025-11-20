@@ -5,10 +5,13 @@ import java.util.Scanner;
 public class Main {
     public static int userID = 0;
 
-    public static void mainExtras(String[] args) {
+    public static void mainExtras(String[] args, int loginUserId) {
+
+        userID = loginUserId;
+
         Scanner initialScanner = new Scanner(System.in);
 
-        System.out.println("Earned " + GameSystem.playGame(2) + " By playing the minigame!");
+        System.out.println("Earned " + GameSystem.playGame(1) + " By playing the minigame!");
 
         // MenuSystem.clear();
 
