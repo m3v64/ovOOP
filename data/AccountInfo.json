@@ -53,11 +53,11 @@
     "mainPalette": "\u001b[30m",
     "secondaryPalette": "\u001b[31m",
     "password": "JustCause",
-    "location": "SwiftLec",
-    "balance": 74.18000000000035,
+    "location": "Kreutzbeck",
+    "balance": 17.650000000000347,
     "defaultClass": 2,
     "defaultCurrencyConversionRate": 1.0,
-    "gameXP": 5
+    "gameXP": 7
   },
   {
     "userID": 5,
