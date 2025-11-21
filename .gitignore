@@ -1,4 +1,5 @@
 bin
 .VSCodeCounter
+.vscode
 data/Accounts.json
 *.class
