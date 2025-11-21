@@ -1,3 +1,6 @@
+> [!WARNING]
+> The Stable branch is behind in features and bug fixes compared to the Main branch, we will correct this shortly, sorry for the inconvenience.
+
 # **🚂 ovOOP – Train Travel Simulation System**
 
 [![Java](https://img.shields.io/badge/Java-17%2B-orange.svg)](https://www.oracle.com/java/)
@@ -1988,3 +1991,4 @@ If you find this project useful, please consider giving it a star on GitHub!
 *Happy Traveling! 🚂*
 
 </div>
+
