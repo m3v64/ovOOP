@@ -1,0 +1,48 @@
+// static void signupSystem(Scanner scanner) {
+//     System.out.println(ANSI_CYAN + "Please enter the name of the account you want to create:");
+//     String username = scanner.next().toLowerCase();
+//     System.out.println(ANSI_CYAN + "Please enter the password of the account you want to create");
+//     String password = scanner.next();
+
+//     File file = new File("data/Accounts.json");
+
+//     Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+//     List<Account> accounts = new ArrayList<>();
+
+//     if (file.exists()) {
+//         try (FileReader reader = new FileReader(file)) {
+//             Type accountListType = new TypeToken<List<Account>>() {
+//             }.getType();
+//             accounts = gson.fromJson(reader, accountListType);
+//             if (accounts == null) {
+//                 accounts = new ArrayList<>();
+//             }
+//         } catch (Exception e) {
+//             e.printStackTrace();
+//         }
+//     }
+
+//     accounts.add(new Account(username, password, 0.00));
+//     try (FileWriter writer = new FileWriter(file)) {
+//         gson.toJson(accounts, writer);
+//     } catch (Exception e) {
+//         e.printStackTrace();
+//     }
+//     System.out.println(ANSI_GREEN + "Account created successfully!");
+//     Travel.startMenu(scanner);
+// }
+
+
+// fix this
+DataSystem data = new DataSystem(Main.userID);
+int index = 0;
+System.out.println(ColorSystem.BLUE + "====================================================" + ColorSystem.RESET);
+for (String i : data.CITIES) {
+    System.out.println(ColorSystem.BLUE + "   " + index + ". " + i + ColorSystem.RESET); 
+    index++;
+}
+System.out.println(ColorSystem.BLUE + "====================================================" + ColorSystem.RESET);
+System.out.println(ColorSystem.BRIGHT_CYAN + "To return, press Enter..." + ColorSystem.RESET);
+scanner.nextLine();
+TravelSystem.travelMenu(scanner);
