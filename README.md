@@ -1,5 +1,5 @@
 > [!WARNING]
-> The Stable branch is behind in features and bug fixes compared to the Main branch, we will correct this shortly, sorry for the inconvenience.
+> The Stable branch is behind in features compared to the Main branch.
 
 # **🚂 ovOOP – Train Travel Simulation System**
 
@@ -1991,4 +1991,5 @@ If you find this project useful, please consider giving it a star on GitHub!
 *Happy Traveling! 🚂*
 
 </div>
+
 
