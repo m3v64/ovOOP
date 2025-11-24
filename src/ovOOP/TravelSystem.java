@@ -325,21 +325,23 @@ public class TravelSystem {
             System.out.println("line " + i + ":");
             for (String j : lines) {
                 if (j.equals(data.getLocation())) {
-                    userLocationIndicatorLocation = (j.length()/2);
+                    userLocationIndicatorLocation = (j.length() / 2);
                 }
-                if (userLocationIndicatorLocation == 0) spacing.add(j.length()+4);
-                if (!usedStations.add(j)) continue;
+                if (userLocationIndicatorLocation == 0)
+                    spacing.add(j.length() + 4);
+                if (!usedStations.add(j))
+                    continue;
                 System.out.print(j);
                 System.out.print(" -> ");
             }
             System.out.println(" | ");
-            
+
             spacing.add(userLocationIndicatorLocation);
             userLocationIndicatorLocation = 0;
             for (int space : spacing) {
                 userLocationIndicatorLocation += space;
             }
-            for (int k = 0; k<=userLocationIndicatorLocation; k++) {
+            for (int k = 0; k <= userLocationIndicatorLocation; k++) {
                 userLocationSpacing += " ";
             }
             System.out.println(userLocationSpacing + "^");
@@ -427,32 +429,40 @@ public class TravelSystem {
         System.out
                 .println(ColorSystem.colorPalette[0] + "Line's: " + ColorSystem.colorPalette[1] + transferString
                         + ColorSystem.RESET);
+        double totalCost = calculateCost(data.isFirstClass(), route.getTotalDistanceTravelled(),
+                data.getConversionRate());
         createInvoice(scanner,
-                calculateCost(data.isFirstClass(), route.getTotalDistanceTravelled(), data.getConversionRate()),
+                totalCost,
                 data.isFirstClass(), data.getLocation(), destination);
 
-        data.setLocation(destination);
+        if (totalCost > data
+                .getBalance()) {
+            System.out.println("Card cancelled! Not enough balance!");
 
-        data.setBalance(data.getBalance()
-                - calculateCost(data.isFirstClass(), route.getTotalDistanceTravelled(), data.getConversionRate()));
+            MenuSystem.startMenu(scanner);
 
-        System.out.println(ColorSystem.BRIGHT_PURPLE + "Press enter to continue...");
-        scanner.nextLine();
+        } else {
 
-        String[] stationsOnLineOnRoute = route.getStationsOnLineAlongRoute();
+            data.setLocation(destination);
 
-        int[] segmentDurations = new int[stationsOnLineOnRoute.length];
-        for (int idx = 0; idx < segmentDurations.length; idx++) {
-            segmentDurations[idx] = route.getTotalDistanceTravelled() / stationsOnLineOnRoute.length / 100;
+            data.setBalance(data.getBalance() - totalCost);
+
+            System.out.println(ColorSystem.BRIGHT_PURPLE + "Press enter to continue...");
+            scanner.nextLine();
+
+            String[] stationsOnLineOnRoute = route.getStationsOnLineAlongRoute();
+
+            int[] segmentDurations = new int[stationsOnLineOnRoute.length];
+            for (int idx = 0; idx < segmentDurations.length; idx++) {
+                segmentDurations[idx] = route.getTotalDistanceTravelled() /
+                        stationsOnLineOnRoute.length / 100;
+            }
+
+            travelMapGoTravel(segmentDurations, stationsOnLineOnRoute, 100, 10);
         }
-
-        travelMapGoTravel(segmentDurations, stationsOnLineOnRoute, 100, 10);
-
         scanner.nextLine();
 
         TravelSystem.travelMenu(scanner);
-
-        // continue here with additional ui elements
     }
 
     static TravelSystem findRoute(String destination) {
@@ -524,7 +534,16 @@ public class TravelSystem {
                 if (stationOnLineIndex == -1)
                     continue;
 
-                int[] neighbouringStationsIndices = new int[] { stationOnLineIndex - 1, stationOnLineIndex + 1 }; // can change this to only make the program look forwards
+                int[] neighbouringStationsIndices = new int[] { stationOnLineIndex - 1, stationOnLineIndex + 1 }; // can
+                                                                                                                  // change
+                                                                                                                  // this
+                                                                                                                  // to
+                                                                                                                  // only
+                                                                                                                  // make
+                                                                                                                  // the
+                                                                                                                  // program
+                                                                                                                  // look
+                                                                                                                  // forwards
                 for (int neighbouringStationIndex : neighbouringStationsIndices) {
                     if (neighbouringStationIndex < 0 || neighbouringStationIndex >= stationsOnLine.length)
                         continue;
