@@ -125,7 +125,7 @@ public class MenuSystem {
         System.out.println(ColorSystem.colorPalette[0] + "                CREDITS                   ");
         System.out.println(ColorSystem.colorPalette[0] + "==========================================");
         System.out.println(ColorSystem.colorPalette[1] + " Developers      : Morris van Uden, Max Viehöfer");
-        System.out.println(ColorSystem.colorPalette[1] + " Teacher         : Erik Seldenthuis");
+        System.out.println(ColorSystem.colorPalette[1] + " Teachers        : Erik Seldenthuis, Mike van der Leest");
         System.out.println(ColorSystem.colorPalette[1] + " Class           : TIA4V1B");
         System.out.println(ColorSystem.colorPalette[1] + " Web Page        : https://ovoop.m3v.dev (Soon)");
         System.out.println(ColorSystem.colorPalette[1] + " GitHub Repo     : https://github.com/m3v64/ovOOP");

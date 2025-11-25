@@ -47,10 +47,10 @@
     "userID": 4,
     "username": "morris",
     "mainPalette": "\u001b[30m",
-    "secondaryPalette": "\u001b[31m",
+    "secondaryPalette": "\u001b[30m",
     "password": "JustCause",
-    "location": "Linere",
-    "balance": 3.410605131648481E-13,
+    "location": "Brittle",
+    "balance": 1.930000000000339,
     "defaultClass": 2,
     "defaultCurrencyConversionRate": 1.0
   },
