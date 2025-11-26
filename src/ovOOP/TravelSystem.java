@@ -458,7 +458,7 @@ public class TravelSystem {
                         stationsOnLineOnRoute.length / 100;
             }
 
-            travelMapGoTravel(segmentDurations, stationsOnLineOnRoute, 100, 10);
+            travelMapGoTravel(segmentDurations, stationsOnLineOnRoute, 140, 10);
         }
         scanner.nextLine();
 
